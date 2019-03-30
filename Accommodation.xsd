@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.megatravel.com/accommodation"
+    xmlns:ac="http://www.megatravel.com/accommodation">
+    <xs:complexType name="Accommodation">
+        <xs:sequence>
+            <xs:element default="Hotel" name="Type">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Hotel"/>
+                        <xs:enumeration value="Bed&amp;Breakfast"/>
+                        <xs:enumeration value="Apartment"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Category"/>
+            <xs:element name="Distance"/>
+            <xs:element name="Description"/>
+            <xs:element name="Image"/>
+            <xs:element name="Capacity"/>
+            <xs:element name="Address">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Country"/>
+                        <xs:element name="City"/>
+                        <xs:element name="Zip"/>
+                        <xs:element name="Street"/>
+                        <xs:element name="newElement"/>
+                        <xs:element name="Coordinates"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PriceInSeason"/>
+            <xs:element name="AdditionalServices">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Parking"/>
+                        <xs:enumeration value="WiFi"/>
+                        <xs:enumeration value="Breakfast"/>
+                        <xs:enumeration value="Half Board"/>
+                        <xs:enumeration value="Full Board"/>
+                        <xs:enumeration value="All Inclusive"/>
+                        <xs:enumeration value="Pets Allowed"/>
+                        <xs:enumeration value="TV"/>
+                        <xs:enumeration value="Kitchen"/>
+                        <xs:enumeration value="Private Bath"/>
+                        <xs:enumeration value="Free Cancellation"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Rate"/>
+            <xs:element name="Comment"/>
+            <xs:element name="id">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer"/>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

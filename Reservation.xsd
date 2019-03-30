@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.megatravel.com/reservation"
+    xmlns:re="http://www.megatravel.com/reservation" xmlns:us="htttp://www.megatravel.com/users">
+    <xs:import namespace="htttp://www.megatravel.com/users" schemaLocation="Users.xsd"/>
+    <xs:complexType name="RReservation">
+        <xs:sequence>
+            <xs:element name="ReservedBy" type="us:UPerson"/>
+            <xs:element name="FromDate" type="xs:dateTime"/>
+            <xs:element name="TillDate" type="xs:dateTime"/>
+            <xs:element name="id">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer"/>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

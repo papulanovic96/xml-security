@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:acc="http://www.megatravel.com/accommodation"
+    xmlns:res="http://www.megatravel.com/reservation">
+    <xs:import namespace="htttp://www.megatravel.com/users" schemaLocation="Users.xsd"/>
+    <xs:import namespace="http://www.megatravel.com/accommodation"
+        schemaLocation="Accommodation.xsd"/>
+    <xs:import namespace="http://www.megatravel.com/reservation" schemaLocation="Reservation.xsd"/>
+    <xs:complexType name="UMUserModule">
+        <xs:sequence>
+            <xs:element name="AccomodationSearch" type="acc:Accommodation"/>
+            <xs:element name="Reservations" type="res:RReservation"/>
+            <xs:element name="id">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer"/>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

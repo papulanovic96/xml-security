@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.megatravel.com/message" xmlns:me="http://www.megatravel.com/message"
+    xmlns:us="htttp://www.megatravel.com/users">
+    <xs:import id="us" namespace="htttp://www.megatravel.com/users" schemaLocation="Users.xsd"/>
+    <xs:complexType name="MMessage">
+        <xs:sequence>
+            <xs:element name="Admin" type="us:UAdministrator"/>
+            <xs:element name="Agent" type="us:UAgent"/>
+            <xs:element name="Person" type="us:UPerson"/>
+            <xs:element name="Content" type="xs:string"/>
+            <xs:element name="id">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer"/>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

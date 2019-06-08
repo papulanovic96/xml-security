@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:tns="http://www.megatravel.com/booking"
+    targetNamespace="http://www.megatravel.com/booking" >
+    
+    <xs:include schemaLocation="Users.xsd"/>
+    <xs:include schemaLocation="Reservation.xsd"/>
+   
+    <xs:complexType name="Accommodation">
+        <xs:sequence>
+            <xs:element default="Hotel" name="type" type="tns:type"/>
+            <xs:element name="Category" default="0" type="tns:category"/>
+            <xs:element name="Distance" type="xs:int"/>
+            <xs:element name="Description" type="xs:string"/>
+            <xs:element name="Image"/>
+            <xs:element name="Capacity" type="xs:unsignedInt"/>
+            <xs:element name="Address">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Country" type="xs:string"/>
+                        <xs:element name="City" type="xs:string"/>
+                        <xs:element name="Zip">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:int">
+                                    <xs:minExclusive value="10000"/>
+                                    <xs:maxExclusive value="25000"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="Street">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value="30"/>
+                                    <xs:minLength value="5"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="Longitude">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:double">
+                                    <xs:minInclusive value="0"/>
+                                    <xs:maxInclusive value="180"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="Latitude">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:double">
+                                    <xs:minInclusive value="0"/>
+                                    <xs:maxInclusive value="180"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PriceInSeason" type="xs:double"/>
+            <xs:element name="AdditionalServices" type="tns:additionalService"/>
+            <xs:element name="Rate">
+                <xs:simpleType>
+                    <xs:restriction base="xs:double">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="id" type="xs:long"> </xs:element>
+            <xs:element name="Available" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Comment">
+        <xs:sequence>
+            <xs:element name="Content" type="xs:string"/>
+            <xs:element name="Visible" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:simpleType name="type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Hotel"/>
+            <xs:enumeration value="Bed&amp;Breakfast"/>
+            <xs:enumeration value="Apartment"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="category">
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="5"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="additionalService">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Parking"/>
+            <xs:enumeration value="WiFi"/>
+            <xs:enumeration value="Breakfast"/>
+            <xs:enumeration value="Half Board"/>
+            <xs:enumeration value="Full Board"/>
+            <xs:enumeration value="All Inclusive"/>
+            <xs:enumeration value="Pets Allowed"/>
+            <xs:enumeration value="TV"/>
+            <xs:enumeration value="Kitchen"/>
+            <xs:enumeration value="Private Bath"/>
+            <xs:enumeration value="Free Cancellation"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="createCommentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="comment" type="tns:Comment"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="createCommentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="response" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createAccommodationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accommodation" type="tns:Accommodation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createAccommodationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="response" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="getAccommodationCategoryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="category" type="tns:category"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="getAccommodationCategoryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accommodations" type="tns:Accommodation"  maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="getAccommodationTypeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="type" type="tns:type"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="getAccommodationTypeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accommodations" type="tns:Accommodation"  maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    
+</xs:schema>

@@ -10,6 +10,13 @@ package com.megatravel.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -43,14 +50,20 @@ import javax.xml.bind.annotation.XmlType;
     "lastName",
     "reservations"
 })
+@Entity
 public class EndUser
     extends User
 {
+	@XmlElement(required = true)
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected long id;
 
     @XmlElement(required = true)
     protected String firstName;
     @XmlElement(required = true)
     protected String lastName;
+    @OneToMany
     protected List<Reservation> reservations;
 
     /**

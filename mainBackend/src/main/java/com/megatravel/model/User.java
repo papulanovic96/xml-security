@@ -8,6 +8,10 @@
 
 package com.megatravel.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -49,13 +53,20 @@ import javax.xml.bind.annotation.XmlType;
     Administrator.class,
     EndUser.class
 })
+@Entity
 public abstract class User {
 
+	@XmlElement(required = true)
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
+	
     @XmlElement(name = "Username", required = true)
     protected String username;
+    
     @XmlElement(name = "Password", required = true)
     protected String password;
+    
     @XmlElement(name = "Email", required = true)
     protected String email;
 

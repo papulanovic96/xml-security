@@ -10,6 +10,7 @@ package com.megatravel.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -71,6 +72,10 @@ public class GetAccommodationCategoryResponse {
             accommodations = new ArrayList<Accommodation>();
         }
         return this.accommodations;
+    }
+    
+    public void setAccommodations(List<Accommodation> newA) {
+    	this.accommodations = newA;
     }
 
 }

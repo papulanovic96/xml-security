@@ -72,5 +72,9 @@ public class GetAccommodationTypeResponse {
         }
         return this.accommodations;
     }
+    
+    public void setAccommodations(List<Accommodation> newA) {
+    	this.accommodations = newA;
+    }
 
 }

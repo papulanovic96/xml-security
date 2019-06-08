@@ -8,6 +8,12 @@
 
 package com.megatravel.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -43,13 +49,22 @@ import javax.xml.bind.annotation.XmlType;
     "endUser",
     "content"
 })
+@Entity
 public class Message {
 
+	@XmlElement(required = true)
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
+	
+    @OneToOne
     @XmlElement(name = "Agent", required = true)
     protected Agent agent;
+    
+    @OneToOne
     @XmlElement(name = "EndUser", required = true)
     protected EndUser endUser;
+    
     @XmlElement(name = "Content", required = true)
     protected String content;
 

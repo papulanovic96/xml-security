@@ -9,10 +9,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-//@EnableAutoConfiguration
-//@ComponentScan(basePackages= {"com.megatravel.*"})
-//@EntityScan("com.megatravel.model")
-//@EnableJpaRepositories("com.megatravel.repository")
+@EnableAutoConfiguration
+@ComponentScan(basePackages= {"com.megatravel.*"})
+@EntityScan("com.megatravel.model")
+@EnableJpaRepositories("com.megatravel.repository")
 public class MainBackendApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

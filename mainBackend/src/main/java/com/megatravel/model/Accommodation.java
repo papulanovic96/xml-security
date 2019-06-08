@@ -8,6 +8,12 @@
 
 package com.megatravel.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -110,26 +116,39 @@ import javax.xml.bind.annotation.XmlType;
     "id",
     "available"
 })
+@Entity
 public class Accommodation {
+	
+	@XmlElement(required = true)
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected long id;
 
     @XmlElement(required = true, defaultValue = "Hotel")
     protected Type type;
+    
     @XmlElement(defaultValue = "0")
     protected int category;
     protected int distance;
+    
     @XmlElement(required = true)
     protected String description;
+    
     @XmlElement(required = true)
+    @Transient
     protected Object image;
+    
     @XmlSchemaType(name = "unsignedInt")
     protected long capacity;
+    
+    @XmlElement(required = false)
+    @ManyToOne
+    protected Address address;
+    
     @XmlElement(required = true)
-    protected Accommodation.Address address;
     protected double priceInSeason;
-    @XmlElement(required = true)
     protected AdditionalService additionalServices;
     protected double rate;
-    protected long id;
     protected boolean available;
 
     /**
@@ -426,7 +445,12 @@ public class Accommodation {
         "longitude",
         "latitude"
     })
+    @Entity
     public static class Address {
+    	@XmlElement(required = true)
+    	@Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        protected long id;
 
         @XmlElement(required = true)
         protected String country;

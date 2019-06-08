@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     xmlns:tns="http://www.megatravel.com/booking"
-    targetNamespace="http://www.megatravel.com/booking" >
-
-    <xs:include schemaLocation="Users.xsd"/>
+    targetNamespace="http://www.megatravel.com/booking">
 
     <xs:complexType name="MessageHistory">
         <xs:sequence>
             <xs:element name="id" type="xs:long"> </xs:element>
-            <xs:element name="Content">
+            <xs:element name="messages">
                 <xs:simpleType>
                     <xs:list itemType="xs:string"/>
                 </xs:simpleType>
@@ -19,7 +17,7 @@
     <xs:element name="getMessageHistoryRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="username" type="xs:string"/>
+                <xs:element name="korisnik" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -27,7 +25,7 @@
     <xs:element name="getMessageHistoryResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="response">
+                <xs:element name="history">
                     <xs:simpleType>
                         <xs:list itemType="xs:string"/>
                     </xs:simpleType>

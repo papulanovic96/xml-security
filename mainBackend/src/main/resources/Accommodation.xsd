@@ -2,24 +2,24 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     xmlns:tns="http://www.megatravel.com/booking"
     targetNamespace="http://www.megatravel.com/booking" >
-    
+
     <xs:include schemaLocation="Users.xsd"/>
     <xs:include schemaLocation="Reservation.xsd"/>
-   
+
     <xs:complexType name="Accommodation">
         <xs:sequence>
             <xs:element default="Hotel" name="type" type="tns:type"/>
-            <xs:element name="Category" default="0" type="tns:category"/>
-            <xs:element name="Distance" type="xs:int"/>
-            <xs:element name="Description" type="xs:string"/>
-            <xs:element name="Image"/>
-            <xs:element name="Capacity" type="xs:unsignedInt"/>
-            <xs:element name="Address">
+            <xs:element name="category" default="0" type="tns:category"/>
+            <xs:element name="distance" type="xs:int"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="image"/>
+            <xs:element name="capacity" type="xs:unsignedInt"/>
+            <xs:element name="address">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="Country" type="xs:string"/>
-                        <xs:element name="City" type="xs:string"/>
-                        <xs:element name="Zip">
+                        <xs:element name="country" type="xs:string"/>
+                        <xs:element name="city" type="xs:string"/>
+                        <xs:element name="zip">
                             <xs:simpleType>
                                 <xs:restriction base="xs:int">
                                     <xs:minExclusive value="10000"/>
@@ -27,7 +27,7 @@
                                 </xs:restriction>
                             </xs:simpleType>
                         </xs:element>
-                        <xs:element name="Street">
+                        <xs:element name="street">
                             <xs:simpleType>
                                 <xs:restriction base="xs:string">
                                     <xs:maxLength value="30"/>
@@ -35,7 +35,7 @@
                                 </xs:restriction>
                             </xs:simpleType>
                         </xs:element>
-                        <xs:element name="Longitude">
+                        <xs:element name="longitude">
                             <xs:simpleType>
                                 <xs:restriction base="xs:double">
                                     <xs:minInclusive value="0"/>
@@ -43,7 +43,7 @@
                                 </xs:restriction>
                             </xs:simpleType>
                         </xs:element>
-                        <xs:element name="Latitude">
+                        <xs:element name="latitude">
                             <xs:simpleType>
                                 <xs:restriction base="xs:double">
                                     <xs:minInclusive value="0"/>
@@ -54,9 +54,9 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="PriceInSeason" type="xs:double"/>
-            <xs:element name="AdditionalServices" type="tns:additionalService"/>
-            <xs:element name="Rate">
+            <xs:element name="priceInSeason" type="xs:double"/>
+            <xs:element name="additionalServices" type="tns:additionalService"/>
+            <xs:element name="rate">
                 <xs:simpleType>
                     <xs:restriction base="xs:double">
                         <xs:minInclusive value="0"/>
@@ -65,16 +65,16 @@
                 </xs:simpleType>
             </xs:element>
             <xs:element name="id" type="xs:long"> </xs:element>
-            <xs:element name="Available" type="xs:boolean"/>
+            <xs:element name="available" type="xs:boolean"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="Comment">
         <xs:sequence>
-            <xs:element name="Content" type="xs:string"/>
-            <xs:element name="Visible" type="xs:boolean"/>
+            <xs:element name="content" type="xs:string"/>
+            <xs:element name="visible" type="xs:boolean"/>
         </xs:sequence>
     </xs:complexType>
-    
+
     <xs:simpleType name="type">
         <xs:restriction base="xs:string">
             <xs:enumeration value="Hotel"/>
@@ -82,14 +82,14 @@
             <xs:enumeration value="Apartment"/>
         </xs:restriction>
     </xs:simpleType>
-    
+
     <xs:simpleType name="category">
         <xs:restriction base="xs:int">
             <xs:minInclusive value="0"/>
             <xs:maxInclusive value="5"/>
         </xs:restriction>
     </xs:simpleType>
-    
+
     <xs:simpleType name="additionalService">
         <xs:restriction base="xs:string">
             <xs:enumeration value="Parking"/>
@@ -109,11 +109,11 @@
     <xs:element name="createCommentRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="comment" type="tns:Comment"/>
+                <xs:element name="Comment" type="tns:Comment"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    
+
     <xs:element name="createCommentResponse">
         <xs:complexType>
             <xs:sequence>
@@ -137,7 +137,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    
+
     <xs:element name="getAccommodationCategoryRequest">
         <xs:complexType>
             <xs:sequence>
@@ -145,15 +145,16 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    
+
     <xs:element name="getAccommodationCategoryResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="accommodations" type="tns:Accommodation"  maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element name="accommodations" type="tns:Accommodation" maxOccurs="unbounded"
+                    minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    
+
     <xs:element name="getAccommodationTypeRequest">
         <xs:complexType>
             <xs:sequence>
@@ -161,14 +162,15 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    
+
     <xs:element name="getAccommodationTypeResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="accommodations" type="tns:Accommodation"  maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element name="accommodations" type="tns:Accommodation" maxOccurs="unbounded"
+                    minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    
+
 </xs:schema>

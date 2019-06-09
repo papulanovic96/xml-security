@@ -5,6 +5,8 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import com.megatravel.model.CreateAccommodationRequest;
+import com.megatravel.model.CreateAccommodationResponse;
 import com.megatravel.model.GetAccommodationCategoryRequest;
 import com.megatravel.model.GetAccommodationCategoryResponse;
 import com.megatravel.model.GetAccommodationTypeRequest;
@@ -35,9 +37,12 @@ public class AccommodationEndpoint {
     @ResponsePayload
     public GetAccommodationTypeResponse getType(@RequestPayload GetAccommodationTypeRequest request) {
 		GetAccommodationTypeResponse response = new GetAccommodationTypeResponse();
+		
+		System.out.println("test: " + request.getType());
         response.setAccommodations(accommodationRepository.findByType(request.getType()));
  
         return response;
     }
+	
 
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.megatravel.model.Accommodation;
 import com.megatravel.model.Type;
 
+
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long>{
 	
 	List<Accommodation> findAll();

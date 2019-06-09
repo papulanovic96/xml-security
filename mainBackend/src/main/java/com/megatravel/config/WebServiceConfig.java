@@ -44,5 +44,15 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	    wsdl11Definition.setSchema(reservationSchema);
 	    return wsdl11Definition;
 	}
+	
+	@Bean(name = "messages")
+	public DefaultWsdl11Definition MessagesWsdl(XsdSchema messageSchema) {
+	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+	    wsdl11Definition.setPortTypeName("MessagesPort");
+	    wsdl11Definition.setLocationUri("/ws");
+	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/booking");
+	    wsdl11Definition.setSchema(messageSchema);
+	    return wsdl11Definition;
+	}
 	 
 }

@@ -28,7 +28,7 @@ public class AccommodationEndpoint {
     @ResponsePayload
     public GetAccommodationCategoryResponse getCategory(@RequestPayload GetAccommodationCategoryRequest request) {
 		GetAccommodationCategoryResponse response = new GetAccommodationCategoryResponse();
-        response.setAccommodations(accommodationRepository.findByCategory(request.getCategory()));
+        response.setAccommodationsOfCategory(accommodationRepository.findByCategory(request.getCategory()));
  
         return response;
     }
@@ -38,8 +38,7 @@ public class AccommodationEndpoint {
     public GetAccommodationTypeResponse getType(@RequestPayload GetAccommodationTypeRequest request) {
 		GetAccommodationTypeResponse response = new GetAccommodationTypeResponse();
 		
-		System.out.println("test: " + request.getType());
-        response.setAccommodations(accommodationRepository.findByType(request.getType()));
+        response.setAccommodationsOfType(accommodationRepository.findByType(request.getType()));
  
         return response;
     }

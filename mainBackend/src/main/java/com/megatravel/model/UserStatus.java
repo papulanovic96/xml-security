@@ -14,34 +14,31 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for type.
+ * <p>Java class for userStatus.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="type">
+ * &lt;simpleType name="userStatus">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="Hotel"/>
- *     &lt;enumeration value="BedAndBreakfast"/>
- *     &lt;enumeration value="Apartment"/>
+ *     &lt;enumeration value="Active"/>
+ *     &lt;enumeration value="Blocked"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "type")
+@XmlType(name = "userStatus", namespace = "http://www.megatravel.com/users")
 @XmlEnum
-public enum Type {
+public enum UserStatus {
 
-    @XmlEnumValue("Hotel")
-    HOTEL("Hotel"),
-    @XmlEnumValue("BedAndBreakfast")
-    BED_AND_BREAKFAST("BedAndBreakfast"),
-    @XmlEnumValue("Apartment")
-    APARTMENT("Apartment");
+    @XmlEnumValue("Active")
+    ACTIVE("Active"),
+    @XmlEnumValue("Blocked")
+    BLOCKED("Blocked");
     private final String value;
 
-    Type(String v) {
+    UserStatus(String v) {
         value = v;
     }
 
@@ -49,8 +46,8 @@ public enum Type {
         return value;
     }
 
-    public static Type fromValue(String v) {
-        for (Type c: Type.values()) {
+    public static UserStatus fromValue(String v) {
+        for (UserStatus c: UserStatus.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

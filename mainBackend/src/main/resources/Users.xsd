@@ -1,51 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    xmlns:tns="http://www.megatravel.com/booking"
-    targetNamespace="http://www.megatravel.com/booking" >
+    targetNamespace="http://www.megatravel.com/users" 
+    xmlns:us="http://www.megatravel.com/users"
+    xmlns:re="http://www.megatravel.com/reservation"
+    xmlns:ac="http://www.megatravel.com/accommodation"
+    xmlns:me="http://www.megatravel.com/message">
+
+    <xs:import namespace="http://www.megatravel.com/reservation" schemaLocation="Reservation.xsd"/>
+    <xs:import namespace="http://www.megatravel.com/accommodation" schemaLocation="Accommodation.xsd"/>
+    <xs:import namespace="http://www.megatravel.com/message" schemaLocation="Message.xsd"/>
     
-    <xs:include schemaLocation="Reservation.xsd"/>
-    <xs:include schemaLocation="Accommodation.xsd"/>
-    <xs:include schemaLocation="Message.xsd"/>
-    
+
     <xs:complexType abstract="true" name="User">
         <xs:sequence>
             <xs:element name="id" type="xs:long"> </xs:element>
-            <xs:element name="Username" type="xs:string"/>
-            <xs:element name="Password" type="xs:string"/>
-            <xs:element name="Email" type="xs:string"/>
+            <xs:element name="username" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="chats" type="me:Message" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-    
+
     <xs:complexType name="Administrator">
         <xs:complexContent>
-            <xs:extension base="tns:User">
+            <xs:extension base="us:User">
                 <xs:sequence/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
-    
+
     <xs:complexType name="Agent">
         <xs:complexContent>
-            <xs:extension base="tns:User">
+            <xs:extension base="us:User">
                 <xs:sequence>
-                    <xs:element name="firstName" type="xs:string"/>
-                    <xs:element name="lastName" type="xs:string"/>
                     <xs:element name="BRN" type="xs:int"/>
+                    <xs:element name="firstName" type="xs:string"/>
+                    <xs:element name="lastName" type="xs:string"/>
+                    <xs:element name="address" type="ac:Address"/>
+                    <xs:element name="chats" type="me:Message" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
-    
-    <xs:complexType name="EndUser">
+
+    <xs:complexType name="EndUser"> 
         <xs:complexContent>
-            <xs:extension base="tns:User">
+            <xs:extension base="us:User">
                 <xs:sequence>
                     <xs:element name="firstName" type="xs:string"/>
                     <xs:element name="lastName" type="xs:string"/>
-                    <xs:element name="reservations" type="tns:Reservation" maxOccurs="unbounded" minOccurs="0" />
+                    <xs:element name="status" type="us:userStatus"/>
+                    <xs:element name="reservations" type="re:Reservation"  minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
+
+    <xs:simpleType name="userStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Active"/>
+            <xs:enumeration value="Blocked"/>
+        </xs:restriction>
+    </xs:simpleType>
 
 </xs:schema>

@@ -9,53 +9,41 @@
 package com.megatravel.model;
 
 import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for type.
+ * <p>Java class for currencies.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="type">
+ * &lt;simpleType name="currencies">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="Hotel"/>
- *     &lt;enumeration value="BedAndBreakfast"/>
- *     &lt;enumeration value="Apartment"/>
+ *     &lt;enumeration value="EUR"/>
+ *     &lt;enumeration value="GBP"/>
+ *     &lt;enumeration value="USD"/>
+ *     &lt;enumeration value="RSD"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "type")
+@XmlType(name = "currencies")
 @XmlEnum
-public enum Type {
+public enum Currencies {
 
-    @XmlEnumValue("Hotel")
-    HOTEL("Hotel"),
-    @XmlEnumValue("BedAndBreakfast")
-    BED_AND_BREAKFAST("BedAndBreakfast"),
-    @XmlEnumValue("Apartment")
-    APARTMENT("Apartment");
-    private final String value;
-
-    Type(String v) {
-        value = v;
-    }
+    EUR,
+    GBP,
+    USD,
+    RSD;
 
     public String value() {
-        return value;
+        return name();
     }
 
-    public static Type fromValue(String v) {
-        for (Type c: Type.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+    public static Currencies fromValue(String v) {
+        return valueOf(v);
     }
 
 }

@@ -14,34 +14,34 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for type.
+ * <p>Java class for messageStatus.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="type">
+ * &lt;simpleType name="messageStatus">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="Hotel"/>
- *     &lt;enumeration value="BedAndBreakfast"/>
- *     &lt;enumeration value="Apartment"/>
+ *     &lt;enumeration value="Sending"/>
+ *     &lt;enumeration value="Deliviered"/>
+ *     &lt;enumeration value="Seen"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "type")
+@XmlType(name = "messageStatus", namespace = "http://www.megatravel.com/message")
 @XmlEnum
-public enum Type {
+public enum MessageStatus {
 
-    @XmlEnumValue("Hotel")
-    HOTEL("Hotel"),
-    @XmlEnumValue("BedAndBreakfast")
-    BED_AND_BREAKFAST("BedAndBreakfast"),
-    @XmlEnumValue("Apartment")
-    APARTMENT("Apartment");
+    @XmlEnumValue("Sending")
+    SENDING("Sending"),
+    @XmlEnumValue("Deliviered")
+    DELIVIERED("Deliviered"),
+    @XmlEnumValue("Seen")
+    SEEN("Seen");
     private final String value;
 
-    Type(String v) {
+    MessageStatus(String v) {
         value = v;
     }
 
@@ -49,8 +49,8 @@ public enum Type {
         return value;
     }
 
-    public static Type fromValue(String v) {
-        for (Type c: Type.values()) {
+    public static MessageStatus fromValue(String v) {
+        for (MessageStatus c: MessageStatus.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

@@ -8,24 +8,28 @@
 
 package com.megatravel.model;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>Java class for Cancelation complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
+ * &lt;complexType name="Cancelation">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="type" type="{http://www.megatravel.com/accommodation}type"/>
+ *         &lt;element name="available" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="daysLeft" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,37 +39,55 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "type"
+@XmlType(name = "Cancelation", propOrder = {
+    "available",
+    "daysLeft"
 })
-@XmlRootElement(name = "getAccommodationTypeRequest")
-public class GetAccommodationTypeRequest {
+public class Cancelation {
 
+    protected boolean available;
     @XmlElement(required = true)
-    protected Type type;
+    @XmlSchemaType(name = "date")
+    protected Date daysLeft;
 
     /**
-     * Gets the value of the type property.
+     * Gets the value of the available property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Type }
-     *     
      */
-    public Type getType() {
-        return type;
+    public boolean isAvailable() {
+        return available;
     }
 
     /**
-     * Sets the value of the type property.
+     * Sets the value of the available property.
+     * 
+     */
+    public void setAvailable(boolean value) {
+        this.available = value;
+    }
+
+    /**
+     * Gets the value of the daysLeft property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public Date getDaysLeft() {
+        return daysLeft;
+    }
+
+    /**
+     * Sets the value of the daysLeft property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Type }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setType(Type value) {
-        this.type = value;
+    public void setDaysLeft(Date value) {
+        this.daysLeft = value;
     }
 
 }

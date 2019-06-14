@@ -1,5 +1,6 @@
 package com.megatravel.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import com.megatravel.service.AcccommodationService;
 public class AccommodationController {
 	
 	private AcccommodationService acccommodationService;
+	
 	
 	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
 	public String findAll() {

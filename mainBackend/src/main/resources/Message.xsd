@@ -17,6 +17,7 @@
             <xs:enumeration value="Sending"/>
             <xs:enumeration value="Deliviered"/>
             <xs:enumeration value="Seen"/>
+            <xs:enumeration value="Unknown username"/>
         </xs:restriction>
     </xs:simpleType>
 

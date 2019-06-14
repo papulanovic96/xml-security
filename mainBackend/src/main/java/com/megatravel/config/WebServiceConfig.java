@@ -25,7 +25,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	    return new ServletRegistrationBean(servlet, "/booking/*");
 	}
 	
-	@Bean(name = "accommodation")
+	@Bean(name = "accommodations")
 	public DefaultWsdl11Definition AccommodationsWsdl(XsdSchema accommodationSchema) {
 	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 	    wsdl11Definition.setPortTypeName("AccomodaitonsPort");
@@ -35,7 +35,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	    return wsdl11Definition;
 	}
 	
-	@Bean(name = "reservation")
+	@Bean(name = "reservations")
 	public DefaultWsdl11Definition ReservationsWsdl(XsdSchema reservationSchema) {
 	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 	    wsdl11Definition.setPortTypeName("ReservationsPort");
@@ -45,7 +45,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	    return wsdl11Definition;
 	}
 	
-	@Bean(name = "message")
+	@Bean(name = "messages")
 	public DefaultWsdl11Definition MessagesWsdl(XsdSchema messageSchema) {
 	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 	    wsdl11Definition.setPortTypeName("MessagesPort");

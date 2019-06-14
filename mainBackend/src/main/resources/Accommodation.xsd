@@ -2,25 +2,28 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://www.megatravel.com/accommodation"
     xmlns:ac="http://www.megatravel.com/accommodation" xmlns:us="http://www.megatravel.com/users"
-    xmlns:re="http://www.megatravel.com/reservation">
+    xmlns:re="http://www.megatravel.com/reservation"
+    xmlns:cb="http://www.megatravel.com/codebook">
 
     <xs:import namespace="http://www.megatravel.com/users" schemaLocation="Users.xsd"/>
     <xs:import namespace="http://www.megatravel.com/reservation" schemaLocation="Reservation.xsd"/>
+    <xs:import namespace="http://www.megatravel.com/codebook" schemaLocation="Codebook.xsd"/>
+    
 
     <xs:complexType name="Accommodation">
         <xs:sequence>
             <xs:element name="id" type="xs:long"> </xs:element>
-            <xs:element name="type" type="ac:type" default="Hotel"/>
-            <xs:element name="category" type="ac:category" default="0"/>
+            <xs:element name="type" type="cb:AccommodationType"/>
+            <xs:element name="category" type="cb:AccommodationCategory"/>
             <xs:element name="fromDate" type="xs:date"/>
             <xs:element name="tillDate" type="xs:date"/>
             <xs:element name="distance" type="xs:int"/>
             <xs:element name="description" type="xs:string"/>
-            <xs:element name="image" type="xs:base64Binary" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="image" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="address" type="ac:Address"/>
             <xs:element name="capacity" type="xs:unsignedInt"/>
             <xs:element name="priceInSeason" type="ac:PriceInSeason"/>
-            <xs:element name="additionalService" type="ac:additionalServices" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="additionalService" type="cb:AdditionalServices" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="available" type="xs:boolean"/>
             <xs:element name="cancelation" type="ac:Cancelation"/>
             <xs:element name="rate" type="ac:rate"/>
@@ -77,6 +80,7 @@
     
     <xs:complexType name="PriceInSeason">
         <xs:sequence>
+        	<xs:element name="id" type="xs:long"/>
             <xs:element name="inMonth" type="ac:months"/>
             <xs:element name="price" type="xs:unsignedInt"/>
             <xs:element name="currency" type="ac:currencies"/>
@@ -85,6 +89,7 @@
        
     <xs:complexType name="Comment">
         <xs:sequence>
+         	<xs:element name="id" type="xs:long"/>
             <xs:element name="content" type="xs:string"/>
             <xs:element name="visible" type="xs:boolean" default="false"/>
         </xs:sequence>
@@ -127,38 +132,6 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="type">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="Hotel"/>
-            <xs:enumeration value="BedAndBreakfast"/>
-            <xs:enumeration value="Apartment"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="category">
-        <xs:restriction base="xs:int">
-            <xs:minInclusive value="0"/>
-            <xs:maxInclusive value="5"/>
-        </xs:restriction>
-    </xs:simpleType>
-    
-
-    <xs:simpleType name="additionalServices">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="Parking"/>
-            <xs:enumeration value="WiFi"/>
-            <xs:enumeration value="Breakfast"/>
-            <xs:enumeration value="Half Board"/>
-            <xs:enumeration value="Full Board"/>
-            <xs:enumeration value="All Inclusive"/>
-            <xs:enumeration value="Pets Friendly"/>
-            <xs:enumeration value="TV"/>
-            <xs:enumeration value="Kitchen"/>
-            <xs:enumeration value="Private Bath"/>
-            <xs:enumeration value="Free Cancellation"/>
-        </xs:restriction>
-    </xs:simpleType>
-    
     <xs:element name="createCommentRequest">
         <xs:complexType>
             <xs:sequence>
@@ -194,7 +167,7 @@
     <xs:element name="getAccommodationCategoryRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="category" type="ac:category"/>
+                <xs:element name="category" type="cb:AccommodationCategory"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -210,7 +183,7 @@
     <xs:element name="getAccommodationTypeRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="type" type="ac:type"/>
+                <xs:element name="type" type="cb:AccommodationType"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

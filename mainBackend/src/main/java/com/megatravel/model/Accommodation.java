@@ -15,13 +15,13 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -84,38 +84,60 @@ public class Accommodation {
 
 	@Id
 	@GeneratedValue
+    @XmlElement(required = true, name="id")
     protected long id;
-    @XmlElement(required = true, defaultValue = "Hotel")
+	
+    @XmlElement(required = true, name="type", defaultValue = "Hotel")
     protected Type type;
-    @XmlElement(defaultValue = "0")
+    
+    @XmlElement(defaultValue = "0", name="category")
     protected int category;
-    @XmlElement(required = true)
+    
+    @XmlElement(required = true, name="fromDate")
     @XmlSchemaType(name = "date")
     protected Date fromDate;
-    @XmlElement(required = true)
+    
+    @XmlElement(required = true, name="tillDate")
     @XmlSchemaType(name = "date")
     protected Date tillDate;
+    
+    @XmlElement(required = true, name="distance")
     protected int distance;
-    @XmlElement(required = true)
+    
+    @XmlElement(required = true, name="description")
     protected String description;
+    
     @Transient
     protected List<byte[]> image;
-    @XmlElement(required = true)
+    
+    @XmlElement(required = true, name="address")
     @OneToOne
     protected Address address;
+    
+    @XmlElement(required = true, name="capacity")
     @XmlSchemaType(name = "unsignedInt")
     protected long capacity;
-    @XmlElement(required = true)
+    
+    @XmlElement(required = true, name="priceInSeason")
     @Transient
+    @XmlTransient
     protected PriceInSeason priceInSeason;
+    
     @Transient
+    @XmlElement(required = true, name="additionalService")
     protected List<AdditionalServices> additionalService;
+     
+    @XmlElement(required = true, name="available")
     protected boolean available;
-    @XmlElement(required = true)
+    
+    @XmlElement(required = true, name="cancelation")
     @Transient
     protected Cancelation cancelation;
-    @XmlElement(required = true)
+    
+    @XmlElement(required = true, name="rate")
     protected String rate;
+    
+    @XmlElement(name="comments")
     @Transient
     protected List<Comment> comments;
 

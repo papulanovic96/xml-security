@@ -22,35 +22,35 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	    MessageDispatcherServlet servlet = new MessageDispatcherServlet();
 	    servlet.setApplicationContext(applicationContext);
 	    servlet.setTransformWsdlLocations(true);
-	    return new ServletRegistrationBean(servlet, "/ws/*");
+	    return new ServletRegistrationBean(servlet, "/booking/*");
 	}
 	
-	@Bean(name = "accommodations")
+	@Bean(name = "accommodation")
 	public DefaultWsdl11Definition AccommodationsWsdl(XsdSchema accommodationSchema) {
 	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 	    wsdl11Definition.setPortTypeName("AccomodaitonsPort");
-	    wsdl11Definition.setLocationUri("/ws");
-	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/booking");
+	    wsdl11Definition.setLocationUri("/booking");
+	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/accommodation");
 	    wsdl11Definition.setSchema(accommodationSchema);
 	    return wsdl11Definition;
 	}
 	
-	@Bean(name = "reservations")
+	@Bean(name = "reservation")
 	public DefaultWsdl11Definition ReservationsWsdl(XsdSchema reservationSchema) {
 	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 	    wsdl11Definition.setPortTypeName("ReservationsPort");
-	    wsdl11Definition.setLocationUri("/ws");
-	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/booking");
+	    wsdl11Definition.setLocationUri("/booking");
+	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/reservation");
 	    wsdl11Definition.setSchema(reservationSchema);
 	    return wsdl11Definition;
 	}
 	
-	@Bean(name = "messages")
+	@Bean(name = "message")
 	public DefaultWsdl11Definition MessagesWsdl(XsdSchema messageSchema) {
 	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 	    wsdl11Definition.setPortTypeName("MessagesPort");
-	    wsdl11Definition.setLocationUri("/ws");
-	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/booking");
+	    wsdl11Definition.setLocationUri("/booking");
+	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/message");
 	    wsdl11Definition.setSchema(messageSchema);
 	    return wsdl11Definition;
 	}

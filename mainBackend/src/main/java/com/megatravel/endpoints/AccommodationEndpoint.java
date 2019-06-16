@@ -34,6 +34,7 @@ public class AccommodationEndpoint {
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAccommodationCategoryRequest")
     @ResponsePayload
     public GetAccommodationCategoryResponse getCategory(@RequestPayload GetAccommodationCategoryRequest request) {
+		
 		GetAccommodationCategoryResponse response = new GetAccommodationCategoryResponse();
         response.setAccommodationsOfCategory(accommodationRepository.findByCategory(request.getCategory()));
  

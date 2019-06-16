@@ -21,6 +21,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
+import org.springframework.context.annotation.ComponentScan;
+
+import com.megatravel.controller.AccommodationController;
+
 
 /**
  * <p>Java class for Accommodation complex type.
@@ -118,6 +122,7 @@ import javax.xml.bind.annotation.XmlType;
     "available"
 })
 @Entity
+
 public class Accommodation {
 	
 	@XmlElement(required = true)
@@ -152,6 +157,8 @@ public class Accommodation {
     protected double rate;
     protected boolean available;
 
+    public Accommodation() {}
+    
     /**
      * Gets the value of the type property.
      * 

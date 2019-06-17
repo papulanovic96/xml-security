@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.2.RELEASE</version>
+		<version>2.1.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.megatravel</groupId>
@@ -16,10 +16,24 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
 	</properties>
 
+
 	<dependencies>
-	
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>2.1.1.RELEASE</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign -->
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-openfeign</artifactId>
+		    <version>2.1.1.RELEASE</version>
+		</dependency>
+
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -36,10 +50,13 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -81,16 +98,20 @@
 		    <artifactId>wsdl4j</artifactId>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.netflix.eureka/eureka-core -->
-		<dependency>
-		    <groupId>com.netflix.eureka</groupId>
-		    <artifactId>eureka-core</artifactId>
-		    <version>1.6.2</version>
-		    <scope>runtime</scope>
-		</dependency>
-		
 		
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -98,27 +119,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
-		<!-- 
-			<plugin>
-			    <groupId>org.codehaus.mojo</groupId>
-			    <artifactId>jaxb2-maven-plugin</artifactId>
-			    <version>1.6</version>
-			    <executions>
-			        <execution>
-			            <id>xjc</id>
-			            <goals>
-			                <goal>xjc</goal>
-			            </goals>
-			        </execution>
-			    </executions>
-			    <configuration>
-			        <schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>
-			        <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
-			        <clearOutputDir>false</clearOutputDir>
-			    </configuration>
-			</plugin>  -->
-	
 		</plugins>
 	</build>
 

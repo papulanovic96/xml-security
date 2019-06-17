@@ -1,5 +1,12 @@
 package com.megatravel.controller;
 
+import java.util.List;
+
+import javax.ws.rs.core.MediaType;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,18 +18,23 @@ import com.megatravel.service.UserService;
 @RequestMapping(value = "user")
 public class UserController {
 	
+	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public String register() {
+	@RequestMapping(method = RequestMethod.GET)
+	public String test() {
 		
-		return "registration test";
+		return "rest test";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login() {
-		
-		return "login test";
+	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	public List<EndUser> findAll() {
+		return userService.findEndUsers();
+	}
+
+	@RequestMapping(value = "/exist", method = RequestMethod.POST , consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+	public EndUser exist(@RequestBody EndUser user) {
+		return userService.findEndUser(user.getUsername());	
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
@@ -53,6 +65,13 @@ public class UserController {
 	public String createReservation() {
 		
 		return "create reservation test";
+	}
+	
+	
+	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON )
+	public List<EndUser> save(@RequestBody EndUser eu) {
+		userService.save(eu);
+		return userService.findEndUsers();
 	}
 	
 

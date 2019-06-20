@@ -49,8 +49,6 @@ public class AccommodationEndpoint {
 		
 		AccommodationCategory ac = accommodationCategoryRepository.findByName(category.getName());
 		
-		System.out.println("UNELI STE KAT: " + ac.getName());
-		
         response.setAccommodationsOfCategory(accommodationRepository.findByCategory(ac));
         
         return response;
@@ -62,9 +60,7 @@ public class AccommodationEndpoint {
 		GetAccommodationTypeResponse response = new GetAccommodationTypeResponse();
 		
 		AccommodationType at = accommodationTypeRepository.findByName(type.getName());
-		
-		System.out.println("UNELI STE TIP: " + at.getName());
-		
+
 		
 		response.setAccommodationsOfType(accommodationRepository.findByType(at));
 		

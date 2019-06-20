@@ -1,34 +1,32 @@
 package com.megatravel.service;
 
-import java.util.List;
 
-import javax.ws.rs.core.MediaType;
 
-import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.megatravel.model.EndUser;
+import com.megatravel.model.UserStatus;
 
 @Service
-@FeignClient(name="main-backend")
-public interface RegistrationService {   
-    
-	@RequestMapping(value="/user/findAll", method=RequestMethod.GET)
-    public List<EndUser> getEndUsers();
+public class RegistrationService {
 	
-	@RequestMapping(value="/user/save", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-	public List<EndUser> saveEndUser(@RequestBody EndUser eu);
+	@Autowired
+	private MainService mainService;
 
-	@RequestMapping(value="/user/exist", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-	public EndUser exist(@RequestBody EndUser user);
-
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	@RequestMapping(value="/user", method=RequestMethod.GET)
-    public String getTest();
+	public EndUser complete(EndUser user) {
+		
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		
+		user.getRoles().add(mainService.findEndUserRole());
+		
+		user.setStatus(UserStatus.ACTIVE);
+		
+		return user;
+	}
 	
 }
-
-

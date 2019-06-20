@@ -34,25 +34,26 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	    wsdl11Definition.setSchema(accommodationSchema);
 	    return wsdl11Definition;
 	}
-//	
-//	@Bean(name = "reservationWsdl")
-//	public DefaultWsdl11Definition ReservationsWsdl(XsdSchema reservationSchema) {
-//	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-//	    wsdl11Definition.setPortTypeName("ReservationsPort");
-//	    wsdl11Definition.setLocationUri("booking");
-//	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/reservation");
-//	    wsdl11Definition.setSchema(reservationSchema);
-//	    return wsdl11Definition;
-//	}
-//	
-//	@Bean(name = "messageWsdl")
-//	public DefaultWsdl11Definition MessagesWsdl(XsdSchema messageSchema) {
-//	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-//	    wsdl11Definition.setPortTypeName("MessagesPort");
-//	    wsdl11Definition.setLocationUri("booking");
-//	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/message");
-//	    wsdl11Definition.setSchema(messageSchema);
-//	    return wsdl11Definition;
-//	}
+
+	@Bean(name = "reservations")
+	public DefaultWsdl11Definition ReservationsWsdl(XsdSchema reservationSchema) {
+	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+	    wsdl11Definition.setPortTypeName("ReservationsPort");
+	    wsdl11Definition.setLocationUri("/booking");
+	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/reservation");
+	    wsdl11Definition.setSchema(reservationSchema);
+	    return wsdl11Definition;
+	}
+	
+	@Bean(name = "messages")
+	public DefaultWsdl11Definition MessagesWsdl(XsdSchema messageSchema) {
+	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+	    wsdl11Definition.setPortTypeName("MessagesPort");
+	    //wsdl11Definition.setLocationUri("/booking");
+	    wsdl11Definition.setLocationUri("/soap");
+	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/message");
+	    wsdl11Definition.setSchema(messageSchema);
+	    return wsdl11Definition;
+	}
 	 
 }

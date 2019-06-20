@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.megatravel.com/message"
+    xmlns:me="http://www.megatravel.com/message">
+    
+    <xs:complexType name="Message">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="recipientUsername" type="xs:string"/>
+            <xs:element name="content" type="xs:string"/>
+            <xs:element name="messageStatus" type="me:messageStatus" default="Sending"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:simpleType name="messageStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Sending"/>
+            <xs:enumeration value="Deliviered"/>
+            <xs:enumeration value="Seen"/>
+            <xs:enumeration value="Unknown username"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="sendMessageRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="me:Message"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="sendMessageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="me:messageStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+</xs:schema>

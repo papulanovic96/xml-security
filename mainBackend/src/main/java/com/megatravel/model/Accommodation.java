@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -86,7 +87,7 @@ public class Accommodation {
     protected long id;
 	
     @XmlElement(required = true)
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     protected AccommodationType type;
     
     @XmlElement(required = true)

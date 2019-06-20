@@ -18,6 +18,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 /**
  * <p>Java class for EndUser complex type.
@@ -66,6 +69,11 @@ public class EndUser
      *     {@link UserStatus }
      *     
      */
+    
+    public EndUser() {
+    	
+    }
+    
     public UserStatus getStatus() {
         return status;
     }

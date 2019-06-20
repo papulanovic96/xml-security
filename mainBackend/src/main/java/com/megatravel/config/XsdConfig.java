@@ -16,14 +16,14 @@ public class XsdConfig {
 	    return new SimpleXsdSchema(new ClassPathResource("Accommodation.xsd"));
 	}
 
-	@Bean
-	public XsdSchema reservationSchema() {
-	    return new SimpleXsdSchema(new ClassPathResource("Reservation.xsd"));
-	}
-	
-	@Bean
-	public XsdSchema messageSchema() {
-	    return new SimpleXsdSchema(new ClassPathResource("Message.xsd"));
-	}
+//	@Bean
+//	public XsdSchema reservationSchema() {
+//	    return new SimpleXsdSchema(new ClassPathResource("Reservation.xsd"));
+//	}
+//	
+//	@Bean
+//	public XsdSchema messageSchema() {
+//	    return new SimpleXsdSchema(new ClassPathResource("Message.xsd"));
+//	}
 
 }

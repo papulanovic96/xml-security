@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.megatravel.model.AccommodationCategory;
 import com.megatravel.model.EndUser;
+import com.megatravel.model.Role;
+import com.megatravel.repository.AccommodationCategoryRepository;
 import com.megatravel.service.UserService;
 
 @RestController
@@ -21,20 +24,37 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public String test() {
-		
-		return "rest test";
-	}
+//	@Autowired
+//	private AccommodationCategoryRepository acc;
+//	
+//	@RequestMapping(method = RequestMethod.GET)
+//	public AccommodationCategory test() {
+//		
+//		return acc.findByName("1*");
+//	}
 	
-	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	@RequestMapping(value = "/findAllEndUsers", method = RequestMethod.GET)
 	public List<EndUser> findAll() {
 		return userService.findEndUsers();
 	}
+	
+	@RequestMapping(value = "/setUserRole/{username}", method = RequestMethod.POST,  consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+	public List<EndUser> setl(@RequestBody Role role, @PathVariable("username") String username) {
+		
+		EndUser e = userService.findEndUser(username);
+		
+		e.getRoles().add(role);
+		
+		userService.save(e);
+		
+		return userService.findEndUsers();
+	}
+	
+	
 
-	@RequestMapping(value = "/exist", method = RequestMethod.POST , consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-	public EndUser exist(@RequestBody EndUser user) {
-		return userService.findEndUser(user.getUsername());	
+	@RequestMapping(value = "/findEndUser", method = RequestMethod.POST , consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+	public EndUser findEndUser(@RequestBody String username) {
+		return userService.findEndUser(username);	
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
@@ -67,11 +87,10 @@ public class UserController {
 		return "create reservation test";
 	}
 	
-	
 	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON )
-	public List<EndUser> save(@RequestBody EndUser eu) {
+	public EndUser save(@RequestBody EndUser eu) {
 		userService.save(eu);
-		return userService.findEndUsers();
+		return eu;
 	}
 	
 

@@ -11,14 +11,21 @@ package com.megatravel.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -51,6 +58,7 @@ import javax.xml.bind.annotation.XmlType;
     "privileges"
 })
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class Role {
 	
 	@Id
@@ -60,10 +68,16 @@ public class Role {
     
     protected Roles name;
    
-    @ManyToMany
+    @ManyToMany(mappedBy = "roles")
     protected List<User> users;
     
     @ManyToMany
+    @JoinTable(
+            name = "roles_privileges", 
+            joinColumns = @JoinColumn(
+              name = "role_id", referencedColumnName = "id"), 
+            inverseJoinColumns = @JoinColumn(
+              name = "privilege_id", referencedColumnName = "id"))
     protected List<Privileges> privileges;
 
     /**
@@ -130,7 +144,7 @@ public class Role {
      */
     public List<User> getUsers() {
         if (users == null) {
-            users = new ArrayList<User>();
+            users = new  ArrayList<User>();
         }
         return this.users;
     }

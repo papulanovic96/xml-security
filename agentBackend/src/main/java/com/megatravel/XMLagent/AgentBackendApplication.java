@@ -27,11 +27,6 @@ public class AgentBackendApplication {
 		return new RestTemplate();
 	}
 	
-	@Bean
-	public WebClient.Builder getWebClientBuilder(){
-		return WebClient.builder();
-	}
-	
 	public static void main(String[] args) {
 		SpringApplication.run(AgentBackendApplication.class, args);
 	}

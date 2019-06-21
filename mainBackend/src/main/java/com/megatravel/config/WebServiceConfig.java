@@ -4,6 +4,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
@@ -21,8 +22,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	    MessageDispatcherServlet servlet = new MessageDispatcherServlet();
 	    servlet.setApplicationContext(applicationContext);
 	    servlet.setTransformWsdlLocations(true);
-	    //return new ServletRegistrationBean(servlet, "/booking/*");
-	    return new ServletRegistrationBean(servlet, "/soap/*");
+	    return new ServletRegistrationBean(servlet, "/booking/*");
 	}
 	
 	@Bean(name = "accommodations")
@@ -34,7 +34,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	    wsdl11Definition.setSchema(accommodationSchema);
 	    return wsdl11Definition;
 	}
-	
+
 	@Bean(name = "reservations")
 	public DefaultWsdl11Definition ReservationsWsdl(XsdSchema reservationSchema) {
 	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();

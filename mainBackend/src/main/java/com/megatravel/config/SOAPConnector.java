@@ -12,8 +12,7 @@ public class SOAPConnector extends WebServiceGatewaySupport {
 	
 	public Object callWebService(String url, Object request){
         return getWebServiceTemplate().marshalSendAndReceive(url, request);
-  
-	}
+    }
 
 	public SyncUserResponse syncUserRequest() {
 		

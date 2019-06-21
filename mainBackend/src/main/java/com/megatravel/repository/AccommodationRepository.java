@@ -13,7 +13,9 @@ import com.megatravel.model.AccommodationType;
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long>{
 	
 	List<Accommodation> findAll();
+	
 	List<Accommodation> findByCategory(AccommodationCategory category);
+	
 	List<Accommodation> findByType(AccommodationType type);
 
 }

@@ -31,7 +31,7 @@ public class LoginResource {
     public boolean tryToLogin(@RequestBody Credentials cred) {
     	
     	Agent agent = userservice.findByUsername(cred.getUsername().toString());
-    	
+    	System.out.println("u login resursu agentt je " + agent);
     	if( agent != null && agent.getPassword().equals(cred.getPassword().toString()))
     		return true;
     	else return false;

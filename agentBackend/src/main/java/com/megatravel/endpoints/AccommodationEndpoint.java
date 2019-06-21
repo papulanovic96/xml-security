@@ -1,14 +1,10 @@
 package com.megatravel.endpoints;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-
-import com.amazonaws.transform.Marshaller;
 import com.megatravel.model.GetAccommodationCategoryRequest;
 import com.megatravel.model.GetAccommodationCategoryResponse;
 import com.megatravel.model.GetAccommodationTypeRequest;

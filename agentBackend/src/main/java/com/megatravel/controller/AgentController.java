@@ -1,7 +1,5 @@
 package com.megatravel.controller;
 
-import java.util.List;
-
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.megatravel.model.Accommodation;
 import com.megatravel.model.Credentials;
-import com.megatravel.service.AccommodationService;
+import com.megatravel.service.UserService;
 
 @RestController
 @RequestMapping("/agent")
@@ -25,6 +22,9 @@ public class AgentController {
 	private RestTemplate restTemplate;
 
 	
+	@Autowired
+	private UserService userservice;
+	
 	@RequestMapping(value="/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
 	public boolean login(@RequestBody Credentials credent) {
 				
@@ -32,5 +32,14 @@ public class AgentController {
 	
 		return logged;
 	}
+	
+	@RequestMapping(value="/syncUsers", method = RequestMethod.GET)
+	public ResponseEntity syncUsers() {
+		
+		
+		return new ResponseEntity(HttpStatus.OK);
+	}
+		
+	
 	
 }

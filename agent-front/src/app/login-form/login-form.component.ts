@@ -28,7 +28,7 @@ export class LoginFormComponent implements OnInit {
           if(!success){
               this.error = "Wrong username or password";
           }else{
-            this.router.navigate(["/addaccommodation"]);
+            this.router.navigate(["/home"]);
             //this.router.navigateByUrl("/addaccommodation");
           }
 

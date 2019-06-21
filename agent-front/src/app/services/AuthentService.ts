@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-//import { User } from './model/User';
+
 import { HttpClient } from '@angular/common/http';
 import { tap, mapTo, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { Message } from '../model/message.model';
 import { User } from '../model/user.model';
 import { Agent } from '../model/agent.model';
-//import jwt from 'jsonwebtoken'
+
 @Injectable({
     providedIn: 'root',
 })
@@ -31,7 +31,7 @@ export class AuthentService{
         doLoginUser(response){
             localStorage.setItem("JWT_TOKEN", response.jwt);
         }
-
+/*
          logOutUser(){    
         this.http.get('api/logOut').subscribe(
             data => {}
@@ -51,10 +51,11 @@ export class AuthentService{
     }
 
     getTokenExpirationDate(token: string): Date {
-        //const decoded = jwt_decode(token);
-        //const decoded = JWT(token);
-        const decoded = jwt(token);
-    
+       
+        const decoded = JWT(token);
+      
+       
+
         if (decoded.exp === undefined) return null;
 
         const date = new Date(0); 
@@ -69,6 +70,6 @@ export class AuthentService{
         const date = this.getTokenExpirationDate(token);
         if(date === undefined) return false;
         return !(date.valueOf() > new Date().valueOf());
-    }
+    }*/
 
 }

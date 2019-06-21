@@ -11,10 +11,12 @@ package com.megatravel.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
@@ -48,12 +50,13 @@ import javax.xml.bind.annotation.XmlType;
     "roles"
 })
 @Entity
+@Table(name = "privileges")
 public class Privileges {
 
 	@Id
 	@GeneratedValue
     protected long id;
-	
+	@Column
     protected long name;
     
     @ManyToMany(mappedBy = "privileges")

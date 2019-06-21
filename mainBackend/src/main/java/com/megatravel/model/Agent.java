@@ -11,6 +11,7 @@ package com.megatravel.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -57,11 +58,12 @@ public class Agent
 {
 
     @XmlElement(name = "BRN")
+    @Column
     protected int brn;
-    @XmlElement(required = true)
     
     @ManyToOne
     protected Address address;
+    
     @OneToMany
     protected List<Message> achats;
 

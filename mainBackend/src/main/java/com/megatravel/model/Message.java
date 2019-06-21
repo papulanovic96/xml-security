@@ -8,9 +8,11 @@
 
 package com.megatravel.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -47,6 +49,7 @@ import javax.xml.bind.annotation.XmlType;
     "messageStatus"
 })
 @Entity
+@Table(name = "message")
 public class Message {
 
 	@Id
@@ -54,12 +57,15 @@ public class Message {
     protected long id;
 	
     @XmlElement(required = true)
+    @Column
     protected String recipientUsername;
     
     @XmlElement(required = true)
+    @Column
     protected String content;
     
     @XmlElement(required = true, defaultValue = "Sending")
+    @Column
     protected MessageStatus messageStatus;
 
     /**

@@ -8,10 +8,12 @@
 
 package com.megatravel.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -48,6 +50,7 @@ import javax.xml.bind.annotation.XmlType;
     "status"
 })
 @Entity
+@Table(name = "reservation")
 public class Reservation {
 
 	@Id
@@ -62,6 +65,7 @@ public class Reservation {
     @OneToOne
     protected Accommodation accomodation;
     
+    @Column
     protected boolean status;
 
     /**

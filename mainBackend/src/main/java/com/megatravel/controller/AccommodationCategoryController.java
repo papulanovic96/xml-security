@@ -23,10 +23,16 @@ public class AccommodationCategoryController {
 	private AccommodationCategoryService acService;
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> newCategory(@RequestBody AccommodationCategory category) {
-		
-			acService.save(category);
-		return new ResponseEntity<String>("Successfully added new category!", HttpStatus.CREATED);
+	public ResponseEntity<String> newCategory(@RequestBody AccommodationCategory aCategory) {
+			List<AccommodationCategory> listOfCategories = acService.findAll();
+			for(AccommodationCategory ac : listOfCategories) {
+			if(aCategory.getName().equalsIgnoreCase(ac.getName())) {
+				return new ResponseEntity<String>("Category with name: " + ac.getName() + " already exists!", HttpStatus.CONFLICT);
+			}
+		}
+			acService.save(aCategory);
+			return new ResponseEntity<String>("Successfully added new category!", HttpStatus.CREATED);
+			
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,15 +67,19 @@ public class AccommodationCategoryController {
 
 
 	@RequestMapping(value = "/modify/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> modifyQuestion(@PathVariable Long id , @RequestBody AccommodationCategory aCategory){
+	public ResponseEntity<String> modifyType(@PathVariable Long id , @RequestBody AccommodationCategory aCategory){
 		aCategory.setId(id);
-		boolean successed = acService.modifyAccommodationCategory(aCategory);
-		if(successed) {
-			return new ResponseEntity<String>("Category successfully modified!", HttpStatus.OK);
-		}
+		List<AccommodationCategory> listOfCategories = acService.findAll();
+
+			for(AccommodationCategory ac : listOfCategories) {
+				if(aCategory.getName().equalsIgnoreCase(ac.getName())) {
+					return new ResponseEntity<String>("Category with name: " + ac.getName() + " already exists!", HttpStatus.CONFLICT);
+				}
+			}
+			boolean successed = acService.modifyAccommodationCategory(aCategory);
+			if(successed) {
+				return new ResponseEntity<String>("Category successfully modified!", HttpStatus.OK);
+			}
 		return new ResponseEntity<String>("Failed to modify unexisting category!", HttpStatus.NOT_FOUND);
 	}
-
-
-	
 }

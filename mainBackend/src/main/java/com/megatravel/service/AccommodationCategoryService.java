@@ -16,12 +16,13 @@ public class AccommodationCategoryService {
 	@Autowired
 	private AccommodationCategoryRepository acRepository;
 	
-	public AccommodationCategory save(AccommodationCategory newCategory) {
-		return acRepository.save(newCategory);
+	public AccommodationCategory save(AccommodationCategory aCategory) {
+		return acRepository.save(aCategory);
+		
 	}
 	
-	public void delete(AccommodationCategory newCategory) {
-		acRepository.delete(newCategory);
+	public void delete(AccommodationCategory aCategory) {
+		acRepository.delete(aCategory);
 	}
 	
 	public List<AccommodationCategory> findAll() {

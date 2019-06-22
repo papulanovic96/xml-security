@@ -1,4 +1,4 @@
-package com.megatravel.registrationservice;
+package com.megatravel.run;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackages= {"com.megatravel.service", 
 							  "com.megatravel.controller", 
-							  "com.megatravel.utility",
+							  "com.megatravel.validator",
 							   "com.megatravel.security"})
 @EntityScan("com.megatravel.model")
 public class RegistrationServiceApplication {

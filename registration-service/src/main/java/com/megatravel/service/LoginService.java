@@ -17,7 +17,7 @@ public interface LoginService {
 	@RequestMapping(value = "/findLogged", method = RequestMethod.GET)
 	public String findLoggedInUsername();
 
-	@RequestMapping(value = "/auto", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	public void autoLogin(@RequestBody EndUser user);
 
 }

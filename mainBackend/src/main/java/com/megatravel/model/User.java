@@ -70,7 +70,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @Entity
 @Table(name = "users")
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
-@JsonDeserialize(as = EndUser.class)
+//@JsonDeserialize(as = EndUser.class)
 public abstract class User {
 
 	@Id

@@ -21,14 +21,14 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	    MessageDispatcherServlet servlet = new MessageDispatcherServlet();
 	    servlet.setApplicationContext(applicationContext);
 	    servlet.setTransformWsdlLocations(true);
-	    //return new ServletRegistrationBean(servlet, "/booking/*");
-	    return new ServletRegistrationBean(servlet, "/soap/*");
+	    return new ServletRegistrationBean(servlet, "/booking/*");
+	 
 	}
 	
-	@Bean(name = "accommodations")
+	@Bean(name = "Accommodation")
 	public DefaultWsdl11Definition AccommodationsWsdl(XsdSchema accommodationSchema) {
 	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-	    wsdl11Definition.setPortTypeName("AccomodaitonsPort");
+	    wsdl11Definition.setPortTypeName("AccommodationsPort");
 	    wsdl11Definition.setLocationUri("/booking");
 	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/accommodation");
 	    wsdl11Definition.setSchema(accommodationSchema);
@@ -49,8 +49,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	public DefaultWsdl11Definition MessagesWsdl(XsdSchema messageSchema) {
 	    DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 	    wsdl11Definition.setPortTypeName("MessagesPort");
-	    //wsdl11Definition.setLocationUri("/booking");
-	    wsdl11Definition.setLocationUri("/soap");
+	    wsdl11Definition.setLocationUri("/booking");
 	    wsdl11Definition.setTargetNamespace("http://www.megatravel.com/message");
 	    wsdl11Definition.setSchema(messageSchema);
 	    return wsdl11Definition;

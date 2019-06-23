@@ -29,11 +29,10 @@ export class LoginFormComponent implements OnInit {
               this.error = "Wrong username or password";
           }else{
             this.router.navigate(["/home"]);
-            //this.router.navigateByUrl("/addaccommodation");
+           
           }
-
-
-    });
+    }
+    );
    }
     
   

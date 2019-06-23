@@ -7,9 +7,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { AppRoutingModule } from './app-routing.module'
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { AddressComponent } from './address/address.component';
-import { AdditionalServicesComponent } from './additional-services/additional-services.component';
-import { PricesComponent } from './prices/prices.component';
+import { AccommodationsComponent } from './accommodations/accommodations.component';
 
 
 
@@ -20,9 +18,7 @@ import { PricesComponent } from './prices/prices.component';
     AccommodationFormComponent,
     LoginFormComponent,
     HomeComponent,
-    AddressComponent,
-    AdditionalServicesComponent,
-    PricesComponent
+    AccommodationsComponent
   ],
   imports: [
     BrowserModule,

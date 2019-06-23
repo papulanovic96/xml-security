@@ -45,7 +45,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "EndUser", namespace = "http://www.megatravel.com/users", propOrder = {
-    "status",
+   
+	"status",
     "reservations",
     "euchats"
 })

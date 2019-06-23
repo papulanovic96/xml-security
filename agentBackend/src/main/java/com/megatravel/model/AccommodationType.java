@@ -45,14 +45,6 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 public class AccommodationType {
 
-	public AccommodationType(long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
-	public AccommodationType() {
-		
-	}
 	@Id
 	@GeneratedValue
     protected long id;

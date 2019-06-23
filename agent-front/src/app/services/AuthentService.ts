@@ -21,25 +21,26 @@ export class AuthentService{
     login(agent : Agent):Observable<boolean>{
 
         return this.http.post<any>("/api/agent/login", {username : agent.username, password: agent.password}).pipe(
-            tap(response => this.doLoginUser(response)),
+           // tap(response => this.doLoginUser(response)),
             mapTo(true),
             catchError(error => {
+              
               return of(false);
             }));
 
-        }
+    }
         doLoginUser(response){
             localStorage.setItem("JWT_TOKEN", response.jwt);
         }
-/*
-         logOutUser(){    
-        this.http.get('api/logOut').subscribe(
-            data => {}
-        )
+
+        logOutUser(){    
+        //this.http.get('api/logOut').subscribe(
+         //   data => {})
+        
         localStorage.removeItem("JWT_TOKEN");
         this.router.navigateByUrl('/login')
       
-    } 
+        } /*
     isUserLogged() : boolean{
         let jwt = localStorage.getItem("JWT_TOKEN");
         if(jwt == null) return false;

@@ -3,22 +3,114 @@
    <div class="row">
 
       <div class="col-md-6">
-         <app-address></app-address>
-      </div>
-
-
-      <div class="col-md-6">
-         <table class="table table-striped" style="height: max-content"> 
+         <table class="table table-striped">
             <tbody>
                <tr>
                   <td colspan="1">
                      <form class="well form-horizontal">
                         <fieldset>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Address</label>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Country</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="country" name="country" placeholder="Country"
+                                       class="form-control" required="true" value="" type="text" [(ngModel)] = "address.country" [ngModelOptions]="{standalone: true}"></div>
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">City</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="city" name="city" placeholder="City"
+                                       class="form-control" required="true" value="" type="text" [(ngModel)] = "address.city" [ngModelOptions]="{standalone: true}"></div>
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Postal Code/ZIP</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="postcode" name="postcode"
+                                       placeholder="Postal Code/ZIP" class="form-control" required="true" value=""
+                                       type="text" [(ngModel)] = "address.zip" [ngModelOptions]="{standalone: true}"></div>
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Street</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="street" name="street" placeholder="Street"
+                                       class="form-control" required="true" value="" type="text" [(ngModel)] = "address.street" [ngModelOptions]="{standalone: true}"></div>
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Longitude</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="longitude" name="longitude" placeholder="Longitude"
+                                       class="form-control" required="true" value="" type="number" [(ngModel)] = "address.longitude" [ngModelOptions]="{standalone: true}"></div>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Latitude</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="latitude" name="latitude" placeholder="Latitude"
+                                       class="form-control" required="true" value="" type="number" [(ngModel)] = "address.latitude" [ngModelOptions]="{standalone: true}"></div>
+                              </div>
+                           </div>
+                        </fieldset>
+                     </form>
+                  </td>
+
+               </tr>
+            </tbody>
+         </table>
+      </div>
+
+
+      <div class="col-md-6">
+         <table class="table table-striped" style="height: max-content">
+            <tbody>
+               <tr>
+                  <td colspan="1">
+                     <form class="well form-horizontal">
+                        <fieldset>
+                              <div class="form-group">
+                                    <label class="col-md-4 control-label">Name</label>
+      
+                                    <div class="col-md-8 inputGroupContainer">
+                                       <input type="text" class="form-control my-input" id="name" placeholder="Name" [(ngModel)]="acc.name" [ngModelOptions]="{standalone: true}" >
+                                    </div>
+                              </div>
+
+
+
+                              <div class="form-group">
+                                    <label class="col-md-4 control-label">Category</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                       <div class="input-group">
+                                             <select class="form-control my-input mt-3" id="category" placeholder="Category" [(ngModel)]="selectedCategory" [ngModelOptions]="{standalone: true}">
+                                                   <option value="-1" disabled selected>Category</option>
+                                                   <option value="0">Not categorised</option>
+                                                   <option value="1">1</option>
+                                                   <option value="2">2</option>
+                                                   <option value="3">3</option>
+                                                   <option value="4">4</option>
+                                                   <option value="5">5</option>
+                                                 </select> 
+                                       </div>
+                                    </div>
+                                 </div>
                            <div class="form-group">
                               <label class="col-md-4 control-label">Type</label>
+
                               <div class="col-md-8 inputGroupContainer">
-                                 <div class="input-group"><input id="type" name="type" placeholder="Type"
-                                       class="form-control" required="true" value="" type="text"></div>
+                              <select class="form-control my-input mt-3" id="type" placeholder="Type" [(ngModel)]="selectedType" [ngModelOptions]="{standalone: true}">
+                                    <option *ngFor="let type of accTypes" [ngValue]="type" [disabled] = "type.disabled">{{type.name}}</option>
+                                </select>
                               </div>
                            </div>
                            <div class="form-group">
@@ -26,22 +118,24 @@
                               <div class="col-md-8 inputGroupContainer">
                                  <textarea class="input-group" rows="4" cols="50" id="description" name="description"
                                     placeholder="Description" class="form-control" required="true" value=""
-                                    type="text"></textarea>
+                                    type="text" [(ngModel)]="acc.description" [ngModelOptions]="{standalone: true}"></textarea>
                               </div>
                            </div>
                            <div class="form-group">
                               <label class="col-md-4 control-label">Image</label>
                               <div class="col-md-8 inputGroupContainer">
-                                 <form>
-                                    <input type="file" name="pic" accept="image/*">
-                                 </form>
+                                    <div class="custom-file px-2">
+                                          <input type="file" class="custom-file-input" accept="image/gif, image/jpeg, image/png" (change)="onFilesSelected($event)" multiple>
+                                          <label class="custom-file-label" id="selectImages" for="inputGroupFile02">{{selectImagesMessage}}</label>
+                                        </div>
                               </div>
                            </div>
                            <div class="form-group">
                               <label class="col-md-4 control-label">Capacity</label>
                               <div class="col-md-8 inputGroupContainer">
                                  <div class="input-group"><input id="capacity" name="capacity" placeholder="Capacity"
-                                       class="form-control" required="true" value="" type="number"></div>
+                                       class="form-control" required="true" value="" type="number" 
+                                        [(ngModel)]="acc.capacity" [ngModelOptions]="{standalone: true}"></div>
 
                               </div>
                            </div>
@@ -57,11 +151,53 @@
 
    <div class="row">
       <div class="col-md-6">
-         <app-additional-services></app-additional-services>
+         <table class="table table-striped">
+            <tbody>
+               <tr>
+                  <td colspan="1">
+                     <form class="well form-horizontal">
+                        <fieldset>
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Additional services</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div  *ngFor="let service of accServices" >
+                                 <input class="form-check-input" type="checkbox" [(ngModel)] = "service.isChecked" [ngModelOptions]="{standalone: true}"><br>
+                                 <label class="form-check-label">{{service.name}}</label>
+                                 </div>
+                              </div>
+                           </div>
+                        </fieldset>
+                     </form>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
       </div>
       <div class="col-md-6">
 
-         <app-prices></app-prices>
+         <table class="table table-striped">
+            <tbody>
+               <tr>
+                  <td colspan="1">
+                     <form class="well form-horizontal">
+                        <fieldset>
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Prices</label>
+                              <div class="col-md-8 inputGroupContainer">
+
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <button class="btnSubmit" (click)="addAccommodationClick()">Add</button>
+                           </div>
+                              
+
+                        </fieldset>
+                     </form>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
 
       </div>
 

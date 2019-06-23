@@ -56,7 +56,7 @@ public class Privileges {
 	
     protected long name;
     
-    @ManyToMany
+    @ManyToMany(mappedBy = "privileges")
     protected List<Role> roles;
 
     /**

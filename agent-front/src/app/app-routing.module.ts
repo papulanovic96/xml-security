@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginFormComponent } from './login-form/login-form.component'
 import { AccommodationFormComponent } from './accommodation-form/accommodation-form.component'
 import { HomeComponent } from './home/home.component'
+import { AccommodationsComponent} from './accommodations/accommodations.component'
 //import { AuthentGuard } from './guards/AuthentGuard'
 const routes: Routes = [
   {
@@ -12,11 +13,29 @@ const routes: Routes = [
     path: 'login', component: LoginFormComponent//, canActivate: [AuthentGuard]
   },
   {
-    path: 'addaccommodation', component: AccommodationFormComponent, children: []
+    path: 'accommodations', component: AccommodationsComponent, children: []
 
   },
   {
-    path: 'home', component: HomeComponent, children: []
+    path: 'home', component: HomeComponent, children: [
+
+      {
+        path: '', redirectTo: 'accommodations', pathMatch: 'full'
+      },
+      {
+        path: 'accommodations', component: AccommodationsComponent, children:[
+
+          {
+            path: '', redirectTo: 'addAccomodations', pathMatch: 'full'
+          },
+          {
+            path: 'addAccomodations', component: AccommodationFormComponent
+          }
+
+        ]
+      }
+
+    ]
   }
 ];
 

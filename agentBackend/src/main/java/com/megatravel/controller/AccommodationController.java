@@ -14,9 +14,12 @@ import java.util.List;
 import javax.ws.rs.core.MediaType;
 import com.megatravel.model.Accommodation;
 import com.megatravel.model.AccommodationCategory;
+import com.megatravel.model.AccommodationType;
+import com.megatravel.model.AdditionalServices;
 import com.megatravel.model.Message;
+import com.megatravel.repository.AccommodationRepository;
 import com.megatravel.service.AccommodationService;
-
+import com.megatravel.service.AccomodationTypeService;
 
 @RestController
 @RequestMapping("/accommodation")
@@ -29,6 +32,11 @@ public class AccommodationController {
 
 	@Autowired
 	private AccommodationService accommodationService;
+	
+	@Autowired
+	private AccomodationTypeService accTypeService;
+	@Autowired
+	private AccommodationRepository accommodationRepository;
 		
 	@RequestMapping(value ="/getByCategory/{id}", method = RequestMethod.GET)
 	public ResponseEntity<String> getByCategory(@PathVariable int id){
@@ -63,6 +71,19 @@ public class AccommodationController {
 		
 
 	}
+	@RequestMapping(value="/getAllAccTypes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<AccommodationType>> getAllAccTypes(){
+		
+		List<AccommodationType> types = accTypeService.findAll();
+		
+		return new ResponseEntity<>(types, HttpStatus.OK);
+	}
 	
+	@RequestMapping(value="/getAllAccServices", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<AdditionalServices>> getAllAccServices(){
+		
+		List<AdditionalServices> services = accommodationRepository.getAllServices();
+		return new ResponseEntity<>(services, HttpStatus.OK);
+	}
 	
 }

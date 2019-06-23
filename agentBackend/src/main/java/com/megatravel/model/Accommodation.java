@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -87,7 +87,7 @@ public class Accommodation {
     protected long id;
 	
     @XmlElement(required = true)
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     protected AccommodationType type;
     
     @XmlElement(required = true)
@@ -502,5 +502,5 @@ public class Accommodation {
         }
         return this.comments;
     }
-
+    
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.megatravel.model.Agent;
 import com.megatravel.model.Credentials;
 import com.megatravel.service.UserService;
 
@@ -26,19 +27,17 @@ public class AgentController {
 	private UserService userservice;
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
-	public boolean login(@RequestBody Credentials credent) {
+	public ResponseEntity login(@RequestBody Credentials credent) {
 				
 		Boolean logged = restTemplate.postForObject("http://login-service/login/tryToLogin", credent, Boolean.class);
 	
-		return logged;
+		if(logged)
+			return new ResponseEntity(HttpStatus.OK);
+		else
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 	
-	@RequestMapping(value="/syncUsers", method = RequestMethod.GET)
-	public ResponseEntity syncUsers() {
-		
-		
-		return new ResponseEntity(HttpStatus.OK);
-	}
+
 		
 	
 	

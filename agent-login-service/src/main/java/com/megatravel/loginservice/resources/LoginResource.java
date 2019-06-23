@@ -3,6 +3,9 @@ package com.megatravel.loginservice.resources;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +32,7 @@ public class LoginResource {
     
     @RequestMapping(value = "/tryToLogin", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
     public boolean tryToLogin(@RequestBody Credentials cred) {
-    	
+    	//ResponseEntity<Agent> 
     	Agent agent = userservice.findByUsername(cred.getUsername().toString());
     	System.out.println("u login resursu agentt je " + agent);
     	if( agent != null && agent.getPassword().equals(cred.getPassword().toString()))
@@ -38,5 +41,7 @@ public class LoginResource {
     		
     	
     }
-
+/*	return new ResponseEntity<Agent>(agent, HttpStatus.OK);
+		else
+			return new ResponseEntity<Agent>(agent, HttpStatus.BAD_REQUEST);*/
 }

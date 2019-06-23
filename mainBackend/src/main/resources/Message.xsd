@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://www.megatravel.com/message"
-    xmlns:me="http://www.megatravel.com/message">
+    xmlns:me="http://www.megatravel.com/message"
+    xmlns:us="http://www.megatravel.com/users">
+    
+    
+    <xs:import namespace="http://www.megatravel.com/users" schemaLocation="Users.xsd"/>
     
     <xs:complexType name="Message">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
-            <xs:element name="recipientUsername" type="xs:string"/>
+            <xs:element name="agent" type="us:Agent"/>
+       		<xs:element name="endUser" type="us:EndUser"/>	     
             <xs:element name="content" type="xs:string"/>
             <xs:element name="messageStatus" type="me:messageStatus" default="Sending"/>
         </xs:sequence>
@@ -24,7 +29,8 @@
     <xs:element name="sendMessageRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="message" type="me:Message"/>
+                <xs:element name="recipientUsername" type="xs:string"/>
+                <xs:element name="content" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

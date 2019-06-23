@@ -36,8 +36,8 @@
                 <xs:sequence>
                     <xs:element name="BRN" type="xs:int"/>
                     <xs:element name="address" type="ac:Address"/>
-                    <xs:element name="achats" type="me:Message" minOccurs="0" maxOccurs="unbounded"
-                    />
+                    <xs:element name="achats" type="me:Message" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="accommodations" type="ac:Accommodation" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -50,8 +50,7 @@
                     <xs:element name="status" type="us:userStatus"/>
                     <xs:element name="reservations" type="re:Reservation" minOccurs="0"
                         maxOccurs="unbounded"/>
-                    <xs:element name="euchats" type="me:Message" minOccurs="0" maxOccurs="unbounded"
-                    />
+                    <xs:element name="euchats" type="me:Message" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>

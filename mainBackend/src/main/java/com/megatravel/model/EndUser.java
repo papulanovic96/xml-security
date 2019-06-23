@@ -51,6 +51,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "euchats"
 })
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class EndUser
     extends User
 {

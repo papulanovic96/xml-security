@@ -11,8 +11,6 @@ package com.megatravel.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,19 +18,17 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Comment complex type.
+ * <p>Java class for ImageResource complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Comment">
+ * &lt;complexType name="ImageResource">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="content" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="visible" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="postedBy" type="{http://www.megatravel.com/users}EndUser"/>
+ *         &lt;element name="path" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -42,29 +38,19 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Comment", propOrder = {
+@XmlType(name = "ImageResource", propOrder = {
     "id",
-    "content",
-    "visible",
-    "postedBy"
+    "path"
 })
 @Entity
-@Table(name = "comment")
-public class Comment {
+public class ImageResource {
 
 	@Id
 	@GeneratedValue
     protected long id;
 	
     @XmlElement(required = true)
-    protected String content;
-    
-    @XmlElement(defaultValue = "false")
-    protected boolean visible;
-    
-    @XmlElement(required = true)
-    @ManyToOne
-    protected EndUser postedBy;
+    protected String path;
 
     /**
      * Gets the value of the id property.
@@ -83,67 +69,27 @@ public class Comment {
     }
 
     /**
-     * Gets the value of the content property.
+     * Gets the value of the path property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getContent() {
-        return content;
+    public String getPath() {
+        return path;
     }
 
     /**
-     * Sets the value of the content property.
+     * Sets the value of the path property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setContent(String value) {
-        this.content = value;
-    }
-
-    /**
-     * Gets the value of the visible property.
-     * 
-     */
-    public boolean isVisible() {
-        return visible;
-    }
-
-    /**
-     * Sets the value of the visible property.
-     * 
-     */
-    public void setVisible(boolean value) {
-        this.visible = value;
-    }
-
-    /**
-     * Gets the value of the postedBy property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link EndUser }
-     *     
-     */
-    public EndUser getPostedBy() {
-        return postedBy;
-    }
-
-    /**
-     * Sets the value of the postedBy property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link EndUser }
-     *     
-     */
-    public void setPostedBy(EndUser value) {
-        this.postedBy = value;
+    public void setPath(String value) {
+        this.path = value;
     }
 
 }

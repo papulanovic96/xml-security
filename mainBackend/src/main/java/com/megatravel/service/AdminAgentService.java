@@ -15,6 +15,12 @@ public class AdminAgentService {
 	public AdminAgentRepository aaRepository;
 	
 	public Agent save(Agent newAgent) {
+		List<Agent> listOfAgents = aaRepository.findAll();
+		for(Agent a : listOfAgents) {
+			if(newAgent.getUsername().equalsIgnoreCase(a.getUsername())) {
+				return null;
+			}
+		}
 		return aaRepository.save(newAgent);
 	}
 	

@@ -12,9 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.megatravel.service.MainService;
 import com.megatravel.model.EndUser;
 import com.megatravel.model.Role;
-import com.megatravel.service.MainService;
 
 @Service
 public class UserDetailsServiceImplementation implements UserDetailsService {
@@ -27,16 +27,15 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		EndUser user = mainService.findEndUser(username);
-
-		System.out.println("MOJE : " + username);
+		
+		System.out.println("ASD: " + user.getUsername());
 		
 	    Set grantedAuthorities = new HashSet<>();
 	    for (Role role : user.getRoles()){
 	        grantedAuthorities.add(new SimpleGrantedAuthority(role.getName().toString()));
 	    }
 
-	    return new org.springframework.security.core.userdetails.User(user.getUsername(), 
-	    user.getPassword(), grantedAuthorities);
+	    return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
 	}
 
 }

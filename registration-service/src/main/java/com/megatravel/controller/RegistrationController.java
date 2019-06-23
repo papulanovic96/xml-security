@@ -17,7 +17,7 @@ import com.megatravel.service.LoginService;
 //import com.megatravel.service.LoginService;
 import com.megatravel.service.MainService;
 import com.megatravel.service.RegistrationService;
-import com.megatravel.utility.UserValidator;
+import com.megatravel.validator.UserValidator;
 
 
 @RestController

@@ -17,5 +17,7 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, Lo
 	List<Accommodation> findByCategory(AccommodationCategory category);
 	
 	List<Accommodation> findByType(AccommodationType type);
+	
+	Accommodation findByName(String name);
 
 }

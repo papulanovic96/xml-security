@@ -38,6 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	    		.antMatchers(HttpMethod.POST, "/user/findEndUser").permitAll()
 		        .antMatchers(HttpMethod.POST,"/user/save").permitAll()
 		        .antMatchers(HttpMethod.POST,"/user/login/confirm").permitAll() 
+		        .antMatchers(HttpMethod.GET,"/user/findAllEndUsers").permitAll() 
 		        .antMatchers(HttpMethod.GET, "/roles/findEndUserRole").permitAll()
 		    .anyRequest().authenticated();
 

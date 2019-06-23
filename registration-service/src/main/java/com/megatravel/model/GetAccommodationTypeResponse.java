@@ -12,22 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Privileges complex type.
+ * <p>Java class for anonymous complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Privileges">
+ * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="roles" type="{http://www.megatravel.com/users}Role" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="accommodationsOfType" type="{http://www.megatravel.com/accommodation}Accommodation" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,76 +36,41 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Privileges", namespace = "http://www.megatravel.com/users", propOrder = {
-    "id",
-    "name",
-    "roles"
+@XmlType(name = "", propOrder = {
+    "accommodationsOfType"
 })
-public class Privileges {
+@XmlRootElement(name = "getAccommodationTypeResponse")
+public class GetAccommodationTypeResponse {
 
-    protected long id;
-    protected long name;
-    protected List<Role> roles;
-
-    /**
-     * Gets the value of the id property.
-     * 
-     */
-    public long getId() {
-        return id;
-    }
+    protected List<Accommodation> accommodationsOfType;
 
     /**
-     * Sets the value of the id property.
-     * 
-     */
-    public void setId(long value) {
-        this.id = value;
-    }
-
-    /**
-     * Gets the value of the name property.
-     * 
-     */
-    public long getName() {
-        return name;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     */
-    public void setName(long value) {
-        this.name = value;
-    }
-
-    /**
-     * Gets the value of the roles property.
+     * Gets the value of the accommodationsOfType property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the roles property.
+     * This is why there is not a <CODE>set</CODE> method for the accommodationsOfType property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getRoles().add(newItem);
+     *    getAccommodationsOfType().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Role }
+     * {@link Accommodation }
      * 
      * 
      */
-    public List<Role> getRoles() {
-        if (roles == null) {
-            roles = new ArrayList<Role>();
+    public List<Accommodation> getAccommodationsOfType() {
+        if (accommodationsOfType == null) {
+            accommodationsOfType = new ArrayList<Accommodation>();
         }
-        return this.roles;
+        return this.accommodationsOfType;
     }
 
 }

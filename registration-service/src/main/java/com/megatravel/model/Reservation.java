@@ -8,21 +8,12 @@
 
 package com.megatravel.model;
 
-import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -56,26 +47,17 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "tillDate",
     "status"
 })
-@Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Reservation {
 
-	@Id
-	@GeneratedValue
     protected long id;
-	
     @XmlElement(required = true)
-    @OneToOne
     protected Accommodation accomodation;
-    
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
-    protected Date fromDate;
-    
+    protected XMLGregorianCalendar fromDate;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
-    protected Date tillDate;
-    
+    protected XMLGregorianCalendar tillDate;
     protected boolean status;
 
     /**
@@ -126,7 +108,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public Date getFromDate() {
+    public XMLGregorianCalendar getFromDate() {
         return fromDate;
     }
 
@@ -138,7 +120,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setFromDate(Date value) {
+    public void setFromDate(XMLGregorianCalendar value) {
         this.fromDate = value;
     }
 
@@ -150,7 +132,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public Date getTillDate() {
+    public XMLGregorianCalendar getTillDate() {
         return tillDate;
     }
 
@@ -162,7 +144,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setTillDate(Date value) {
+    public void setTillDate(XMLGregorianCalendar value) {
         this.tillDate = value;
     }
 

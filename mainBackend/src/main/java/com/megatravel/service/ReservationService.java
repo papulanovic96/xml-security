@@ -13,10 +13,4 @@ public class ReservationService {
 
 	private ReservationRepistory reservationRepository;
 	
-	public List<Reservation> findMyReservations(EndUser client){
-		return reservationRepository.findByReservedBy(client);
-	}
-	
-	
-	
 }

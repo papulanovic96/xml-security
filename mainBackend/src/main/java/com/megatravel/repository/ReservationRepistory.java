@@ -8,7 +8,5 @@ import com.megatravel.model.EndUser;
 import com.megatravel.model.Reservation;
 
 public interface ReservationRepistory extends JpaRepository<Reservation, Long>{
-
-	List<Reservation> findByReservedBy(EndUser eu);
 	
 }

@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "name"
+    "status"
 })
-@XmlRootElement(name = "getAccommodationTypeRequest")
-public class GetAccommodationTypeRequest {
+@XmlRootElement(name = "sendMessageResponse", namespace = "http://www.megatravel.com/message")
+public class SendMessageResponse {
 
-    @XmlElement(required = true)
-    protected String name;
+    @XmlElement(namespace = "http://www.megatravel.com/message", required = true)
+    protected String status;
 
     /**
-     * Gets the value of the name property.
+     * Gets the value of the status property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getName() {
-        return name;
+    public String getStatus() {
+        return status;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the status property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setStatus(String value) {
+        this.status = value;
     }
 
 }

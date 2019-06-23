@@ -1,8 +1,7 @@
 package com.megatravel.controller;
 
-import javax.ws.rs.core.MediaType;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -42,7 +41,7 @@ public class RegistrationController {
 		
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> register(@RequestBody EndUser user, BindingResult bindingResults) {
 	
 		userValidator.validate(user, bindingResults);
@@ -67,7 +66,7 @@ public class RegistrationController {
 
 		mainService.saveEndUser(user);
 		
-		loginService.autoLogin(user);
+		//loginService.autoLogin(user);
 			
 		return ResponseEntity.ok("Account successfully created!");
 		

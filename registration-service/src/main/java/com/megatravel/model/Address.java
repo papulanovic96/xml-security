@@ -8,9 +8,6 @@
 
 package com.megatravel.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -80,26 +77,17 @@ import javax.xml.bind.annotation.XmlType;
     "longitude",
     "latitude"
 })
-@Entity
 public class Address {
 
-	@Id
-	@GeneratedValue
     protected long id;
-	
     @XmlElement(required = true)
     protected String country;
-    
     @XmlElement(required = true)
     protected String city;
-    
     protected int zip;
-    
     @XmlElement(required = true)
     protected String street;
-    
     protected double longitude;
-    
     protected double latitude;
 
     /**

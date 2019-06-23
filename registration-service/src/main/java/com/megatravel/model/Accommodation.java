@@ -9,24 +9,13 @@
 package com.megatravel.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -86,69 +75,39 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "rate",
     "comments"
 })
-@Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Accommodation {
 
-	@Id
-	@GeneratedValue
     protected long id;
-	
     @XmlElement(required = true)
     protected String name;
-    
     @XmlElement(required = true)
-    @ManyToOne
     protected AccommodationType type;
-    
     @XmlElement(required = true)
-    @ManyToOne
     protected AccommodationCategory category;
-    
     @XmlElement(required = true)
-    @ManyToOne
     protected Agent ownedBy;
-    
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
-    protected Date fromDate;
-    
+    protected XMLGregorianCalendar fromDate;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
-    protected Date tillDate;
-    
+    protected XMLGregorianCalendar tillDate;
     protected int distance;
-    
     @XmlElement(required = true)
     protected String description;
-    
-    @OneToMany
     protected List<ImageResource> image;
-    
     @XmlElement(required = true)
-    @ManyToOne
     protected Address address;
-    
     @XmlSchemaType(name = "unsignedInt")
     protected long capacity;
-    
     @XmlElement(required = true)
-    @ManyToOne
     protected PriceInSeason priceInSeason;
-    
-    @ManyToMany
     protected List<AdditionalServices> additionalService;
-    
     protected boolean available;
-    
     @XmlElement(required = true)
-    @ManyToOne
     protected Cancelation cancelation;
-    
     @XmlElement(required = true)
     protected String rate;
-    
-    @ManyToMany
     protected List<Comment> comments;
 
     /**
@@ -271,7 +230,7 @@ public class Accommodation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public Date getFromDate() {
+    public XMLGregorianCalendar getFromDate() {
         return fromDate;
     }
 
@@ -283,7 +242,7 @@ public class Accommodation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setFromDate(Date value) {
+    public void setFromDate(XMLGregorianCalendar value) {
         this.fromDate = value;
     }
 
@@ -295,7 +254,7 @@ public class Accommodation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public Date getTillDate() {
+    public XMLGregorianCalendar getTillDate() {
         return tillDate;
     }
 
@@ -307,7 +266,7 @@ public class Accommodation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setTillDate(Date value) {
+    public void setTillDate(XMLGregorianCalendar value) {
         this.tillDate = value;
     }
 

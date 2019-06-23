@@ -1,44 +1,45 @@
 package com.megatravel.endpoints;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import com.megatravel.model.Accommodation;
 import com.megatravel.model.AccommodationCategory;
 import com.megatravel.model.AccommodationType;
+import com.megatravel.model.CreateAccommodationRequest;
+import com.megatravel.model.CreateAccommodationResponse;
 import com.megatravel.model.GetAccommodationCategoryRequest;
 import com.megatravel.model.GetAccommodationCategoryResponse;
 import com.megatravel.model.GetAccommodationTypeRequest;
 import com.megatravel.model.GetAccommodationTypeResponse;
-import com.megatravel.repository.AccommodationCategoryRepository;
-import com.megatravel.repository.AccommodationRepository;
-import com.megatravel.repository.AccommodationTypeRepository;
+import com.megatravel.service.AccommodationCategoryService;
+import com.megatravel.service.AccommodationService;
+import com.megatravel.service.AccommodationTypeService;
 
 @Endpoint
 public class AccommodationEndpoint {
 	
 	private static final String NAMESPACE_URI = "http://www.megatravel.com/accommodation";
 
-	private AccommodationRepository accommodationRepository;
+	private AccommodationService  accommodationService;
 	
-	private AccommodationCategoryRepository accommodationCategoryRepository;
+	private AccommodationCategoryService accommodationCategoryService;
 	
-	private AccommodationTypeRepository accommodationTypeRepository;
-	
-//	@Autowired
-//	private WebServiceTemplate wst;
+	private AccommodationTypeService accommodationTypeService;
 	
 	
 	@Autowired
-    public AccommodationEndpoint(AccommodationRepository accommodationRepository, 
-    							 AccommodationCategoryRepository accommodationCategoryRepository, 
-    							 AccommodationTypeRepository accommodationTypeRepository) 
+    public AccommodationEndpoint(AccommodationService accommodationService, 
+						    	 AccommodationCategoryService accommodationCategoryService, 
+						    	 AccommodationTypeService accommodationTypeService) 
 	{
-        this.accommodationRepository = accommodationRepository;
-        this.accommodationCategoryRepository = accommodationCategoryRepository;
-        this.accommodationTypeRepository = accommodationTypeRepository;
+        this.accommodationService = accommodationService;
+        this.accommodationCategoryService = accommodationCategoryService;
+        this.accommodationTypeService = accommodationTypeService;
 	}
 	
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAccommodationCategoryRequest")
@@ -47,9 +48,9 @@ public class AccommodationEndpoint {
 		
 		GetAccommodationCategoryResponse response = new GetAccommodationCategoryResponse();
 		
-		AccommodationCategory ac = accommodationCategoryRepository.findByName(category.getName());
+		AccommodationCategory ac = accommodationCategoryService.findByName(category.getName());
 		
-        response.setAccommodationsOfCategory(accommodationRepository.findByCategory(ac));
+        response.setAccommodationsOfCategory(accommodationService.findByCategory(ac));
         
         return response;
     }
@@ -59,14 +60,32 @@ public class AccommodationEndpoint {
     public GetAccommodationTypeResponse getType(@RequestPayload GetAccommodationTypeRequest type) {
 		GetAccommodationTypeResponse response = new GetAccommodationTypeResponse();
 		
-		AccommodationType at = accommodationTypeRepository.findByName(type.getName());
+		AccommodationType at = accommodationTypeService.findByName(type.getName());
 
 		
-		response.setAccommodationsOfType(accommodationRepository.findByType(at));
+		response.setAccommodationsOfType(accommodationService.findByType(at));
 		
 
         return response;
     }
 	
-
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "createAccommodationRequest")
+    @ResponsePayload
+    public CreateAccommodationResponse createAccommodation(@RequestPayload CreateAccommodationRequest request) {
+		CreateAccommodationResponse response = new CreateAccommodationResponse();
+		
+		Accommodation accommodation = request.getAccommodation();
+		
+		//accommodation validator
+		//accommodationService.findAccommodation(accommodation.getName());
+		
+		accommodationService.save(accommodation);
+		
+		
+		return response;
+	
+	}
+	
+	
+	
 }

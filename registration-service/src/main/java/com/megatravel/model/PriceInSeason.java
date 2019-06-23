@@ -8,30 +8,27 @@
 
 package com.megatravel.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Comment complex type.
+ * <p>Java class for PriceInSeason complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Comment">
+ * &lt;complexType name="PriceInSeason">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="content" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="visible" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="postedBy" type="{http://www.megatravel.com/users}EndUser"/>
+ *         &lt;element name="inMonth" type="{http://www.megatravel.com/accommodation}months"/>
+ *         &lt;element name="price" type="{http://www.w3.org/2001/XMLSchema}unsignedInt"/>
+ *         &lt;element name="currency" type="{http://www.megatravel.com/accommodation}currencies"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -41,28 +38,21 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Comment", propOrder = {
+@XmlType(name = "PriceInSeason", propOrder = {
     "id",
-    "content",
-    "visible",
-    "postedBy"
+    "inMonth",
+    "price",
+    "currency"
 })
-@Entity
-public class Comment {
+public class PriceInSeason {
 
-	@Id
-	@GeneratedValue
     protected long id;
-	
     @XmlElement(required = true)
-    protected String content;
-    
-    @XmlElement(defaultValue = "false")
-    protected boolean visible;
-    
+    protected Months inMonth;
+    @XmlSchemaType(name = "unsignedInt")
+    protected long price;
     @XmlElement(required = true)
-    @ManyToOne
-    protected EndUser postedBy;
+    protected Currencies currency;
 
     /**
      * Gets the value of the id property.
@@ -81,67 +71,67 @@ public class Comment {
     }
 
     /**
-     * Gets the value of the content property.
+     * Gets the value of the inMonth property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Months }
      *     
      */
-    public String getContent() {
-        return content;
+    public Months getInMonth() {
+        return inMonth;
     }
 
     /**
-     * Sets the value of the content property.
+     * Sets the value of the inMonth property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Months }
      *     
      */
-    public void setContent(String value) {
-        this.content = value;
+    public void setInMonth(Months value) {
+        this.inMonth = value;
     }
 
     /**
-     * Gets the value of the visible property.
+     * Gets the value of the price property.
      * 
      */
-    public boolean isVisible() {
-        return visible;
+    public long getPrice() {
+        return price;
     }
 
     /**
-     * Sets the value of the visible property.
+     * Sets the value of the price property.
      * 
      */
-    public void setVisible(boolean value) {
-        this.visible = value;
+    public void setPrice(long value) {
+        this.price = value;
     }
 
     /**
-     * Gets the value of the postedBy property.
+     * Gets the value of the currency property.
      * 
      * @return
      *     possible object is
-     *     {@link EndUser }
+     *     {@link Currencies }
      *     
      */
-    public EndUser getPostedBy() {
-        return postedBy;
+    public Currencies getCurrency() {
+        return currency;
     }
 
     /**
-     * Sets the value of the postedBy property.
+     * Sets the value of the currency property.
      * 
      * @param value
      *     allowed object is
-     *     {@link EndUser }
+     *     {@link Currencies }
      *     
      */
-    public void setPostedBy(EndUser value) {
-        this.postedBy = value;
+    public void setCurrency(Currencies value) {
+        this.currency = value;
     }
 
 }

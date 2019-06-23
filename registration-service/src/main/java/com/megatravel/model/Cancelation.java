@@ -8,27 +8,24 @@
 
 package com.megatravel.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for AccommodationCategory complex type.
+ * <p>Java class for Cancelation complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="AccommodationCategory">
+ * &lt;complexType name="Cancelation">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="available" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="daysLeft" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,19 +35,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AccommodationCategory", namespace = "http://www.megatravel.com/codebook", propOrder = {
+@XmlType(name = "Cancelation", propOrder = {
     "id",
-    "name"
+    "available",
+    "daysLeft"
 })
-@Entity
-public class AccommodationCategory {
+public class Cancelation {
 
-	@Id
-	@GeneratedValue
     protected long id;
-	
-    @XmlElement(required = true)
-    protected String name;
+    protected boolean available;
+    protected int daysLeft;
 
     /**
      * Gets the value of the id property.
@@ -69,27 +63,35 @@ public class AccommodationCategory {
     }
 
     /**
-     * Gets the value of the name property.
+     * Gets the value of the available property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getName() {
-        return name;
+    public boolean isAvailable() {
+        return available;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the available property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setAvailable(boolean value) {
+        this.available = value;
+    }
+
+    /**
+     * Gets the value of the daysLeft property.
+     * 
+     */
+    public int getDaysLeft() {
+        return daysLeft;
+    }
+
+    /**
+     * Sets the value of the daysLeft property.
+     * 
+     */
+    public void setDaysLeft(int value) {
+        this.daysLeft = value;
     }
 
 }

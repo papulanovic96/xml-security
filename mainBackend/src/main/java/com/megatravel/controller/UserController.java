@@ -47,14 +47,9 @@ public class UserController {
 	private MessageService messageService;
 	
 	
-	@RequestMapping(value = "/findEndUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public EndUser findEndUser(@RequestBody String username) {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-		System.out.println("JA SAM : "  + authentication.getName());
-		
-		return userService.findEndUser(username);	
+	@RequestMapping(value = "/findEndUser/{username}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public EndUser findEndUser(@PathVariable("username") String username) {
+		return userService.findEndUserByUsername(username);	
 	}
 	
 	@RequestMapping(value = "/findAllEndUsers", method = RequestMethod.GET)
@@ -70,6 +65,8 @@ public class UserController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		System.out.println("JA SAM : "  + authentication.getName());
+		
+		
 		  
 	
 	}
@@ -77,7 +74,7 @@ public class UserController {
 	@RequestMapping(value = "/setUserRole/{username}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<EndUser> setRole(@RequestBody Role role, @PathVariable("username") String username) {
 		
-		EndUser e = userService.findEndUser(username);
+		EndUser e = userService.findEndUserByUsername(username);
 		
 		e.getRoles().add(role);
 		
@@ -95,40 +92,40 @@ public class UserController {
 		return "You have been signed out.";
 	}
 		
-	@RequestMapping(value = "/account/reservations", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Reservation>> findMyReservations() {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
-		String username;
-		
-		if (!(authentication instanceof AnonymousAuthenticationToken)) {
-		    username = authentication.getName();
-		} else {
-			return null;
-		}
-
-		EndUser client = userService.findEndUser(username);
-		
-		if (reservationService.findMyReservations(client) == null) 
-			return ResponseEntity.badRequest().body(reservationService.findMyReservations(client));
-		else
-			return ResponseEntity.ok(reservationService.findMyReservations(client));
-	}
+//	@RequestMapping(value = "/account/reservations", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<Reservation>> findMyReservations() {
+//		
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		
+//		String username;
+//		
+//		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+//		    username = authentication.getName();
+//		} else {
+//			return null;
+//		}
+//
+//		EndUser client = userService.findEndUserByUsername(username);
+//		
+//		if (reservationService.findMyReservations(client) == null) 
+//			return ResponseEntity.badRequest().body(reservationService.findMyReservations(client));
+//		else
+//			return ResponseEntity.ok(reservationService.findMyReservations(client));
+//	}
 	
 	@RequestMapping(value = "/inbox", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Message> inbox() {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		EndUser currentSigned = userService.findEndUser(authentication.getName());
+		EndUser currentSigned = userService.findEndUserByUsername(authentication.getName());
 		
 		return messageService.findMyInbox(currentSigned.getId());
 	}
 	
-	@RequestMapping(value = "/chatHistory", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Message> chatHistory(@RequestBody Message message) {
-		return messageService.findChatHistory(message.getAgent().getId(), message.getEndUser().getId());
-	}
+//	@RequestMapping(value = "/chatHistory", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public List<Message> chatHistory(@RequestBody Message message) {
+//		return messageService.findChatHistory(message.getAgent().getId(), message.getEndUser().getId());
+//	}
 	
 	
 	
@@ -136,7 +133,7 @@ public class UserController {
 	public ResponseEntity<Reservation> createReservation(@RequestBody Accommodation accommodation) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		EndUser client = userService.findEndUser(authentication.getName());
+		EndUser client = userService.findEndUserByUsername(authentication.getName());
 		
 		if (client == null) {
 			return ResponseEntity.badRequest().build();
@@ -146,7 +143,7 @@ public class UserController {
 		
 		reservation.setStatus(false); //nije odobrena
 		
-		reservation.setReservedBy(client);
+//		reservation.setReservedBy(client);
 		
 		accommodation.setAvailable(false);
 		
@@ -161,8 +158,11 @@ public class UserController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<EndUser> save(@RequestBody EndUser client) throws Exception {
 
+		System.out.println(client.getRoles().toString());
+		
 		for (Role role : client.getRoles()) {
 			if (role.getName().equals(Roles.END_USER)) {
+				
 				userService.save(client);
 				return ResponseEntity.ok(client);
 			}

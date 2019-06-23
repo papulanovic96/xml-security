@@ -8,9 +8,6 @@
 
 package com.megatravel.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,17 +15,19 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for AccommodationCategory complex type.
+ * <p>Java class for Comment complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="AccommodationCategory">
+ * &lt;complexType name="Comment">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="content" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="visible" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="postedBy" type="{http://www.megatravel.com/users}EndUser"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,19 +37,21 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AccommodationCategory", namespace = "http://www.megatravel.com/codebook", propOrder = {
+@XmlType(name = "Comment", propOrder = {
     "id",
-    "name"
+    "content",
+    "visible",
+    "postedBy"
 })
-@Entity
-public class AccommodationCategory {
+public class Comment {
 
-	@Id
-	@GeneratedValue
     protected long id;
-	
     @XmlElement(required = true)
-    protected String name;
+    protected String content;
+    @XmlElement(defaultValue = "false")
+    protected boolean visible;
+    @XmlElement(required = true)
+    protected EndUser postedBy;
 
     /**
      * Gets the value of the id property.
@@ -69,27 +70,67 @@ public class AccommodationCategory {
     }
 
     /**
-     * Gets the value of the name property.
+     * Gets the value of the content property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getName() {
-        return name;
+    public String getContent() {
+        return content;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the content property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setContent(String value) {
+        this.content = value;
+    }
+
+    /**
+     * Gets the value of the visible property.
+     * 
+     */
+    public boolean isVisible() {
+        return visible;
+    }
+
+    /**
+     * Sets the value of the visible property.
+     * 
+     */
+    public void setVisible(boolean value) {
+        this.visible = value;
+    }
+
+    /**
+     * Gets the value of the postedBy property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EndUser }
+     *     
+     */
+    public EndUser getPostedBy() {
+        return postedBy;
+    }
+
+    /**
+     * Sets the value of the postedBy property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EndUser }
+     *     
+     */
+    public void setPostedBy(EndUser value) {
+        this.postedBy = value;
     }
 
 }

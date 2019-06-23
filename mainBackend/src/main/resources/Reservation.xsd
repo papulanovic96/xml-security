@@ -11,7 +11,6 @@
     <xs:complexType name="Reservation">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
-            <xs:element name="reservedBy" type="us:EndUser"/>
             <xs:element name="accomodation" type="ac:Accommodation"/>
             <xs:element name="fromDate" type="xs:date"/>
             <xs:element name="tillDate" type="xs:date"/>
@@ -22,7 +21,9 @@
     <xs:element name="createReservationRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="reservation" type="re:Reservation"/>
+                <xs:element name="fromDate" type="xs:date"/>
+                <xs:element name="tilLDate" type="xs:date"/>
+                <xs:element name="accommodatioName" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

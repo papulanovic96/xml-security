@@ -10,16 +10,15 @@
     <xs:complexType name="Message">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
-            <xs:element name="agent" type="us:Agent"/>
-       		<xs:element name="endUser" type="us:EndUser"/>	     
+            <xs:element name="agent_un" type="xs:string"/>
+       		<xs:element name="endUser_un" type="xs:string"/>	     
             <xs:element name="content" type="xs:string"/>
-            <xs:element name="messageStatus" type="me:messageStatus" default="Sending"/>
+            <xs:element name="messageStatus" type="me:messageStatus"/>
         </xs:sequence>
     </xs:complexType>
     
     <xs:simpleType name="messageStatus">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Sending"/>
             <xs:enumeration value="Deliviered"/>
             <xs:enumeration value="Seen"/>
             <xs:enumeration value="Unknown username"/>

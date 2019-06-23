@@ -5,8 +5,7 @@
     xmlns:ac="http://www.megatravel.com/accommodation" xmlns:me="http://www.megatravel.com/message">
 
     <xs:import namespace="http://www.megatravel.com/reservation" schemaLocation="Reservation.xsd"/>
-    <xs:import namespace="http://www.megatravel.com/accommodation"
-        schemaLocation="Accommodation.xsd"/>
+    <xs:import namespace="http://www.megatravel.com/accommodation" schemaLocation="Accommodation.xsd"/>
     <xs:import namespace="http://www.megatravel.com/message" schemaLocation="Message.xsd"/>
 
 
@@ -18,7 +17,7 @@
             <xs:element name="email" type="xs:string"/>
             <xs:element name="firstName" type="xs:string"/>
             <xs:element name="lastName" type="xs:string"/>
-            <xs:element name="role" type="us:Role" maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element name="roles" type="us:Role" maxOccurs="unbounded" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -34,10 +33,8 @@
         <xs:complexContent>
             <xs:extension base="us:User">
                 <xs:sequence>
-                    <xs:element name="BRN" type="xs:int"/>
+                    <xs:element name="brn" type="xs:int"/>
                     <xs:element name="address" type="ac:Address"/>
-                    <xs:element name="achats" type="me:Message" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="accommodations" type="ac:Accommodation" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -48,9 +45,7 @@
             <xs:extension base="us:User">
                 <xs:sequence>
                     <xs:element name="status" type="us:userStatus"/>
-                    <xs:element name="reservations" type="re:Reservation" minOccurs="0"
-                        maxOccurs="unbounded"/>
-                    <xs:element name="euchats" type="me:Message" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="reservations" type="re:Reservation" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>

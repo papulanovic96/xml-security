@@ -45,7 +45,12 @@ import javax.xml.bind.annotation.XmlType;
 public class Agent
     extends User
 {
-    protected int brn;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6738715666158107659L;
+
+	protected int brn;
     
     @XmlElement(required = true)
     @ManyToOne

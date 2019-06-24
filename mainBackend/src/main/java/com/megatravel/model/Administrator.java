@@ -39,5 +39,10 @@ public class Administrator
     extends User
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5236026460283092674L;
+
 
 }

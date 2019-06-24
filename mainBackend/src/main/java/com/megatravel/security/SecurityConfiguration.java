@@ -40,6 +40,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		        .antMatchers(HttpMethod.POST,"/user/login/confirm").permitAll() 
 		        .antMatchers(HttpMethod.GET,"/user/findAllEndUsers").permitAll() 
 		        .antMatchers(HttpMethod.GET, "/roles/findEndUserRole").permitAll()
+		        .antMatchers(HttpMethod.POST, "/admin-agent-creation/saveAgent").permitAll()
+		        .antMatchers(HttpMethod.GET, "/admin-agent-creation/findAgents").permitAll()
 		    .anyRequest().authenticated();
 
 

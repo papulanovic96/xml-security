@@ -15,7 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @SpringBootApplication
 @EnableEurekaClient
 @Configuration
-@ComponentScan(basePackages= {"com.microagent.communication", "com.microagent.controller"})
+@ComponentScan(basePackages= {"com.microagent.controller"})
 @EntityScan("com.microagent.model")
 public class AgentCreationMsApplication {
 

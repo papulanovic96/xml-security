@@ -22,7 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query(value = "select * from booking.user where user.dtype = 'Agent' and user.username = ?1 ", nativeQuery = true)
 	Agent findAgentByUsername(String name);
 	
-	@Query(value = "select * from booking.users where users.dtype = 'Agent'", nativeQuery = true)
+	@Query(value = "select * from booking.users where user.dtype = 'Agent'", nativeQuery = true)
 	List<Agent> findAgent();
 	
 	

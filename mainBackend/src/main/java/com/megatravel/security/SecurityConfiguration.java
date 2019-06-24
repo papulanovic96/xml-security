@@ -42,6 +42,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		        .antMatchers(HttpMethod.GET, "/roles/findEndUserRole").permitAll()
 		        .antMatchers(HttpMethod.POST, "/admin-agent-creation/saveAgent").permitAll()
 		        .antMatchers(HttpMethod.GET, "/admin-agent-creation/findAgents").permitAll()
+		        .antMatchers(HttpMethod.DELETE, "/end-user-action/delete/{username}").permitAll()
+		        .antMatchers(HttpMethod.POST, "/accommodation-category/save").permitAll()
+		        .antMatchers(HttpMethod.DELETE, "/accommodation-category/delete/{id}").permitAll()
+		        .antMatchers(HttpMethod.GET, "/accommodation-category/findById/{id}").permitAll()
+		        .antMatchers(HttpMethod.GET, "/accommodation-category/findAll").permitAll()
+		        .antMatchers(HttpMethod.PUT, "/accommodation-category/modify/{id}").permitAll()
+		        .antMatchers(HttpMethod.POST, "/accommodation-type/save").permitAll()
+		        .antMatchers(HttpMethod.DELETE, "/accommodation-type/delete/{id}").permitAll()
+		        .antMatchers(HttpMethod.GET, "/accommodation-type/findById/{id}").permitAll()
+		        .antMatchers(HttpMethod.GET, "/accommodation-type/findAll").permitAll()
+		        .antMatchers(HttpMethod.PUT, "/accommodation-type/modify/{id}").permitAll()
+		        .antMatchers(HttpMethod.POST, "/additional-services/save").permitAll()
+		        .antMatchers(HttpMethod.DELETE, "/additional-services/delete/{id}").permitAll()
+		        .antMatchers(HttpMethod.GET, "/additional-services/findById/{id}").permitAll()
+		        .antMatchers(HttpMethod.GET, "/additional-services/findAll").permitAll()
+		        .antMatchers(HttpMethod.PUT, "/additional-services/modify/{id}").permitAll()
 		    .anyRequest().authenticated();
 
 

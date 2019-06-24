@@ -18,8 +18,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
 /**
@@ -48,7 +48,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "reservations"
 })
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonTypeName("EndUser")
+@JsonDeserialize(as = EndUser.class)
 public class EndUser
     extends User
 {
@@ -59,6 +60,20 @@ public class EndUser
     @ManyToMany
     protected List<Reservation> reservations;
 
+    public EndUser() {
+    	
+    }
+    
+    public EndUser(String un, String pw, String e, String fn, String ln, UserStatus s, List<Reservation> r) {
+    	this.username = un;
+    	this.password = pw;
+    	this.email = e;
+    	this.firstName = fn;
+    	this.lastName = ln;
+    	this.status = s;
+    	this.reservations = r;
+    }
+    
     /**
      * Gets the value of the status property.
      * 

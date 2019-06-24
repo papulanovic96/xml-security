@@ -15,6 +15,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 
 /**
  * <p>Java class for EndUser complex type.
@@ -41,14 +47,20 @@ import javax.xml.bind.annotation.XmlType;
     "status",
     "reservations"
 })
+@JsonTypeName("EndUser")
+@JsonDeserialize(as = EndUser.class)
 public class EndUser
     extends User
 {
-
+	
     @XmlElement(required = true)
     protected UserStatus status;
     protected List<Reservation> reservations;
 
+    public EndUser() {
+    	
+    }
+    
     /**
      * Gets the value of the status property.
      * 
@@ -57,9 +69,9 @@ public class EndUser
      *     {@link UserStatus }
      *     
      */
-    public UserStatus getStatus() {
-        return status;
-    }
+//    public UserStatus getStatus() {
+//        return status;
+//    }
 
     /**
      * Sets the value of the status property.

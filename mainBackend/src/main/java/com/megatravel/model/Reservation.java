@@ -57,7 +57,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "status"
 })
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = Reservation.class)
 public class Reservation {
 
 	@Id

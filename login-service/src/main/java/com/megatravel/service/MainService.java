@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +23,7 @@ public interface MainService {
 	public List<EndUser> saveEndUser(@RequestBody EndUser eu);
 	
 	@RequestMapping(value="/user/login/confirm", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void confirmLogin(@RequestBody UsernamePasswordAuthenticationToken upat);
+	public void confirmLogin(@RequestBody UserDetails signedIn);
 	
 	
 }

@@ -3,17 +3,19 @@ package com.megatravel.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.megatravel.model.Accommodation;
@@ -47,9 +49,20 @@ public class UserController {
 	private MessageService messageService;
 	
 	
-	@RequestMapping(value = "/findEndUser/{username}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public EndUser findEndUser(@PathVariable("username") String username) {
-		return userService.findEndUserByUsername(username);	
+	@RequestMapping(value = "/findEndUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<EndUser> findEndUser(@RequestBody String clientUN) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		System.out.println("JA SAM : "  + authentication.getName());
+		
+		if (userService.findEndUserByUsername(clientUN) != null) 
+			return ResponseEntity.ok(userService.findEndUserByUsername(clientUN));
+		else 
+			return ResponseEntity.ok(null);
+		
+		
+		
 	}
 	
 	@RequestMapping(value = "/findAllEndUsers", method = RequestMethod.GET)
@@ -58,14 +71,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/login/confirm", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void confirmLogin(@RequestBody UsernamePasswordAuthenticationToken token) {
+	public void confirmLogin(@RequestBody UserDetails signedIn) {
 	
-		Authentication auth =  authenticationManager.authenticate(token);
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(signedIn, signedIn.getPassword(), signedIn.getAuthorities());
 
-		System.out.println("JA SAM : "  + authentication.getName());
+		Authentication auth =  authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 		
+        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 		
 		  
 	
@@ -156,7 +168,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
-	public ResponseEntity<EndUser> save(@RequestBody EndUser client) throws Exception {
+	public ResponseEntity<String> save(@RequestBody EndUser client) throws Exception {
 
 		System.out.println(client.getRoles().toString());
 		
@@ -164,11 +176,11 @@ public class UserController {
 			if (role.getName().equals(Roles.END_USER)) {
 				
 				userService.save(client);
-				return ResponseEntity.ok(client);
+				return new ResponseEntity<String>("", HttpStatus.CREATED);
 			}
 		}
 
-		return ResponseEntity.badRequest().build();
+		return new ResponseEntity<String>("", HttpStatus.UNAUTHORIZED);
 	}
 	
 

@@ -36,8 +36,8 @@ public class UserService {
 	}
 
 	@Transactional
-	public void save(EndUser eu) {
-		userRepository.save(eu);
+	public void save(User eu) {
+		userRepository.saveAndFlush(eu);
 	}
 	
 }

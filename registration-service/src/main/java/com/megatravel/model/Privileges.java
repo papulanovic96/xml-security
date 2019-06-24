@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 /**
  * <p>Java class for Privileges complex type.
@@ -42,10 +45,12 @@ import javax.xml.bind.annotation.XmlType;
     "name",
     "roles"
 })
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = Privileges.class)
 public class Privileges {
 
     protected long id;
     protected long name;
+    
     protected List<Role> roles;
 
     /**

@@ -8,12 +8,17 @@
 
 package com.megatravel.model;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -47,6 +52,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "tillDate",
     "status"
 })
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = Reservation.class)
 public class Reservation {
 
     protected long id;
@@ -54,10 +60,10 @@ public class Reservation {
     protected Accommodation accomodation;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar fromDate;
+    protected Date fromDate;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar tillDate;
+    protected Date tillDate;
     protected boolean status;
 
     /**
@@ -108,7 +114,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getFromDate() {
+    public Date getFromDate() {
         return fromDate;
     }
 
@@ -120,7 +126,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setFromDate(XMLGregorianCalendar value) {
+    public void setFromDate(Date value) {
         this.fromDate = value;
     }
 
@@ -132,7 +138,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getTillDate() {
+    public Date getTillDate() {
         return tillDate;
     }
 
@@ -144,7 +150,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setTillDate(XMLGregorianCalendar value) {
+    public void setTillDate(Date value) {
         this.tillDate = value;
     }
 

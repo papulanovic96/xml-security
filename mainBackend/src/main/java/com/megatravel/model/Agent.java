@@ -15,6 +15,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 
 /**
  * <p>Java class for Agent complex type.
@@ -42,15 +45,32 @@ import javax.xml.bind.annotation.XmlType;
     "address"
 })
 @Entity
+@JsonTypeName("Agent")
+@JsonDeserialize(as = Agent.class)
 public class Agent
     extends User
 {
+	
     protected int brn;
     
     @XmlElement(required = true)
     @ManyToOne
     protected Address address;
+    
+    public Agent() {
+    	
+    }
 
+    public Agent(String un, String pw, String e, String fn, String ln, int b, Address a) {
+    	this.username = un;
+    	this.password = pw;
+    	this.email = e;
+    	this.firstName = fn;
+    	this.lastName = ln;
+    	this.brn = b;
+    	this.address = a;
+    }
+    
     /**
      * Gets the value of the brn property.
      * 

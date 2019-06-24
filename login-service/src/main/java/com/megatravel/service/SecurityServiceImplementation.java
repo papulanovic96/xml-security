@@ -46,8 +46,6 @@ public class SecurityServiceImplementation implements SecurityService {
 
 		Authentication auth =  authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 		
-		System.out.println("MY AUTH:  "+ userDetails.getAuthorities());
- 
 	    if (usernamePasswordAuthenticationToken.isAuthenticated()) {
 	        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 	        

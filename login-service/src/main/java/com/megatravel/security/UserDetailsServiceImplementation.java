@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,13 +29,13 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 		
 		EndUser user = mainService.findEndUser(username);
 		
-		System.out.println("ASD: " + user.getUsername());
-		
-	    Set grantedAuthorities = new HashSet<>();
+	    Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 	    for (Role role : user.getRoles()){
-	        grantedAuthorities.add(new SimpleGrantedAuthority(role.getName().toString()));
+	        grantedAuthorities.add(new SimpleGrantedAuthority(role.getName().name()));
 	    }
-
+	    
+	    System.out.println(grantedAuthorities.toString());
+	    
 	    return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
 	}
 

@@ -15,6 +15,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 /**
  * <p>Java class for Role complex type.
@@ -45,12 +49,15 @@ import javax.xml.bind.annotation.XmlType;
     "users",
     "privileges"
 })
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = Role.class)
 public class Role {
 
     protected long id;
     @XmlElement(required = true)
     protected Roles name;
+
     protected List<User> users;
+
     protected List<Privileges> privileges;
 
     /**

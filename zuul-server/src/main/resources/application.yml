@@ -1,0 +1,29 @@
+zuul:
+  routes:
+    main-backend:
+      path: /main-backend/**
+      stripPrefix: true
+      serviceId: main-backend
+    registration-service:
+      path: /registration/**
+      stripPrefix: true
+      serviceId: registration-service
+    login-service:
+      path: /login/**
+      stripPrefix: true
+      serviceId: login-service
+   
+
+ribbon:
+  eureka:
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:admin@127.0.0.1:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    preferIpAddress: true
+  

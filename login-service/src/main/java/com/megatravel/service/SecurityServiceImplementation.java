@@ -3,6 +3,7 @@ package com.megatravel.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,15 +26,16 @@ public class SecurityServiceImplementation implements SecurityService {
 	private static final Logger logger = LoggerFactory.getLogger (SecurityServiceImplementation.class);
 	
 	@Override
-	public String findLoggedInUsername() {
+	public ResponseEntity<String> findLoggedInUsername() {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 		    String currentUserName = authentication.getName();
-		    return currentUserName;
+		    return ResponseEntity.ok(currentUserName);
 		}
 
-		return "Unauthorized";
+		return new ResponseEntity<String>("Unauthorized request!", HttpStatus.UNAUTHORIZED);
 
 		
 	}

@@ -2,6 +2,8 @@ package com.megatravel.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,20 +24,21 @@ public class AEndUserService {
 		uRepository.delete(eUser);
 	}
 	
+	@Transactional
 	public void block(EndUser eUser) {
-		eUser.setStatus(UserStatus.BLOCKED);
+			uRepository.blocked(eUser.getUsername());
 	}
-	
+	@Transactional
 	public void active(EndUser eUser) {
-		eUser.setStatus(UserStatus.ACTIVE);
+		uRepository.activated(eUser.getUsername());
 	}
 	
-	public List<User> findAll() {
+	public List<EndUser> findAll() {
 		return uRepository
-		.findAll();
+		.findEndUsers();
 	}
 	
-	public User findByUsername(String uName) {
+	public EndUser findByUsername(String uName) {
 		return uRepository.findEndUserByUsername(uName);
 	}
 }

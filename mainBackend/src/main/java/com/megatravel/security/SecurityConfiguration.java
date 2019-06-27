@@ -43,6 +43,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		        .antMatchers(HttpMethod.POST, "/admin-agent-creation/saveAgent").permitAll()
 		        .antMatchers(HttpMethod.GET, "/admin-agent-creation/findAgents").permitAll()
 		        .antMatchers(HttpMethod.DELETE, "/end-user-action/delete/{username}").permitAll()
+		        .antMatchers(HttpMethod.DELETE, "/end-user-action/block/{username}").permitAll()
+		        .antMatchers(HttpMethod.DELETE, "/end-user-action/activate/{username}").permitAll()
 		        .antMatchers(HttpMethod.POST, "/accommodation-category/save").permitAll()
 		        .antMatchers(HttpMethod.DELETE, "/accommodation-category/delete/{id}").permitAll()
 		        .antMatchers(HttpMethod.GET, "/accommodation-category/findById/{id}").permitAll()
@@ -58,6 +60,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		        .antMatchers(HttpMethod.GET, "/additional-services/findById/{id}").permitAll()
 		        .antMatchers(HttpMethod.GET, "/additional-services/findAll").permitAll()
 		        .antMatchers(HttpMethod.PUT, "/additional-services/modify/{id}").permitAll()
+		        .antMatchers(HttpMethod.PUT, "/comment/accept/{id}").permitAll()
+		        .antMatchers(HttpMethod.PUT, "/comment/refuse/{id}").permitAll()
+		        .antMatchers(HttpMethod.GET, "/comment/notReviewed").permitAll()
+		        .antMatchers(HttpMethod.GET, "/comment/accepted").permitAll()
+		        .antMatchers(HttpMethod.GET, "/comment/byUserId/{id}").permitAll()
 		    .anyRequest().authenticated();
 
 

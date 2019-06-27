@@ -13,10 +13,10 @@ public interface MessageRepository extends JpaRepository<Message, Long>
 {
 	List<Message> findAll();
 	
-	@Query(value = "select * from booking.message where message.agent_id = '?1' and message.end_user_id = '?2'", nativeQuery = true)
-	List<Message> findChatHistory(Long agentId, Long clientId);
+	@Query(value = "select * from booking.message where message.agent_un = ?1 and message.end_user_un = ?2", nativeQuery = true)
+	List<Message> findChatHistory(String clientUn, String agentUn);
 	
-	@Query(value = "select * from booking.message where message.end_user_id = '?1'", nativeQuery = true)
-	List<Message> findMyInbox(Long clientId);
+	@Query(value = "select * from booking.message where message.end_user_un = ?1", nativeQuery = true)
+	List<Message> findMyInbox(String clientUn);
 	
 }

@@ -13,4 +13,12 @@ public class ReservationService {
 
 	private ReservationRepistory reservationRepository;
 	
+	public List<Reservation> findMyReservations(Long clientId) {
+		return reservationRepository.findMyReservations(clientId);
+	}
+
+	public void save(Reservation reservation) {
+		reservationRepository.saveAndFlush(reservation);
+	}
+	
 }

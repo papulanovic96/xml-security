@@ -3,10 +3,16 @@ package com.megatravel.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-import com.megatravel.model.EndUser;
 import com.megatravel.model.Reservation;
 
 public interface ReservationRepistory extends JpaRepository<Reservation, Long>{
+	
+	@Query(value = "select * from "
+				 + "booking.reservation join booking.user_reservations on "
+				 + "booking.reservation.id = booking.user_reservations.reservations_id where "
+				 + "booking.user_reservations.end_user_id = ?1", nativeQuery = true)
+	List<Reservation> findMyReservations(Long id);
 	
 }

@@ -13,21 +13,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.megatravel.service.MainService;
 import com.megatravel.model.EndUser;
 import com.megatravel.model.Role;
+import com.megatravel.service.MicroService;
 
 @Service
 public class UserDetailsServiceImplementation implements UserDetailsService {
 	
 	@Autowired
-	private MainService mainService;
+	private MicroService microService;
 
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		EndUser user = mainService.findEndUser(username);
+		EndUser user = microService.findEndUser(username);
 		
 	    Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 	    for (Role role : user.getRoles()){

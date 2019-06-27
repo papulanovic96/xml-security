@@ -13,7 +13,7 @@ import com.megatravel.model.UserStatus;
 public class RegistrationService {
 	
 	@Autowired
-	private MainService mainService;
+	private MicroService mainService;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;

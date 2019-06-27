@@ -35,10 +35,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     	http
     		.csrf().disable();
         http.authorizeRequests()
-	    		.antMatchers(HttpMethod.POST, "/user/findEndUser").permitAll()
+	    		.antMatchers(HttpMethod.GET, "/user/findAllEndUsers").permitAll()
 		        .antMatchers(HttpMethod.POST,"/user/save").permitAll()
 		        .antMatchers(HttpMethod.POST,"/user/login/confirm").permitAll() 
-		        .antMatchers(HttpMethod.GET,"/user/findAllEndUsers").permitAll() 
+		        .antMatchers(HttpMethod.POST,"/user/findEndUser").permitAll() 
 		        .antMatchers(HttpMethod.GET, "/roles/findEndUserRole").permitAll()
 		        .antMatchers(HttpMethod.POST, "/admin-agent-creation/saveAgent").permitAll()
 		        .antMatchers(HttpMethod.GET, "/admin-agent-creation/findAgents").permitAll()

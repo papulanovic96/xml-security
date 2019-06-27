@@ -3,8 +3,9 @@ package com.megatravel.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,35 +13,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.megatravel.model.User;
-import com.megatravel.service.MainService;
+import com.megatravel.model.EndUser;
+import com.megatravel.service.MicroService;
 import com.megatravel.service.SecurityService;
 
 
 @RestController
-@RequestMapping(value = "login")
+@RequestMapping(value = "/")
 public class LoginController {
 	
 	@Autowired
 	private SecurityService securityService;
 	
 	@Autowired
-	private MainService mainService;
+	private MicroService microService;
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void login(@RequestBody User user) {
+	public ResponseEntity<String> login(@RequestBody EndUser user) {
 		
 		if (securityService.login(user.getUsername(), user.getPassword()) != null) {
 			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
+			return ResponseEntity.ok().build();
 //			mainService.confirmLogin(userDetails);
-		}
-		
-		
+		} else 
+			return new ResponseEntity<String>("Incorrect username and password!", HttpStatus.BAD_REQUEST);
 	}
 	
 	@RequestMapping(value = "/findLogged", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String findLogged() {
+	public ResponseEntity<String> findLogged() {
 		return securityService.findLoggedInUsername();
 	}
 	

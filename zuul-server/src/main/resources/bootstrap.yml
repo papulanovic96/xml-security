@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: zuul-server
+  cloud:
+    config:
+      failFast: true
+server.port: 8762
+
+management:
+        endpoints:
+                web:
+                  exposure:
+                    include: "*"
+

@@ -22,7 +22,6 @@ import com.megatravel.service.UserService;
 
 @RestController
 @RequestMapping(value = "reservation")
-@CrossOrigin(value = "http://localhost:4200", maxAge = 3600)
 public class ReservationController {
 	
 	@Autowired

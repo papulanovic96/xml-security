@@ -1,0 +1,39 @@
+<div class="p-3 mb-2 bg-gradient-primary" id="back">
+	<form method="post" data-ng-submit="signin(log)">
+		<div class="text-center">
+			<p class="h4  text-dark font-weight-bold my-4"> SIGN IN</p>	
+			<img class="rounded" [src] = 'account' width="128px">	
+		</div>	
+		
+		<div [formGroup] = "signRequest" class="form-group mx-auto" style="width: 300px;">
+			<input formControlName = "username" type="text" class="form-control my-3" placeholder="username">
+			<input formControlName = "password" type="password" class="form-control mb-3" placeholder="password">
+			<button (click)="signin()" class="btn btn-outline-dark btn-block font-weight-bold">SIGN IN</button>	
+		</div>
+		
+		<div class="text-center mx-auto">
+			<p class="h6  text-dark my-4">Not a member?</p>
+			<a class="btn btn-dark font-weight-bold" href = "/signup" role="button"> SIGN UP</a>
+		</div>	
+	</form>
+</div>
+
+
+	<div id="errorSignin" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		  <div class="modal-dialog modal-lg">
+			  <div class="modal-content">
+		    	 <div class="modal-header">
+			    	  <h5 class="modal-title">Error</h5>
+		    	  </div>
+		     	  <div class="modal-body" data-ng-model="errorMessageSignin">
+			     	  {{errorMessageSignin}}
+		       	</div> 
+			    	<div class="modal-footer">
+				      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				    </div>
+			  </div>
+			</div>
+		</div>
+  </div>
+  

@@ -1,0 +1,40 @@
+<div id="back" class="p-3 mb-2 bg-gradient-primary" >
+	<form method="post">
+		<div class="text-center">
+			<p class="h4 text-info font-weight-bold">REGISTRATION</p>	
+		</div>
+
+		<div [formGroup] = "userForm" class="form-group mx-auto mt-4" style="width: 300px;">
+			<input formControlName = "username" type="text" class="form-control my-3" placeholder="Username" required>
+			<input formControlName = "password" type="password" class="form-control mb-3" placeholder="Password" required>
+			<input formControlName = "firstName" type="text" class="form-control my-3" placeholder="First Name" required>
+			<input formControlName = "lastName" type="text" class="form-control mb-3" placeholder="Last Name" required>
+			<input formControlName = "email" type="email" class="form-control mb-3" placeholder="Email" required>
+			<button (click)="register()"class="btn btn-outline-info btn-block font-weight-bold">SIGN UP</button>
+		</div>
+		
+		<div class="text-center mx-auto">
+			<p class="h6  text-info my-4">Already a member?</p>
+			<a class="btn btn-info font-weight-bold mb-4" href="#/signin" role="button"> SIGN IN</a>
+		</div>	
+	</form>
+
+
+	<div id="errorSignup" class="modal fade" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+			    	 <div class="modal-header">
+			    	 	<h5 class="modal-title">Error</h5>
+			    	 </div>
+			     	 <div class="modal-body" data-ng-model="errorMessageSingup">
+			     		 {{errorMessageSingup}}
+			    	</div> 
+			    	 <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				     </div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+</div>

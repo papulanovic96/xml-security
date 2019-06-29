@@ -1,0 +1,29 @@
+<div id="back">
+	<div>
+	<nav class="navbar navbar-dark ">
+	  <div class="container-fluid">
+		<nav class="navbar-header flex-column">
+			
+			<a class="navbar-brand" [routerLink] = "['/']">
+				<img [src]='logo'>
+			</a>
+		</nav>
+		
+		<ul class="nav nav-pills mb-4">
+		 	<li class="nav-item mt-2">
+			  	<a class="btn btn-dark mr-2 text-white font-weight-bold" [routerLink] = "['/signup']" data-ng-hide="userSignedIn">SIGN UP</a>
+			</li>
+			<li class="nav-item mt-2">
+		   		<a class="btn btn-dark mr-2 text-white font-weight-bold"  [routerLink] = "['/signin']" data-ng-hide="userSignedIn">SIGN IN</a>
+	 	 	</li>
+	 	 	<li class="nav-item mt-2">
+		   		<a class="btn btn-dark mr-2 text-white font-weight-bold" [routerLink] = "['/account']">ACCOUNT</a>
+	 	 	</li> 
+	 	 	<li class="nav-item mt-2">
+		   		<a class="btn btn-dark mr-2 text-white font-weight-bold" data-ng-click="signout()" data-ng-show="userSignedIn">SIGN OUT</a>
+	 	 	</li>	
+		</ul> 
+	  </div>
+	</nav>
+	</div>
+</div>

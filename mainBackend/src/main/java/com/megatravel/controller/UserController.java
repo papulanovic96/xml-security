@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.megatravel.dto.ReservationDTO;
 import com.megatravel.dto.RoleDTO;
-import com.megatravel.dto.UserDTO;
+import com.megatravel.dto.EndUserDTO;
 import com.megatravel.model.EndUser;
 import com.megatravel.model.Reservation;
 import com.megatravel.model.Role;
@@ -149,7 +149,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
-	public ResponseEntity<String> save(@RequestBody UserDTO client) throws Exception {
+	public ResponseEntity<String> save(@RequestBody EndUserDTO client) throws Exception {
 		
 		EndUser eu = convertToEntity(client);
 	
@@ -184,7 +184,7 @@ public class UserController {
 	    return reservation;
 	}
 	
-	private EndUser convertToEntity(UserDTO user) {
+	private EndUser convertToEntity(EndUserDTO user) {
 		EndUser client = modelMapper.map(user, EndUser.class);
 		
 		if(userService.findEndUserByUsername(user.getUsername()) != null) {

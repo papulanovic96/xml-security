@@ -2,32 +2,24 @@ package com.megatravel.dto;
 
 import java.util.List;
 
-import com.megatravel.model.Role;
 import com.megatravel.model.UserStatus;
 
-public class UserDTO {
+public class EndUserDTO {
 
 	private long id;
-
 	private String username;
-    
 	private String password;
-    
 	private String email;
-    
 	private String firstName;
-    
 	private String lastName;
-	
     private List<RoleDTO> roles;
-    
     private UserStatus status;
     
-    public UserDTO() {
+    public EndUserDTO() {
     	
     }
     
-    public UserDTO(long id, String username, String password, String email, String firstName, String lastName, List<RoleDTO> roles, UserStatus status) {
+    public EndUserDTO(long id, String username, String password, String email, String firstName, String lastName, List<RoleDTO> roles, UserStatus status) {
 		super();
 		this.id = id;
 		this.username = username;

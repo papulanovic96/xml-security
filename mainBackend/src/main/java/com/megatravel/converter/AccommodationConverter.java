@@ -55,6 +55,7 @@ public class AccommodationConverter extends AbstractConverter{
 			cDTO.setPostedBy(com.getPostedBy().getUsername());
 			commentsDTO.add(cDTO);
 		}
+		aDto.setComments(commentsDTO);
 		return aDto;
 	}
 	

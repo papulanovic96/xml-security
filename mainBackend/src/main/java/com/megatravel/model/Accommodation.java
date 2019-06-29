@@ -87,7 +87,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "comments"
 })
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = Accommodation.class)
+//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="id", scope = Accommodation.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id", scope = Accommodation.class)
 public class Accommodation {
 
 	@Id

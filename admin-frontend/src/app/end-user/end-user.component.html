@@ -9,10 +9,8 @@
                 <th scope="col-xs-1">Last name</th>
                 <th scope="col-1">Password</th>
                 <th scope="col-xs-1">Username</th>
-                <th scope="col-1">BRN</th>
                 <th scope="col-xs-1">status</th>
-                <th scope="col-xs-1">Address</th>
-                <th scope="col-xs-1" colspan="2"></th>
+                <th scope="col-xs-1" colspan="3"></th>
               </tr>
             </thead>
             <tbody>
@@ -23,11 +21,10 @@
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.password }}</td>
                 <td>{{ user.username }}</td>
-                <td>{{ user.brn }}</td>
                 <td>{{ user.status }}</td>
-                <td>{{ user.address_id }}</td>
                 <td><button type="button" (click)="activate(user.username)" class="btn btn-outline-success"><i class="fa fa-check-circle-o"></i> Activate</button></td>
-                <td><button type="button" (click)="block(user.username)" class="btn btn-outline-danger"><i class="fa fa-ban"></i> Block</button></td>
+                <td><button type="button" (click)="block(user.username)" class="btn btn-outline-warning"><i class="fa fa-ban"></i> Block</button></td>
+                <td><button type="button" (click)="delete(user)" class="btn btn-outline-danger"><i class="fa fa-close"></i> Delete</button></td>
               </tr>
             </tbody>
           </table>

@@ -30,6 +30,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 		EndUser user = microService.findEndUser(username);
 		
 	    Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+	    
 	    for (Role role : user.getRoles()){
 	        grantedAuthorities.add(new SimpleGrantedAuthority(role.getName().name()));
 	    }

@@ -16,7 +16,8 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableFeignClients("com.megatravel.*")
 @ComponentScan(basePackages= {"com.megatravel.controller",
 							  "com.megatravel.security",
-							  "com.megatravel.service"})
+							  "com.megatravel.service",
+							   "com.megatravel.config"})
 @EntityScan("com.megatravel.model")
 @EnableEurekaClient
 public class LoginServiceApplication {

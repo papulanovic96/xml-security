@@ -27,6 +27,7 @@ export class CommentComponent implements OnInit {
     this.serviceComment.acceptComment(id).subscribe();
     this.serviceComment.getCommentAccepted().subscribe(acceptedComments => this.acceptedComments = acceptedComments);
     this.serviceComment.getComment().subscribe(comments => this.comments = comments);
+
   }
 
   block(id: number) {

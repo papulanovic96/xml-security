@@ -41,7 +41,8 @@ import { AgentComponent } from './agent/agent.component';
       {path:'accommodation-category', component: AccommodationCategoryComponent},
       {path:'accommodation-category/accommodation-category-modify/:id', component: AccommodationCategoryModifyComponent},
       {path:'end-user-action', component: EndUserComponent},
-      {path:'comment', component: CommentComponent}
+      {path:'comment', component: CommentComponent},
+      {path:'admin-agent-creation', component: AgentComponent}
     ], {useHash: true})
   ],
   providers: [],

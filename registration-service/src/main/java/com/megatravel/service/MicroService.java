@@ -15,24 +15,21 @@ import com.megatravel.model.EndUser;
 import com.megatravel.model.Role;
 
 @Service
-@FeignClient("zuul-server")
+@FeignClient("main-backend")
 public interface MicroService {
 	
-	@RequestMapping(value="/main-backend/user/findEndUser", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/user/findEndUser", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public EndUser findEndUser(@RequestBody String username);
 	
-	@RequestMapping(value="/main-backend/user/save", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/user/save", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> saveEndUser(@RequestBody EndUser eu);
 	
-	@RequestMapping(value="/main-backend/user/login/confirm", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void confirmLogin(@RequestBody UserDetails signedIn);
-	
-	@RequestMapping(value="/main-backend/roles/findEndUserRole", method=RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/roles/findEndUserRole", method=RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Role findEndUserRole();
 
 	@RequestMapping(value = "/login-service/findLogged", method = RequestMethod.GET)
 	public String findLoggedInUsername();
 
-	@RequestMapping(value = "/login-service/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/login-service/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void autoLogin(@RequestBody EndUser user);
 }

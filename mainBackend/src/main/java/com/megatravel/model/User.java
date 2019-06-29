@@ -71,7 +71,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
     EndUser.class
 })
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = User.class)
+//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="id", scope = User.class)
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id", scope = User.class)
+
 @JsonDeserialize(as = EndUser.class)
 public abstract class User {	
 	

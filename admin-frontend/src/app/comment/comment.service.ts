@@ -12,6 +12,7 @@ export class CommentService {
   private findAllacceptedURL = 'http://localhost:4200/comment/accepted'
   private acceptURL = 'http://localhost:4200/comment/accept'
   private refuseURL = 'http://localhost:4200/comment/refuse'
+  private deleteURL = 'http://localhost:4200/comment/delete'
 
   private comment = new Comment(0, '', 0, 0)
 
@@ -39,6 +40,12 @@ export class CommentService {
     return this.http.put<number>(this.refuseURL + '/' + id, this.comment, {responseType: 'text'}).pipe(
       catchError(this.handleError)
     );
+  }
+
+  deleteComment(id: number): Observable<Object> {
+    return this.http.delete(this.deleteURL + '/' + id).pipe(
+      catchError(this.handleError)
+    )
   }
 
   private handleError(err: HttpErrorResponse) {

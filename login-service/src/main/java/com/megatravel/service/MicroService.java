@@ -15,17 +15,14 @@ import com.megatravel.model.EndUser;
 import com.megatravel.model.Role;
 
 @Service
-@FeignClient(name="zuul-server")
+@FeignClient(name="main-backend")
 public interface MicroService {   
 
-	@RequestMapping(value="/main-backend/user/findEndUser", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/user/findEndUser", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public EndUser findEndUser(@RequestBody String username);
 	
-	@RequestMapping(value="/main-backend/user/save", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<EndUser> saveEndUser(@RequestBody EndUser eu);
-	
-	@RequestMapping(value="/main-backend/user/login/confirm", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void confirmLogin(@RequestBody UserDetails signedIn);
+	@RequestMapping(value="/user/login/confirm", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void confirmLogin(@RequestBody String username);
 	
 	
 }

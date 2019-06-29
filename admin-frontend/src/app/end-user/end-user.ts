@@ -6,8 +6,6 @@ export class EndUser{
         public lastName: string,
         public password: string,
         public username: string,
-        public brn: number,
-        public status: number,
-        public address_id: number
+        public status: number
     ) {}
 }

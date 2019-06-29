@@ -45,7 +45,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "name",
     "roles"
 })
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = Privileges.class)
 public class Privileges {
 
     protected long id;

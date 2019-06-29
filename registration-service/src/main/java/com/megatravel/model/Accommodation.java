@@ -80,7 +80,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "rate",
     "comments"
 })
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = Accommodation.class)
 public class Accommodation {
 
     protected long id;

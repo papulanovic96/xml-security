@@ -12,6 +12,7 @@ export class EndUserService {
   private findAllUrl = 'http://localhost:4200/end-user-action/findAll';
   private activateURL = 'http://localhost:4200/end-user-action/activate';
   private blockURL = 'http://localhost:4200/end-user-action/block';
+  private deleteURL = 'http://localhost:4200/end-user-action/delete';
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +30,12 @@ export class EndUserService {
 
   blockEndUser(username: string): Observable<Object> {
     return this.http.put<string>(this.blockURL + '/' + username, {responseType: 'text'}).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deleteEndUser(username: string): Observable<Object> {
+    return this.http.delete(this.deleteURL + '/' + username).pipe(
       catchError(this.handleError)
     );
   }

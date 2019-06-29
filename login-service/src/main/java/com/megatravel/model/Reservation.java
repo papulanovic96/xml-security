@@ -50,7 +50,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "tillDate",
     "status"
 })
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = Reservation.class)
 public class Reservation {
 
     protected long id;

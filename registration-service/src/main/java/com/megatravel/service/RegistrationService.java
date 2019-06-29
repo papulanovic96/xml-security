@@ -24,6 +24,8 @@ public class RegistrationService {
 		
 		user.getRoles().add(mainService.findEndUserRole());
 		
+		System.out.println("ROLA : : : : :: : : : " + user.getRoles().get(0));
+		
 		user.getReservations();
 		
 		user.setStatus(UserStatus.ACTIVE);

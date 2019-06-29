@@ -62,7 +62,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
     Administrator.class,
     EndUser.class
 })
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = User.class)
 @JsonDeserialize(as = EndUser.class)
 public class User {
 

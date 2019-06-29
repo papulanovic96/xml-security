@@ -52,9 +52,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class EndUser
     extends User
 {
-	
     @XmlElement(required = true)
     protected UserStatus status;
+    
     protected List<Reservation> reservations;
 
     public EndUser() {

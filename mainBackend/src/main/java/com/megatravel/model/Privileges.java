@@ -51,7 +51,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "roles"
 })
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = Privileges.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="id", scope = Privileges.class)
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id", scope = Privileges.class)
 public class Privileges {
 
 	@Id

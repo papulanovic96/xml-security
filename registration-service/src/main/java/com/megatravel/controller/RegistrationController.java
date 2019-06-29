@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,9 +17,9 @@ import com.megatravel.service.MicroService;
 import com.megatravel.service.RegistrationService;
 import com.megatravel.validator.UserValidator;
 
-
 @RestController
 @RequestMapping(value = "/")
+@CrossOrigin(value = "http://localhost:4200", maxAge = 3600)
 public class RegistrationController {
 	
 	@Autowired

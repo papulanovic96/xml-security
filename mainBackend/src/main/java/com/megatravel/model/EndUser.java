@@ -18,7 +18,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
@@ -50,6 +52,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @Entity
 @JsonTypeName("EndUser")
 @JsonDeserialize(as = EndUser.class)
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id", scope = EndUser.class)
 public class EndUser
     extends User
 {

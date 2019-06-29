@@ -66,6 +66,8 @@ public class Message {
     
     @XmlElement(required = true)
     protected MessageStatus messageStatus;
+    
+//    protected String sentOrReceived;
 
     /**
      * Gets the value of the id property.

@@ -15,7 +15,8 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages= {"com.megatravel.service", 
 							  "com.megatravel.controller", 
 							  "com.megatravel.validator",
-							   "com.megatravel.security"})
+							   "com.megatravel.security",
+							   "com.megatravel.config"})
 @EntityScan("com.megatravel.model")
 @EnableEurekaClient
 public class RegistrationServiceApplication {

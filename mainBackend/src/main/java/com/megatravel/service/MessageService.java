@@ -21,6 +21,10 @@ public class MessageService {
 	public List<Message> findMyInbox(String clientUn) {
 		return messageRepository.findMyInbox(clientUn);
 	}
+
+	public void save(Message message) {
+		messageRepository.saveAndFlush(message);		
+	}
 	
 	
 	

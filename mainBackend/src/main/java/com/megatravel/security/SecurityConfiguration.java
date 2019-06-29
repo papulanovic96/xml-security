@@ -35,6 +35,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     	http
     		.csrf().disable();
         http.authorizeRequests()
+        		.antMatchers(HttpMethod.GET, "/accommodation/findAllAvailable").permitAll()
+        		.antMatchers(HttpMethod.GET, "/accommodation/findAll").permitAll()
 	    		.antMatchers(HttpMethod.GET, "/user/findAllEndUsers").permitAll()
 		        .antMatchers(HttpMethod.POST,"/user/save").permitAll()
 		        .antMatchers(HttpMethod.POST,"/user/login/confirm").permitAll() 
@@ -58,6 +60,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		        .antMatchers(HttpMethod.GET, "/additional-services/findById/{id}").permitAll()
 		        .antMatchers(HttpMethod.GET, "/additional-services/findAll").permitAll()
 		        .antMatchers(HttpMethod.PUT, "/additional-services/modify/{id}").permitAll()
+		        .antMatchers(HttpMethod.POST, "/token/find").permitAll()
+		        .antMatchers(HttpMethod.POST, "/token/save").permitAll()
+		        .antMatchers(HttpMethod.POST, "/reservation/create").permitAll()
+		        .antMatchers(HttpMethod.GET, "/user/reservations").permitAll()
+		        .antMatchers(HttpMethod.POST, "/message/send").permitAll()
+		        .antMatchers(HttpMethod.GET, "/message/history/*").permitAll()
+		        .antMatchers(HttpMethod.GET, "/message/inbox").permitAll()
+		        .antMatchers(HttpMethod.POST, "/accommodation/comment/{aid}").permitAll()
+		        .antMatchers(HttpMethod.POST, "user/login/confirm").permitAll()
+
+
+
+
 		    .anyRequest().authenticated();
 
 

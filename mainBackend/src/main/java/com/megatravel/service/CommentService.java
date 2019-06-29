@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.megatravel.converter.CommentConverter;
+import com.megatravel.dto.CommentDTO;
 import com.megatravel.model.Comment;
 import com.megatravel.repository.CommentRepository;
 
@@ -14,20 +16,25 @@ public class CommentService {
 	@Autowired
 	private CommentRepository cRepository;
 	
-	public Comment save(Comment comment) {
-		return cRepository.save(comment);
+	public Comment save(CommentDTO comment) {
+		Comment newComment = CommentConverter.toEntity(comment);
+		return cRepository.save(newComment);
 	}
 	
-	public void delete(Comment comment) {
-		cRepository.delete(comment);
+	public void delete(CommentDTO comment) {
+		cRepository.deleteById(comment.getId());
 	}
 	
-	public List<Comment> findAllByUserId(Long id) {
-		return cRepository.findByUserId(id);
+	public List<CommentDTO> findAllByUserId(Long id) {
+		List<Comment> commentList = cRepository.findByUserId(id);
+		List<CommentDTO> commentListDTO = CommentConverter.fromEntityList(commentList, e -> CommentConverter.fromEntity(e));
+		return commentListDTO;
 	}
 	
-	public List<Comment> findAllByAllowed(boolean allowed) {
-		return cRepository.findByAllowed(allowed);
+	public List<CommentDTO> findAllByAllowed(boolean allowed) {
+		List<Comment> commentList = cRepository.findByAllowed(allowed);
+		List<CommentDTO> commentListDTO = CommentConverter.fromEntityList(commentList, e -> CommentConverter.fromEntity(e));
+		return commentListDTO;
 	}
 	
 	public boolean comfirm(Long id, boolean allowed) {

@@ -22,7 +22,8 @@ import com.megatravel.model.EndUser;
 							   "com.megatravel.endpoints",
 							   "com.megatravel.service", 
 							   "com.megatravel.controller",
-							   "com.megatravel.security"
+							   "com.megatravel.security",
+							   "com.megatravel.dto"
 							  })
 @EntityScan(basePackages = {"com.megatravel.model"})
 @EnableJpaRepositories(basePackages = {"com.megatravel.repository"})

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.megatravel.dto.CommentDTO;
 import com.megatravel.model.Comment;
 import com.megatravel.model.EndUser;
 import com.megatravel.service.CommentService;
@@ -38,28 +39,28 @@ public class CommentController {
 	}
 	
 	@RequestMapping(value = "/notReviewed", method = RequestMethod.GET)
-	public ResponseEntity<List<Comment>> allNotReviewed() {
-		List<Comment> lista = cService.findAllByAllowed(false);
-		return new ResponseEntity<List<Comment>>(lista, HttpStatus.OK);
+	public ResponseEntity<List<CommentDTO>> allNotReviewed() {
+		List<CommentDTO> lista = cService.findAllByAllowed(false);
+		return new ResponseEntity<List<CommentDTO>>(lista, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/byUserId/{id}", method = RequestMethod.GET)
-	public ResponseEntity<List<Comment>> findAllByUserId(@PathVariable Long id) {
-		List<Comment> lista = cService.findAllByUserId(id);
-		return new ResponseEntity<List<Comment>>(lista, HttpStatus.OK);
+	public ResponseEntity<List<CommentDTO>> findAllByUserId(@PathVariable Long id) {
+		List<CommentDTO> lista = cService.findAllByUserId(id);
+		return new ResponseEntity<List<CommentDTO>>(lista, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/accepted", method = RequestMethod.GET)
-	public ResponseEntity<List<Comment>> allReviewed() {
-		List<Comment> lista = cService.findAllByAllowed(true);
-		return new ResponseEntity<List<Comment>>(lista, HttpStatus.OK);
+	public ResponseEntity<List<CommentDTO>> allReviewed() {
+		List<CommentDTO> lista = cService.findAllByAllowed(true);
+		return new ResponseEntity<List<CommentDTO>>(lista, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteUser(@PathVariable Long id) {
-		List<Comment> listica = cService.findAllByUserId(id);
+		List<CommentDTO> listica = cService.findAllByUserId(id);
 		if(listica != null) {
-			for(Comment c: listica) {
+			for(CommentDTO c: listica) {
 				cService.delete(c);
 			}
 			return new ResponseEntity<String>(listica + " deleted!", HttpStatus.OK);

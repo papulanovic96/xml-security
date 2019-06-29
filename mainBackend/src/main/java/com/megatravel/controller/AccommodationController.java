@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.megatravel.converter.CommentConverter;
 import com.megatravel.dto.AccommodationDTO;
+import com.megatravel.dto.CommentDTO;
 import com.megatravel.model.Accommodation;
 import com.megatravel.model.Comment;
 import com.megatravel.model.CreateCommentRequest;
@@ -36,7 +38,6 @@ public class AccommodationController {
 	@Autowired
 	private CommentService commentService;
 	
-	@Autowired
 	private ModelMapper modelMapper;
 
 	
@@ -105,8 +106,8 @@ public class AccommodationController {
 		comment.setVisible(false);
 		
 		accommodation.getComments().add(comment);
-		
-		commentService.save(comment);
+		CommentDTO commentDTO = CommentConverter.fromEntity(comment);
+		commentService.save(commentDTO);
 		
 		return ResponseEntity.ok("Waiting for admin reaction.");
 		

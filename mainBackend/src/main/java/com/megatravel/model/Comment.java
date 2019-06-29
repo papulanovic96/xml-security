@@ -8,6 +8,7 @@
 
 package com.megatravel.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -61,7 +62,7 @@ public class Comment {
     protected boolean visible;
     
     @XmlElement(required = true)
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     protected EndUser postedBy;
 
     /**

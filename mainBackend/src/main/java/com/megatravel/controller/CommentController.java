@@ -11,9 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.megatravel.model.Comment;
+import com.megatravel.model.EndUser;
 import com.megatravel.service.CommentService;
 
 @RestController
@@ -52,6 +54,20 @@ public class CommentController {
 		List<Comment> lista = cService.findAllByAllowed(true);
 		return new ResponseEntity<List<Comment>>(lista, HttpStatus.OK);
 	}
+
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+		List<Comment> listica = cService.findAllByUserId(id);
+		if(listica != null) {
+			for(Comment c: listica) {
+				cService.delete(c);
+			}
+			return new ResponseEntity<String>(listica + " deleted!", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Comments with user id: >" + id + "< not found!", HttpStatus.NOT_FOUND);
+		}
+	}
+
 
 
 }

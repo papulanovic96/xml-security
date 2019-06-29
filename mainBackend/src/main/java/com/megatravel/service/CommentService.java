@@ -18,6 +18,10 @@ public class CommentService {
 		return cRepository.save(comment);
 	}
 	
+	public void delete(Comment comment) {
+		cRepository.delete(comment);
+	}
+	
 	public List<Comment> findAllByUserId(Long id) {
 		return cRepository.findByUserId(id);
 	}

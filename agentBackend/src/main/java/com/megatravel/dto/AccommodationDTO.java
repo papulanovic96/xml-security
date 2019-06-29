@@ -31,10 +31,10 @@ public class AccommodationDTO {
     protected Date tillDate;
     protected int distance;
     protected String description;
-    protected List<String> image;
+    protected ArrayList<String> image;
     protected Address address;
     protected long capacity;
-    protected PriceInSeason priceInSeason;
+    protected List<PriceInSeason> pricesInSeason;
     protected List<AdditionalServices> additionalService;
     protected boolean available;
     protected Cancelation cancelation;
@@ -50,16 +50,13 @@ public class AccommodationDTO {
     	this.cancelation = acc.getCancelation();
     	this.capacity = acc.getCapacity();
     	this.address = acc.getAddress();
-    	this.tillDate = acc.getTillDate();
-    	this.available = acc.isAvailable();
     	this.image = new ArrayList<>();
-    	this.comments = acc.getComments();
-    	this.priceInSeason = acc.getPriceInSeason();
-    	this.rate = acc.getRate();
+    	this.pricesInSeason = acc.getPricesInSeason();
     	this.additionalService = acc.getAdditionalService();
-    	this.distance = acc.getDistance();
+    	
     }
 
+    public AccommodationDTO() {}
 	public long getId() {
 		return id;
 	}
@@ -112,7 +109,7 @@ public class AccommodationDTO {
 		return image;
 	}
 
-	public void setImage(List<String> image) {
+	public void setImage(ArrayList<String> image) {
 		this.image = image;
 	}
 
@@ -132,12 +129,16 @@ public class AccommodationDTO {
 		this.capacity = capacity;
 	}
 
-	public PriceInSeason getPriceInSeason() {
-		return priceInSeason;
+	public List<PriceInSeason> getPricesInSeason() {
+		
+		 if (pricesInSeason == null) {
+	        	pricesInSeason = new ArrayList<PriceInSeason>();
+	        }
+	        return this.pricesInSeason;
 	}
 
-	public void setPriceInSeason(PriceInSeason priceInSeason) {
-		this.priceInSeason = priceInSeason;
+	public void setPricesInSeason(List<PriceInSeason> pricesInSeason) {
+		this.pricesInSeason = pricesInSeason;
 	}
 
 	public List<AdditionalServices> getAdditionalService() {

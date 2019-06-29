@@ -54,7 +54,7 @@ public class Privileges {
 	@GeneratedValue
     protected long id;
 	
-    protected long name;
+    protected String name;
     
     @ManyToMany(mappedBy = "privileges")
     protected List<Role> roles;
@@ -79,7 +79,7 @@ public class Privileges {
      * Gets the value of the name property.
      * 
      */
-    public long getName() {
+    public String getName() {
         return name;
     }
 
@@ -87,7 +87,7 @@ public class Privileges {
      * Sets the value of the name property.
      * 
      */
-    public void setName(long value) {
+    public void setName(String value) {
         this.name = value;
     }
 

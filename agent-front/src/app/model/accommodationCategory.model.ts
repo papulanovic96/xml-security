@@ -1,4 +1,4 @@
-export class AccommmodationCategory{
+export class AccommodationCategory{
 
     id: number;
     name: string;

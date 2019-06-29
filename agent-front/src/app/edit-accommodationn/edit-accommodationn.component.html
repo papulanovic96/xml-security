@@ -1,0 +1,115 @@
+<div class="container-fluid"> 
+
+  <div class="row mb-5">
+
+    <div class="col-6"> 
+      <h4>{{acc.name}}</h4>
+    </div>
+
+    <div class="col-6 " style="max-height: 230px; max-width: 500px"> 
+        <carousel>
+            <slide *ngFor="let image of images">
+              <img [src]="image" style="display: block; width: 100%;max-height: 230px;">
+            </slide>
+          </carousel>
+    </div>
+    
+  </div>
+  <div>
+      <tabset [justified]="true">
+          <tab heading="Price plans">
+            <div class="row pt-4">
+               <div class="col-7">
+                    <div class="list-group border rounded w-100" style="max-height: 320px; overflow-y:  scroll;">
+                    <div  *ngFor="let price of pricesInSeason" class="list-group-item" style="display: block">
+                      <div class="row">
+                        <div class="col-10 pt-2" >
+                          <p class="font-italic ml-2" style="display: inline">For <b>{{price.inMonth}}</b></p>
+                          
+                        
+                          <p class="font-italic ml-3" style="display: inline">price per night </p>
+                          <p class="font-italic ml-2" style="display: inline"><b>{{price.price}}{{price.currency}}</b></p><br>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button class="btn btn-link" (click)="deletePricePlan(price)">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-5">
+                    <div class="row pl-2"><h6>Add new plan:</h6></div> 
+                    <div class="row">
+
+                        <label class="col-md-4 control-label">Month</label>
+                        <select class="form-control my-input mt-3" id="month" [(ngModel)]="selectedMonth"
+                           [ngModelOptions]="{standalone: true}">
+                           <option value="-1" disabled selected>Month</option>
+                           <option *ngFor="let month of keysMonths()" [ngValue]="month">{{month}}</option>
+                        </select>
+
+                        <label class="col-md-4 control-label">Currency</label>
+                        
+                           <select class="form-control my-input mt-3" id="currency" placeholder="Currency"
+                              [(ngModel)]="selectedCurrency" [ngModelOptions]="{standalone: true}">
+                              <option *ngFor="let curr of keysCurrencies()" [ngValue]="curr">{{curr}}</option>
+                           </select>
+                        
+                        <label class="col-md-4 control-label">Price</label>
+                        <div class="input-group"><input id="price" name="price" placeholder="Price"
+                              class="form-control" required="true" value="" type="number"
+                              [(ngModel)]="priceInSeason.price" [ngModelOptions]="{standalone: true}">
+                        </div>
+
+
+                     
+                    
+                          <div class="col-2">
+                            <button class="btn btn-primary" (click)="addPricePlanClick()">Add</button>
+                          </div> 
+                    </div>
+                    <div class="row">
+                      <p class="text-danger">{{ppErrorMessage}}</p>
+                    </div>
+                </div>
+            </div>
+          </tab>
+          <tab heading="Reservations">
+            <div class="row pt-4">
+              <div class="col-8">
+                   <div class="list-group border rounded w-100" style="max-height: 320px; overflow-y:  scroll;">
+                   <div  class="list-group-item" *ngFor="let res of reservations" style="display: block">
+                     <div class="row">
+                       <div class="col-7 pt-2" >
+                         <p class="font-italic" style="display: inline"><fa-icon  class="mx-1" icon="calendar"></fa-icon>{{res.fromDate.slice(0,10)}}</p>
+                         <p class="font-italic mx-2" style="display: inline">to</p>
+                         <p class="font-italic " style="display: inline"><fa-icon class="mx-1" icon="calendar"></fa-icon>{{res.toDate.slice(0,10)}}</p>
+                         <p class="font-italic mx-1" style="display: inline"> by </p>
+                         <p class="font-italic  " style="display: inline"><b>{{res.username}}</b></p><br>
+                       </div>
+                       <div class="col-1 pb-2 mr-2">
+                          <button class="btn btn-link" *ngIf="res.status == 'PENDING' && !res.agentReserved" (click)="declineReservation(res)" >Decline</button>
+                       </div>
+                       <div class="col-1 pb-2 mx-2">
+                          <button class="btn btn-link mx-2" *ngIf="res.status == 'PENDING' && !res.agentReserved" (click)="approveReservation(res)" >Approve</button>
+                       </div>
+                       <div class="col-1 pb-2 ml-2" >
+                          <button class="btn btn-link" *ngIf="res.status == 'APPROVED' && !res.agentReserved" (click)="confirmReservation(res)" >Confirm</button>
+                       </div>
+                       
+                     </div>
+                   </div>
+                 </div>
+               </div>
+
+               
+           </div>
+          </tab>
+          <tab heading="Recensions">
+            
+          </tab>
+        </tabset>
+  </div>
+
+</div>

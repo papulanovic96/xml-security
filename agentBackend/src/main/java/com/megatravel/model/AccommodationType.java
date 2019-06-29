@@ -8,9 +8,11 @@
 
 package com.megatravel.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -43,6 +45,7 @@ import javax.xml.bind.annotation.XmlType;
     "name"
 })
 @Entity
+@Table(name = "accommodation_type")
 public class AccommodationType {
 
 	@Id
@@ -50,6 +53,7 @@ public class AccommodationType {
     protected long id;
 	
     @XmlElement(required = true)
+    @Column
     protected String name;
 
     /**

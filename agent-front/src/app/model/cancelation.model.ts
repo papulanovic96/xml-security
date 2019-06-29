@@ -1,4 +1,4 @@
 export class Cancelation{
 
-    daysLeft:Date
+    daysLeft:number;
 }

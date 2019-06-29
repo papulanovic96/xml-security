@@ -3,9 +3,11 @@ package com.megatravel.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.megatravel.config.SOAPConnector;
+import com.megatravel.model.Agent;
 import com.megatravel.model.EndUser;
 import com.megatravel.model.SyncUserResponse;
 import com.megatravel.model.User;
@@ -18,9 +20,6 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
-	private SOAPConnector soap_client;
-	
 	public List<User> getUsers() {
 		return userRepository.findAll();
 	}
@@ -37,9 +36,11 @@ public class UserService {
 		userRepository.saveAndFlush(eu);
 	}
 	
-	public void syncUsers() {
-		SyncUserResponse response = soap_client.syncUserRequest();
-		
+	
+	
+	public Agent getCurrentAgent() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return userRepository.findAgentByUsername(principal.toString());
 	}
 	
 }

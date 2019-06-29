@@ -1,7 +1,11 @@
+import { Months } from './months.enum';
+import { Accommodation } from './accommodation.model';
+
 export class PriceInSeason{
 
     id:number;
-    nMonth:string;
+    inMonth:Months;
     price:number;
     currency:string;
+   
 }

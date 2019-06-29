@@ -45,12 +45,13 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "EndUser", namespace = "http://www.megatravel.com/users", propOrder = {
-    
+   
 	"status",
     "reservations",
     "euchats"
 })
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class EndUser
     extends User
 {

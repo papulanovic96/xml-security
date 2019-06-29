@@ -1,0 +1,195 @@
+
+  <div class="container-fluid">
+    <div class = "row">
+          <section class="col-lg-4 col-md-4">
+            <div class=" mt-4">
+              <p class="">
+                <a class="btn btn-info btn-block" data-toggle="collapse" data-target="#accommodationFS" aria-expanded="false" aria-controls="accommodationFS">
+                  Filter and sort accommodations
+                </a>
+              </p>
+            </div>
+            <!-- Search accommodation -->
+            <div class="collapse" id="accommodationFS">
+              <div class="container-fluid">
+                <div class="column">
+                  <!--Sort accommodations -->
+
+              <div class="col-lg-12 col-md-12 mb-4">
+                  <div class="btn-toolbar" role="toolbar" aria-label="Sort accommodations">
+                      <div class="btn-group btn-block" role="group">
+                      <button type="button" class="btn btn-info btn-block" >Sort</button>
+                      <button (click) = "sortByCategory()" type="button" class="btn btn-secondary">Category</button>
+                      <button (click) = "sortByType()" type="button" class="btn btn-secondary">Type</button>
+                      <button (click) = "sortByPrice()" type="button" class="btn btn-secondary">Price</button>
+                      <button (click) = "sortByDistance()" type="button" class="btn btn-secondary">Distance</button>
+                      <button (click) = "sortByRating()" type="button" class="btn btn-secondary">Rating</button>
+                    </div>
+                  </div>
+                </div>
+                  <div class="col-lg-12 col-md-12">
+                      <div class="active-cyan-3 active-cyan-4 mb-4 ">
+                        <label class="input-group-text font-weight-bold">NAME</label>
+                        <input class="form-control" type="text" placeholder="Search" aria-label="Search" [(ngModel)] = "searchName">
+                      </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12">
+                      <div class="active-cyan-3 active-cyan-4 mb-4 ">
+                        <label class="input-group-text font-weight-bold">TYPE</label>
+                        <input class="form-control" type="text" placeholder="Hotel, Motel, Apartment, ..." aria-label="Search" [(ngModel)] = "searchType">
+                      </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12">
+                      <div class="active-cyan-3 active-cyan-4 mb-4 ">
+                        <label class="input-group-text font-weight-bold">CATEGORY</label>
+                        <input class="form-control" type="text" placeholder="1*, 2*, 3*, ..." aria-label="Search" [(ngModel)] = "searchCategory">
+                      </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12">
+                      <div class="active-cyan-3 active-cyan-4 mb-4 ">
+                        <label class="input-group-text font-weight-bold">ADDRESS</label>
+                        <input class="form-control" type="text" placeholder="Search" aria-label="Search" [(ngModel)] = "searchAddress">
+                      </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12">
+                      <div class="active-cyan-3 active-cyan-4 mb-4 ">
+                        <label class="input-group-text font-weight-bold">DESCRIPTION</label>
+                        <input class="form-control" type="text" placeholder="Search" aria-label="Search" [(ngModel)] = "searchDescription">
+                      </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12">
+                      <div class="active-cyan-3 active-cyan-4 mb-4 ">
+                        <label class="input-group-text font-weight-bold">CAPACITY</label>
+                        <input class="form-control" type="text" placeholder="Search" aria-label="Search" [(ngModel)] = "searchCapacity">
+                      </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12">
+                      <div class="active-cyan-3 active-cyan-4 mb-4 ">
+                          <label class="input-group-text font-weight-bold">DISTANCE</label>
+                          <input class="form-control" type="text" placeholder="Search" aria-label="Search" [(ngModel)] = "searchDistance">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12">
+                        <div class="active-cyan-3 active-cyan-4 mb-4 ">
+                          <label class="input-group-text font-weight-bold">PRICE</label>
+                        <input class="form-control" type="text" placeholder="Search" aria-label="Search" [(ngModel)] = "searchPrice">
+                      </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12">
+                      <div class="active-cyan-3 active-cyan-4 mb-4 ">
+                          <label class="input-group-text font-weight-bold">ADDITIONAL SERVICE</label>
+                        <input class="form-control" type="text" placeholder="WiFi, Parking, Room service, ..." aria-label="Search" [(ngModel)] = "searchAS">
+                      </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12">
+                      <div class="mt-2">
+                        <div class="active-cyan-3 active-cyan-4 mb-4 ">
+                          <label class="input-group-text font-weight-bold">FROM DATE</label>
+                          <input id="fromDate" type="date" [min]="minDate" class="form-control" placeholder="From Date" required [(ngModel)] = "selectedFromDate">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12">
+                      <div class="mt-2">
+                        <div class="active-cyan-3 active-cyan-4 mb-4 ">
+                          <label class="input-group-text font-weight-bold">TILL DATE</label>
+                          <input id="tillDate" type="date" [min]="minDateTill" class="form-control" placeholder="Till Date" required [(ngModel)] = "selectedTillDate">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </section>
+          <!-- Accommodations -->
+          <section class="col-lg-8 col-md-12">
+            <div class="row card-columns mt-4 mb-2" >
+              <div class="col-lg-5 col-md-5 card card border-info text-info text-center mb-4 mr-4" *ngFor="let a of filteredAccommodations; let i = index">
+                <div class="card-body">
+                  <h5 class="card-title">{{a.name}} </h5>
+                    <div>
+                      <span>TYPE: {{a.type.name}}</span>
+                    </div>
+                    <div>
+                      <span>CATEGORY: {{a.category.name}}</span>
+                    </div>
+                    <div class="input-group-prepend">
+                      <input type="date" [min]="minDate" class="form-control mt-2" [(ngModel)] = "selectedFrom" placeholder="From Date" required><br>
+                    </div>
+                    <div>
+                        <input type="date" [min]="minDateTill" class="form-control mt-2" [(ngModel)] = "selectedTill" placeholder="Till Date" required><br>
+                    </div>
+                    <div class="card-footer">
+                      <button (click) = "reserve(i)" class="btn btn-block btn-info text-white font-weight-bold">RESERVE</button>
+                      <button type="button" class="btn btn-block btn-info text-white font-weight-bold" data-toggle="modal" [attr.data-target]="'#accommodationDetails'+ i">DETAILS </button>
+                    </div>
+                </div>
+
+                <!-- Accommodation Details -->
+
+                <div class="modal fade" id="accommodationDetails{{i}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{a.name}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div>
+                            <span>AVAILABLE: {{a.available}}</span>
+                        </div>
+                        <div>
+                          <span>PRICE: {{a.priceInSeason.price}} {{a.priceInSeason.currency}} </span>
+                        </div>
+                        <div>
+                          <span>CAPACITY: {{a.capacity}}</span>
+                        </div>
+                        <div>
+                          <span>CANCELATION: {{a.cancelation.available}}</span>
+                        </div>
+                        <div>
+                          <span>DESCRIPTION: {{a.description}} </span>
+                        </div>
+                        <div>
+                          <span>ADDRESS: {{a.address.street}}, {{a.address.city}}, {{a.address.country}} </span>
+                        </div>
+                        <div>
+                          <span>CANCELATION PERIOD: {{a.cancelation.daysLeft}} </span>
+                        </div>
+                        <div>
+                            <span>ADDITIONAL SERVICE:</span>
+                            <span *ngFor="let addition of a.additionalService"> -{{addition.name}} </span>
+                        </div>
+                          <div class="d-flex justify-content-center">
+                            <span>
+                                <input [(ngModel)]="rate"> 
+                                <p>
+                                <div id="rating1" class="rating"></div>
+                            </span>
+                          </div>
+                        <div>
+                          <span>OWNED BY: {{a.ownedBy.firstName}} {{a.ownedBy.lastName}}</span>
+                        </div> 
+                        <div class="container modal-body" *ngFor="let c of a.comments; let i = index">
+                            <div class="card col-lg-6">
+                                <div class="card-body border-info text-info text-center">
+                                  {{c.content}}
+                                </div>
+                            </div>
+                        </div>                      
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+

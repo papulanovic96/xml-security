@@ -84,7 +84,7 @@
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
             <xs:element name="available" type="xs:boolean"/>
-            <xs:element name="daysLeft" type="xs:date"/>
+            <xs:element name="daysLeft" type="xs:int"/>
         </xs:sequence>
     </xs:complexType>
     
@@ -146,7 +146,7 @@
     <xs:element name="createCommentRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Comment" type="ac:Comment"/>
+                <xs:element name="content" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

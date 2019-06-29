@@ -1,48 +1,44 @@
 package com.megatravel.controller;
 
-import javax.ws.rs.core.MediaType;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.megatravel.model.EndUser;
-import com.megatravel.service.LoginService;
-//import com.megatravel.service.LoginService;
-import com.megatravel.service.MainService;
+import com.megatravel.service.MicroService;
 import com.megatravel.service.RegistrationService;
 import com.megatravel.validator.UserValidator;
 
-
 @RestController
-@RequestMapping(value = "/registration")
+@RequestMapping(value = "/")
+@CrossOrigin(value = "http://localhost:4200", maxAge = 3600)
 public class RegistrationController {
-	
-	@Autowired
-	private MainService mainService;
 	
 	@Autowired
 	private RegistrationService registrationService;
 	
 	@Autowired
-	private LoginService loginService;
+	private MicroService microService;
 	
 	@Autowired
 	private UserValidator userValidator;
 	
 	
-	public RegistrationController(MainService mainService) {
-		this.mainService = mainService;
-		
+	public RegistrationController(MicroService microService, RegistrationService registrationService, UserValidator userValidator) {
+		this.microService = microService;
+		this.registrationService = registrationService;
+		this.userValidator = userValidator;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> register(@RequestBody EndUser user, BindingResult bindingResults) {
 	
 		userValidator.validate(user, bindingResults);
@@ -65,11 +61,9 @@ public class RegistrationController {
 
 		registrationService.complete(user);
 
-		mainService.saveEndUser(user);
-		
-		loginService.autoLogin(user);
+		//loginService.autoLogin(user);
 			
-		return ResponseEntity.ok("Account successfully created!");
+		return microService.saveEndUser(user);
 		
 	}
 

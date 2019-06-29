@@ -33,6 +33,10 @@ public class AccommodationCategoryService {
 		return acRepository.findById(id).orElse(null);
 	}
 	
+	public AccommodationCategory findByName(String name) {
+		return acRepository.findByName(name);
+	}
+	
 	@Transactional
 	public boolean modifyAccommodationCategory(AccommodationCategory aCategory) {
 		AccommodationCategory newCat = acRepository.findById(aCategory.getId()).orElse(null);

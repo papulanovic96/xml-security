@@ -1,0 +1,33 @@
+
+<div class="col-10">
+        <table class="table table-fixed table-hover">
+            <thead>
+              <tr>
+                <th scope="col-xs-1">id</th>
+                <th scope="col-xs-1">e-mail</th>
+                <th scope="col-1">First name</th>
+                <th scope="col-xs-1">Last name</th>
+                <th scope="col-1">Password</th>
+                <th scope="col-xs-1">Username</th>
+                <th scope="col-xs-1">status</th>
+                <th scope="col-xs-1" colspan="3"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor = 'let user of endUsers'>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.status }}</td>
+                <td><button type="button" (click)="activate(user.username)" class="btn btn-outline-success"><i class="fa fa-check-circle-o"></i> Activate</button></td>
+                <td><button type="button" (click)="block(user.username)" class="btn btn-outline-warning"><i class="fa fa-ban"></i> Block</button></td>
+                <td><button type="button" (click)="delete(user)" class="btn btn-outline-danger"><i class="fa fa-close"></i> Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+       

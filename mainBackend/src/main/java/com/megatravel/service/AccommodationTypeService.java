@@ -33,6 +33,10 @@ public class AccommodationTypeService {
 		return atRepository.findById(id).orElse(null);
 	}
 	
+	public AccommodationType findByName(String name) {
+		return atRepository.findByName(name);
+	}
+	
 	@Transactional
 	public boolean modifyAccommodationType(AccommodationType aType) {
 		AccommodationType newType = atRepository.findById(aType.getId()).orElse(null);

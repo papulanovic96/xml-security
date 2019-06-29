@@ -14,12 +14,16 @@ public class MessageService {
 	@Autowired
 	private MessageRepository messageRepository;
 	
-	public List<Message> findChatHistory(Long agentId, Long clientId) {
-		return messageRepository.findChatHistory(agentId, clientId);
+	public List<Message> findChatHistory(String clientUn, String agentUn) {
+		return messageRepository.findChatHistory(clientUn, agentUn);
 	}
 	
-	public List<Message> findMyInbox(Long clientId) {
-		return messageRepository.findMyInbox(clientId);
+	public List<Message> findMyInbox(String clientUn) {
+		return messageRepository.findMyInbox(clientUn);
+	}
+
+	public void save(Message message) {
+		messageRepository.saveAndFlush(message);		
 	}
 	
 	

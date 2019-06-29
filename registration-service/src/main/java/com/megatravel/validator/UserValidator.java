@@ -8,14 +8,14 @@ import org.springframework.validation.Validator;
 
 import com.megatravel.model.EndUser;
 import com.megatravel.model.User;
-import com.megatravel.service.MainService;
+import com.megatravel.service.MicroService;
 
 @Component
 public class UserValidator implements Validator {
 	
 	@Autowired
-	private MainService mainService;
-
+	private MicroService microService;
+	
 	@Override
 	public boolean supports(Class aClass) {
 		return User.class.equals(aClass);
@@ -30,7 +30,7 @@ public class UserValidator implements Validator {
 		if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
 	        errors.rejectValue("username", "Username too short.");
 	    }
-	    if (mainService.findEndUser(user.getUsername()) != null) {
+	    if (microService.findEndUser(user.getUsername()) != null) {
 	        errors.rejectValue("username", "Username already taken.");
 	    }
 

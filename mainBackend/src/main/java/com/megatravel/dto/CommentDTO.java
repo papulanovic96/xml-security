@@ -1,12 +1,5 @@
 package com.megatravel.dto;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.xml.bind.annotation.XmlElement;
-
-import com.megatravel.model.EndUser;
-
 public class CommentDTO {
 	
     private long id;
@@ -15,13 +8,13 @@ public class CommentDTO {
 
     private boolean visible;
     
-    private UserDTO postedBy;
+    private String postedBy;
     
     public CommentDTO() {
     	
     }
     
-    public CommentDTO(long id, String content, boolean visible, UserDTO postedBy) {
+    public CommentDTO(long id, String content, boolean visible, String postedBy) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -53,11 +46,11 @@ public class CommentDTO {
 		this.visible = visible;
 	}
 
-	public UserDTO getPostedBy() {
+	public String getPostedBy() {
 		return postedBy;
 	}
 
-	public void setPostedBy(UserDTO postedBy) {
+	public void setPostedBy(String postedBy) {
 		this.postedBy = postedBy;
 	}
 

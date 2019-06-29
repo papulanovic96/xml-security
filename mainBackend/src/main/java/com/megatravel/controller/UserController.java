@@ -52,7 +52,7 @@ public class UserController {
 	@Autowired
 	private AccommodationService accommodationService;
 	
-	@Autowired
+	
 	private ModelMapper modelMapper;
 	
 	@RequestMapping(value = "/findEndUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

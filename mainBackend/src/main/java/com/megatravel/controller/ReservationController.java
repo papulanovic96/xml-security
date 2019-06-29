@@ -31,7 +31,7 @@ public class ReservationController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
+	
 	private ModelMapper modelMapper;
 	
 	@RequestMapping(value = "/cancel/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

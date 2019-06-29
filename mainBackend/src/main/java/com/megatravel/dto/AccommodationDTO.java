@@ -1,18 +1,13 @@
 package com.megatravel.dto;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.megatravel.model.Accommodation;
 import com.megatravel.model.AccommodationCategory;
 import com.megatravel.model.AccommodationType;
 import com.megatravel.model.AdditionalServices;
 import com.megatravel.model.Address;
-import com.megatravel.model.Agent;
 import com.megatravel.model.Cancelation;
-import com.megatravel.model.Comment;
-import com.megatravel.model.ImageResource;
 import com.megatravel.model.PriceInSeason;
 
 public class AccommodationDTO {
@@ -25,7 +20,7 @@ public class AccommodationDTO {
     
 	private AccommodationCategory category;
     
-	private UserDTO ownedBy;
+	private AgentDTO ownedBy;
     
 	private Date fromDate;
     
@@ -35,7 +30,7 @@ public class AccommodationDTO {
     
 	private String description;
     
-	private List<ImageResource> image;
+	private List<String> image;
     
 	private Address address;
     
@@ -43,7 +38,7 @@ public class AccommodationDTO {
     
 	private PriceInSeason priceInSeason;
     
-	private List<AdditionalServices> additionalService;
+	private List<String> additionalService;
     
 	private boolean available;
     
@@ -53,9 +48,9 @@ public class AccommodationDTO {
     
 	private List<CommentDTO> comments;
 	
-	public AccommodationDTO(long id, String name, AccommodationType type, AccommodationCategory category, UserDTO ownedBy,
-			Date fromDate, Date tillDate, int distance, String description, List<ImageResource> image, Address address,
-			long capacity, PriceInSeason priceInSeason, List<AdditionalServices> additionalService, boolean available,
+	public AccommodationDTO(long id, String name, AccommodationType type, AccommodationCategory category, AgentDTO ownedBy,
+			Date fromDate, Date tillDate, int distance, String description, List<String> image, Address address,
+			long capacity, PriceInSeason priceInSeason, List<String> additionalService, boolean available,
 			Cancelation cancelation, String rate, List<CommentDTO> comments) {
 		super();
 		this.id = id;
@@ -139,11 +134,11 @@ public class AccommodationDTO {
 		this.category = category;
 	}
 
-	public UserDTO getOwnedBy() {
+	public AgentDTO getOwnedBy() {
 		return ownedBy;
 	}
 
-	public void setOwnedBy(UserDTO ownedBy) {
+	public void setOwnedBy(AgentDTO ownedBy) {
 		this.ownedBy = ownedBy;
 	}
 
@@ -179,11 +174,11 @@ public class AccommodationDTO {
 		this.description = description;
 	}
 
-	public List<ImageResource> getImage() {
+	public List<String> getImage() {
 		return image;
 	}
 
-	public void setImage(List<ImageResource> image) {
+	public void setImage(List<String> image) {
 		this.image = image;
 	}
 
@@ -211,11 +206,11 @@ public class AccommodationDTO {
 		this.priceInSeason = priceInSeason;
 	}
 
-	public List<AdditionalServices> getAdditionalService() {
+	public List<String> getAdditionalService() {
 		return additionalService;
 	}
 
-	public void setAdditionalService(List<AdditionalServices> additionalService) {
+	public void setAdditionalService(List<String> additionalService) {
 		this.additionalService = additionalService;
 	}
 

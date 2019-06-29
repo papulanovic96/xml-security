@@ -567,4 +567,16 @@ public class Accommodation {
         return this.comments;
     }
 
+	public void setImage(List<ImageResource> image) {
+		this.image = image;
+	}
+
+	public void setAdditionalService(List<AdditionalServices> additionalService) {
+		this.additionalService = additionalService;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 }

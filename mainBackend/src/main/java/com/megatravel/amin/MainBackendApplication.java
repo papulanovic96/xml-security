@@ -1,4 +1,4 @@
-package com.megatravel.run;
+package com.megatravel.amin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

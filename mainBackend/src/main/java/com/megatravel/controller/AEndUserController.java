@@ -1,5 +1,7 @@
 package com.megatravel.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +51,11 @@ public class AEndUserController {
 		} else {
 			return new ResponseEntity<String>("User with username: >" + username + "< not found!", HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	public List<EndUser> test() {
+		return euService.findAll();
 	}
 
 

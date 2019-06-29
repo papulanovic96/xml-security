@@ -65,6 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		        .antMatchers(HttpMethod.GET, "/comment/notReviewed").permitAll()
 		        .antMatchers(HttpMethod.GET, "/comment/accepted").permitAll()
 		        .antMatchers(HttpMethod.GET, "/comment/byUserId/{id}").permitAll()
+		        .antMatchers(HttpMethod.GET, "/end-user-action/findAll").permitAll()
 		    .anyRequest().authenticated();
 
 

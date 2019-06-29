@@ -2,8 +2,11 @@ package com.megatravel.controller;
 
 import java.util.List;
 
+import javax.print.attribute.standard.Media;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,13 +23,13 @@ public class CommentController {
 	@Autowired
 	private CommentService cService;
 	
-	@RequestMapping(value = "/accept/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/accept/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> allowingMethod(@PathVariable Long id) {
 		cService.comfirm(id, true);
 		return new ResponseEntity<String>("Comment accepted!", HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/refuse/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/refuse/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> refuseMethod(@PathVariable Long id) {
 		cService.comfirm(id, false);
 		return new ResponseEntity<String>("Comment refused!", HttpStatus.OK);

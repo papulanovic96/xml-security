@@ -8,6 +8,7 @@
 
 package com.megatravel.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -58,7 +59,7 @@ public class Agent
 	protected int brn;
  
     @XmlElement(required = true)
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     protected Address address;
     
     public Agent() {

@@ -14,7 +14,7 @@ public class AgentConverter extends AbstractConverter{
 		newUserDTO.setLastName(e.getLastName());
 		newUserDTO.setPassword(e.getPassword());
 		newUserDTO.setBrn(e.getBrn());
-		newUserDTO.setAddress(e.getAddress());
+		//newUserDTO.setAddress(e.getAddress());
 		return newUserDTO;
 	}
 	
@@ -27,7 +27,7 @@ public class AgentConverter extends AbstractConverter{
 		agent.setLastName(d.getLastName());
 		agent.setPassword(d.getPassword());
 		agent.setBrn(d.getBrn());
-		agent.setAddress(d.getAddress());
+		//agent.setAddress(d.getAddress());
 		return agent;
 	}
 }

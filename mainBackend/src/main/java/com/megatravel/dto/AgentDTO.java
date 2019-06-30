@@ -5,19 +5,12 @@ import com.megatravel.model.Address;
 public class AgentDTO {
 	
 	private long id;
-	
 	private String username;
-    
 	private String password;
-    
 	private String email;
-    
 	private String firstName;
-    
 	private String lastName;
-	
     private int brn;
-    
     private Address address;
 	
     public AgentDTO() {

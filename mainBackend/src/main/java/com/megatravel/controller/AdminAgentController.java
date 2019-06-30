@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.megatravel.model.Agent;
-import com.megatravel.model.AgentList;
+import com.megatravel.dto.AgentDTO;
 import com.megatravel.model.User;
+import com.megatravel.service.AddressService;
 import com.megatravel.service.AdminAgentService;
 
 @RestController
@@ -21,18 +21,19 @@ public class AdminAgentController {
 		@Autowired
 		private AdminAgentService aaService;
 		
+		@Autowired
+		private AddressService aService;
+		
 		@RequestMapping(method = RequestMethod.POST, value = "/saveAgent", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-			public User saveAgent(@RequestBody Agent newAgent){
+			public User saveAgent(@RequestBody AgentDTO newAgent){
+			//aService.save(newAgent.getAddress());
 			User temp = aaService.save(newAgent);
 				return temp;
 		}
 		
 		@RequestMapping(value = "/findAgents", method = RequestMethod.GET)
-		public AgentList findAgents() {
-			List<Agent> agents = aaService.findAllAgents();
-			AgentList list = new AgentList();
-			list.setLista(agents);
-			return list;
+		public List<AgentDTO> findAgents() {
+			return aaService.findAllAgents();
 		}
 		
 }

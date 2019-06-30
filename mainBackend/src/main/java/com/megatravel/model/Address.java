@@ -102,7 +102,22 @@ public class Address {
     
     protected double latitude;
 
-    /**
+    public Address() {
+    	
+    }
+    
+    public Address(long id, String country, String city, int zip, String street, double longitude, double latitude) {
+		super();
+		this.id = id;
+		this.country = country;
+		this.city = city;
+		this.zip = zip;
+		this.street = street;
+		this.longitude = longitude;
+		this.latitude = latitude;
+	}
+
+	/**
      * Gets the value of the id property.
      * 
      */

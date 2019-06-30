@@ -58,7 +58,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
     "roles"
 })
 @XmlSeeAlso({
-    Agent.class,
     Administrator.class,
     EndUser.class
 })

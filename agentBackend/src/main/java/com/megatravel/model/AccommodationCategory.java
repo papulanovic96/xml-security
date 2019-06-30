@@ -52,12 +52,6 @@ public class AccommodationCategory {
     @XmlElement(required = true)
     protected String name;
 
-    
-    public AccommodationCategory(long id, String name) {
-    	this.id = id;
-    	this.name = name;
-    }
-    public AccommodationCategory(){}
     /**
      * Gets the value of the id property.
      * 

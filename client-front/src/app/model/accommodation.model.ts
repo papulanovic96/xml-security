@@ -6,6 +6,7 @@ import { AdditionalService } from "./additional-service.model";
 import { PriceInSeason } from "./price-in-season.model";
 import { Agent } from "./agent.model";
 import { Comment } from "./comment.model";
+import { ImageResource } from "./image-resource.model";
 
 
 export class Accommodation {
@@ -25,4 +26,5 @@ export class Accommodation {
     distance: number;
     rate: number;
     status: string;
+    image: ImageResource[];
 }

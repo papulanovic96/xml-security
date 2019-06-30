@@ -1,69 +1,241 @@
 <div class="container">
-  <table class="table table-striped">
-     <tbody>
-        <tr>
-           <td colspan="1">
-              <form class="well form-horizontal">
-                 <fieldset>
-                    <div class="form-group">
-                       <label class="col-md-4 control-label">Full Name</label>
-                       <div class="col-md-8 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span><input id="fullName" name="fullName" placeholder="Full Name" class="form-control" required="true" value="" type="text"></div>
-                       </div>
-                    </div>
-                    <div class="form-group">
-                       <label class="col-md-4 control-label">Address Line 1</label>
-                       <div class="col-md-8 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="addressLine1" name="addressLine1" placeholder="Address Line 1" class="form-control" required="true" value="" type="text"></div>
-                       </div>
-                    </div>
-                   
-                    <div class="form-group">
-                       <label class="col-md-4 control-label">City</label>
-                       <div class="col-md-8 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="city" name="city" placeholder="City" class="form-control" required="true" value="" type="text"></div>
-                       </div>
-                    </div>
-                    <div class="form-group">
-                       <label class="col-md-4 control-label">State/Province/Region</label>
-                       <div class="col-md-8 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="state" name="state" placeholder="State/Province/Region" class="form-control" required="true" value="" type="text"></div>
-                       </div>
-                    </div>
-                    <div class="form-group">
-                       <label class="col-md-4 control-label">Postal Code/ZIP</label>
-                       <div class="col-md-8 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="postcode" name="postcode" placeholder="Postal Code/ZIP" class="form-control" required="true" value="" type="text"></div>
-                       </div>
-                    </div>
-                    <div class="form-group">
-                       <label class="col-md-4 control-label">Country</label>
-                       <div class="col-md-8 inputGroupContainer">
-                          <div class="input-group">
-                             <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-list"></i></span>
-                             <select class="selectpicker form-control">
-                                <option>A really long option to push the menu over the edget</option>
-                             </select>
-                          </div>
-                       </div>
-                    </div>
-                    <div class="form-group">
-                       <label class="col-md-4 control-label">Email</label>
-                       <div class="col-md-8 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span><input id="email" name="email" placeholder="Email" class="form-control" required="true" value="" type="text"></div>
-                       </div>
-                    </div>
-                    <div class="form-group">
-                       <label class="col-md-4 control-label">Phone Number</label>
-                       <div class="col-md-8 inputGroupContainer">
-                          <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span><input id="phoneNumber" name="phoneNumber" placeholder="Phone Number" class="form-control" required="true" value="" type="text"></div>
-                       </div>
-                    </div>
-                 </fieldset>
-              </form>
-           </td>
-          
-        </tr>
-     </tbody>
-  </table>
+   <h4>Add new accommodation</h4><br>
+   <div class="row">
+
+      <div class="col-md-12">
+         <table class="table table-striped" style="height: max-content">
+            <tbody>
+               <tr>
+                  <td colspan="1">
+                     <form class="well form-horizontal">
+                        <fieldset>
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Name</label>
+
+                              <div class="col-md-8 inputGroupContainer">
+                                 <input type="text" class="form-control my-input" id="name" placeholder="Name"
+                                    [(ngModel)]="acc.name" [ngModelOptions]="{standalone: true}">
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Category</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group">
+                                    <select class="form-control my-input mt-3" id="category" placeholder="Category"
+                                       [(ngModel)]="selectedCategory" [ngModelOptions]="{standalone: true}">
+                                       <option value="-1" disabled selected>Category</option>
+                                       <option value="0">Not categorised</option>
+                                       <option value="1">1</option>
+                                       <option value="2">2</option>
+                                       <option value="3">3</option>
+                                       <option value="4">4</option>
+                                       <option value="5">5</option>
+                                    </select>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Type</label>
+
+                              <div class="col-md-8 inputGroupContainer">
+                                 <select class="form-control my-input mt-3" id="type" placeholder="Type"
+                                    [(ngModel)]="selectedType" [ngModelOptions]="{standalone: true}">
+                                    <option *ngFor="let type of accTypes" [ngValue]="type" [disabled]="type.disabled">
+                                       {{type.name}}</option>
+                                 </select>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Description</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <textarea class="input-group" rows="4" cols="50" id="description" name="description"
+                                    placeholder="Description" class="form-control" required="true" value="" type="text"
+                                    [(ngModel)]="acc.description" [ngModelOptions]="{standalone: true}"></textarea>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Image</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="custom-file px-2">
+                                    <input type="file" class="custom-file-input"
+                                       accept="image/gif, image/jpeg, image/png" (change)="onFilesSelected($event)"
+                                       multiple>
+                                    <label class="custom-file-label" id="selectImages"
+                                       for="inputGroupFile02">{{selectImagesMessage}}</label>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Capacity</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="capacity" name="capacity" placeholder="Capacity"
+                                       class="form-control" required="true" value="" type="number"
+                                       [(ngModel)]="acc.capacity" [ngModelOptions]="{standalone: true}"></div>
+
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Canceling period</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group">
+                                    <input type="number" class="form-control my-input mt-3" id="cancelingPeriod"
+                                       placeholder="Canceling period(days)" [(ngModel)]="cancelation.daysLeft"
+                                       [ngModelOptions]="{standalone: true}">
+                                 </div>
+                              </div>
+                           </div>
+                        </fieldset>
+                     </form>
+
+                     <!---->
+                     <form class="well form-horizontal">
+                        <fieldset>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label" style="font-size: 22px;">Address</label>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Country</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="country" name="country" placeholder="Country"
+                                       class="form-control" required="true" value="" type="text"
+                                       [(ngModel)]="address.country" [ngModelOptions]="{standalone: true}"></div>
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">City</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="city" name="city" placeholder="City"
+                                       class="form-control" required="true" value="" type="text"
+                                       [(ngModel)]="address.city" [ngModelOptions]="{standalone: true}"></div>
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Postal Code/ZIP</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="postcode" name="postcode"
+                                       placeholder="Postal Code/ZIP" class="form-control" required="true" value=""
+                                       type="text" [(ngModel)]="address.zip" [ngModelOptions]="{standalone: true}">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Street</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="street" name="street" placeholder="Street"
+                                       class="form-control" required="true" value="" type="text"
+                                       [(ngModel)]="address.street" [ngModelOptions]="{standalone: true}"></div>
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Longitude</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="longitude" name="longitude" placeholder="Longitude"
+                                       class="form-control" required="true" value="" type="number"
+                                       [(ngModel)]="address.longitude" [ngModelOptions]="{standalone: true}"></div>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-md-4 control-label">Latitude</label>
+                              <div class="col-md-8 inputGroupContainer">
+                                 <div class="input-group"><input id="latitude" name="latitude" placeholder="Latitude"
+                                       class="form-control" required="true" value="" type="number"
+                                       [(ngModel)]="address.latitude" [ngModelOptions]="{standalone: true}"></div>
+                              </div>
+                           </div>
+                        </fieldset>
+                     </form>
+
+
+                     <!---->
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+
+      </div>
+
+
+
+
+   </div>
+
+   <div class="row">
+      <div class="col-md-12">
+         <table class="table table-striped">
+            <tbody>
+               <tr>
+                  <td colspan="1">
+                     <form class="well form-horizontal">
+                        <fieldset>
+                           <div class="form-group">
+                              <label class="col-md-4 control-label" style="font-size: 22px;">Additional services</label>
+                              <div class="col-md-8 inputGroupContainer" style="margin: 5%;">
+                                 <div *ngFor="let service of accServices">
+                                    <input class="form-check-input" type="checkbox" [(ngModel)]="service.isChecked"
+                                       [ngModelOptions]="{standalone: true}">{{service.name}}<br>
+
+                                 </div>
+                              </div>
+                           </div>
+                        </fieldset>
+                     </form>
+
+                     <!---->
+
+                     <form class="well form-horizontal">
+                        <fieldset>
+                           <div class="form-group">
+
+                              <label class="col-md-4 control-label" style="font-size: 22px;">Prices</label>
+                              <div class="col-md-8 inputGroupContainer">
+
+
+                                 <label class="col-md-4 control-label">Month</label>
+                                 <select class="form-control my-input mt-3" id="month" [(ngModel)]="selectedMonth"
+                                    [ngModelOptions]="{standalone: true}">
+                                    <option value="-1" disabled selected>Month</option>
+                                    <option *ngFor="let month of keysMonths()" [ngValue]="month">{{month}}</option>
+                                 </select>
+
+                                 <label class="col-md-4 control-label">Currency</label>
+                                 
+                                    <select class="form-control my-input mt-3" id="currency" placeholder="Currency"
+                                       [(ngModel)]="selectedCurrency" [ngModelOptions]="{standalone: true}">
+                                       <option *ngFor="let curr of keysCurrencies()" [ngValue]="curr">{{curr}}</option>
+                                    </select>
+                                 
+                                 <label class="col-md-4 control-label">Price</label>
+                                 <div class="input-group"><input id="price" name="price" placeholder="Price"
+                                       class="form-control" required="true" value="" type="number"
+                                       [(ngModel)]="priceInSeason.price" [ngModelOptions]="{standalone: true}">
+                                 </div>
+
+
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <p class="col-10 text-danger">{{errorMessage}}</p>
+                              <button class="btn btn-primary mt-3" (click)="addAccommodationClick()">Add</button>
+                           </div>
+
+                        </fieldset>
+                     </form>
+
+                     <!---->
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+
+   </div>
+
 </div>

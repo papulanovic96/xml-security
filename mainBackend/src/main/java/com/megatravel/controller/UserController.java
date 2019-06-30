@@ -3,11 +3,11 @@ package com.megatravel.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,14 +21,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.megatravel.converter.EndUserConverter;
+import com.megatravel.converter.ReservationConverter;
+import com.megatravel.dto.EndUserDTO;
+import com.megatravel.dto.LoginDTO;
 import com.megatravel.dto.ReservationDTO;
 import com.megatravel.dto.RoleDTO;
-import com.megatravel.dto.EndUserDTO;
 import com.megatravel.model.EndUser;
 import com.megatravel.model.Reservation;
 import com.megatravel.model.Role;
 import com.megatravel.model.Roles;
-import com.megatravel.service.AccommodationService;
+import com.megatravel.security.SecurityService;
 import com.megatravel.service.ReservationService;
 import com.megatravel.service.UserService;
 
@@ -38,32 +41,26 @@ import com.megatravel.service.UserService;
 public class UserController {
 	
 	@Autowired
-	private UserDetailsService userDetails;
-	
-	@Autowired
-	private AuthenticationManager authenticationManager;
+	private UserDetailsService userDetailsService;
 
 	@Autowired
 	private UserService userService;
 	
 	@Autowired
-	private ReservationService reservationService;
+	private SecurityService securityService;
 	
 	@Autowired
-	private AccommodationService accommodationService;
-	
-	
-	private ModelMapper modelMapper;
-	
-	@RequestMapping(value = "/findEndUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public EndUser findEndUser(@RequestBody String clientUN) {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	private ReservationService reservationService;
 
-		System.out.println("JA SAM : "  + authentication.getName());
-		
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+
+	@RequestMapping(value = "/findEndUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public EndUserDTO findEndUser(@RequestBody String clientUN) {
+	
 		if (userService.findEndUserByUsername(clientUN) != null) 
-			return userService.findEndUserByUsername(clientUN);
+			return EndUserConverter.fromEntity(userService.findEndUserByUsername(clientUN));
 		else 
 			return null;
 		
@@ -74,29 +71,54 @@ public class UserController {
 		return userService.findEndUsers();
 	}
 	
-	@RequestMapping(value = "/login/confirm", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void confirmLogin(@RequestBody String username) {
-	
-		EndUser client = userService.findEndUserByUsername(username);
+	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void login(@RequestBody LoginDTO user) {
 		
-		UserDetails ud = userDetails.loadUserByUsername(username);
-		
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(ud, client.getPassword(), ud.getAuthorities());
+		UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, user.getPassword(), userDetails.getAuthorities());
 
-		Authentication auth =  authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-		
-        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-        
+        authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
-	        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-	        
-	    
-	        System.out.println("ULOGOVAN SI !!!!!!!!!!");
-	    }
-        
+            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        }
 	}
 	
-	@RequestMapping(value = "/logout", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/login/get", method = RequestMethod.GET)
+	public ResponseEntity<String> findLoggedInUsername() {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+		    String currentUserName = authentication.getName();
+		    return ResponseEntity.ok(currentUserName);
+		}
+
+		return new ResponseEntity<String>("Unauthorized request!", HttpStatus.UNAUTHORIZED);
+
+		
+	}
+	
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public ResponseEntity<String> username() {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		String signed;
+		
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			 signed = authentication.getName();
+			 return ResponseEntity.ok(signed);
+		} else {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ResponseEntity<String> logout() {
 		
 		SecurityContextHolder.getContext().setAuthentication(null);
@@ -119,26 +141,31 @@ public class UserController {
 	@RequestMapping(value = "/reservations", method = RequestMethod.GET)
 	public ResponseEntity<List<ReservationDTO>> findMyReservations() {
 		
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		
-//		String signed;
-//		
-//		if (!(authentication instanceof AnonymousAuthenticationToken)) {
-//			signed = authentication.getName();
-//		} else {
-//			return ResponseEntity.badRequest().build();
-//		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		String signed;
+		
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			signed = authentication.getName();
+		} else {
+			return ResponseEntity.badRequest().build();
+		}
+		
+		System.out.println("1: " + authentication.getName());
+		System.out.println("2: " + authentication.getCredentials());
+		System.out.println("3: " + authentication.getPrincipal());
+		System.out.println("4: " + authentication.getAuthorities());
+		
 
-		EndUser client = userService.findEndUserByUsername("rabbit19");
+
+		EndUser client = userService.findEndUserByUsername(signed);
 
 		List<Reservation> reservations = reservationService.findMyReservations(client.getId());
 
 		List<ReservationDTO> reservationsDto = new ArrayList<ReservationDTO>();
 		
-
-		for (Reservation reservation : reservations) {
-			reservationsDto.add(convertToDto(reservation));
-		}
+		reservationsDto = ReservationConverter.fromEntityList(reservations, r -> ReservationConverter.fromEntity(r));
+		
 		
 		if (reservations == null) 
 			return ResponseEntity.noContent().build();
@@ -151,7 +178,7 @@ public class UserController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<String> save(@RequestBody EndUserDTO client) throws Exception {
 		
-		EndUser eu = convertToEntity(client);
+		EndUser eu = EndUserConverter.toEntity(client);
 	
 		System.out.println("MOJA   : : : : : : " + eu.getRoles().get(0));
 		
@@ -167,33 +194,5 @@ public class UserController {
 		return new ResponseEntity<String>("Unauthorized request!", HttpStatus.UNAUTHORIZED);
 	}
 	
-	private ReservationDTO convertToDto(Reservation reservation) {
-		ReservationDTO reservationDTO = modelMapper.map(reservation, ReservationDTO.class);
-		return reservationDTO;
-	}
-	
-	private Reservation convertToEntity(ReservationDTO reservationDTO) {
-		Reservation reservation = modelMapper.map(reservationDTO, Reservation.class);
-	   		
-		if(reservationService.getReservationById(reservationDTO.getId()) != null) {
-			Reservation old = reservationService.getReservationById(reservationDTO.getId());
-			reservation.setId(old.getId());
-		}
-		
-	  
-	    return reservation;
-	}
-	
-	private EndUser convertToEntity(EndUserDTO user) {
-		EndUser client = modelMapper.map(user, EndUser.class);
-		
-		if(userService.findEndUserByUsername(user.getUsername()) != null) {
-			EndUser old = userService.findEndUserByUsername(user.getUsername());
-			client.setId(user.getId());
-		}
-		
-		return client;
-		
-	}
 
 }

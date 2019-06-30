@@ -13,27 +13,8 @@
 		
 		<div class="text-center mx-auto">
 			<p class="h6  text-dark my-4">Not a member?</p>
-			<a class="btn btn-dark font-weight-bold" href = "/signup" role="button"> SIGN UP</a>
+			<a class="btn btn-dark font-weight-bold" [routerLink]='signup' role="button"> SIGN UP</a>
 		</div>	
 	</form>
 </div>
-
-
-	<div id="errorSignin" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-		  <div class="modal-dialog modal-lg">
-			  <div class="modal-content">
-		    	 <div class="modal-header">
-			    	  <h5 class="modal-title">Error</h5>
-		    	  </div>
-		     	  <div class="modal-body" data-ng-model="errorMessageSignin">
-			     	  {{errorMessageSignin}}
-		       	</div> 
-			    	<div class="modal-footer">
-				      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				    </div>
-			  </div>
-			</div>
-		</div>
-  </div>
   

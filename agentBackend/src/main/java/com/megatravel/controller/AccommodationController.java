@@ -4,7 +4,9 @@ package com.megatravel.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,57 +14,120 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import javax.ws.rs.core.MediaType;
+
+import com.auth0.jwt.JWT;
+import com.megatravel.dto.AccommodationDTO;
+import com.megatravel.dto.PriceInSeasonDTO;
 import com.megatravel.model.Accommodation;
 import com.megatravel.model.AccommodationCategory;
+import com.megatravel.model.AccommodationType;
+import com.megatravel.model.AdditionalServices;
+import com.megatravel.model.Agent;
 import com.megatravel.model.Message;
+import com.megatravel.model.PriceInSeason;
+import com.megatravel.repository.AccommodationRepository;
+import com.megatravel.repository.AccommodationServicesRepository;
+import com.megatravel.repository.PriceInSeasonRepository;
 import com.megatravel.service.AccommodationService;
+import com.megatravel.service.AccomodationTypeService;
+import com.megatravel.service.UserService;
 
 
 @RestController
 @RequestMapping("/accommodation")
 public class AccommodationController {
 	
-	
-	@Autowired
-	private RestTemplate restTemplate;
-	
 
 	@Autowired
 	private AccommodationService accommodationService;
-		
-	@RequestMapping(value ="/getByCategory/{id}", method = RequestMethod.GET)
-	public ResponseEntity<String> getByCategory(@PathVariable int id){
-		
-		AccommodationCategory accCateg = new AccommodationCategory();
-		accCateg.setId(id);
-		List<Accommodation> accommodations = accommodationService.findByCategory(accCateg);
-		if(accommodations.size() == 0) {
-			return new ResponseEntity<String>("Not found!", HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<String>(HttpStatus.OK);
-		
-	}
 	
-
-	@RequestMapping(value="/getMessage")
-	public Message get() {
+	@Autowired
+	private AccomodationTypeService accTypeService;
+	@Autowired
+	private AccommodationRepository accommodationRepository;
 	
-		Message test = restTemplate.getForObject("http://message-service/messages/test", Message.class);
-		return test;
-		
-	}
-		
-	@RequestMapping(value="/addAccommodation", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
-	public void add(@RequestBody Accommodation accommodation) {
-		
-		accommodationService.save(accommodation);
-
-	}
-	@RequestMapping(value="/changeAvalibility", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
-	public void changeAvalibility(@RequestBody Accommodation accommodation, boolean available) {
+	@Autowired
+	private AccommodationServicesRepository accommodationServicesRepository;
+	
+	@Autowired
+	private PriceInSeasonRepository priceInSeasonRepository;
+	
+	@Autowired
+	private UserService userService;
 		
 
+	@RequestMapping(value="/addNewAccommodation", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
+	public ResponseEntity<AccommodationDTO> add(@RequestBody Accommodation accommodation) {
+		
+		Agent agent = userService.getCurrentAgent();//NE RADI!
+		
+		accommodation.setOwnedBy(agent);
+		Accommodation acc = accommodationRepository.save(accommodation);
+		return new ResponseEntity<>(new AccommodationDTO(acc), HttpStatus.OK);
+
+	}
+
+	@RequestMapping(value="/getAllAccTypes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<AccommodationType>> getAllAccTypes(){
+		
+		List<AccommodationType> types = accTypeService.findAll();
+		
+		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/getAllAccServices", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<AdditionalServices>> getAllAccServices(){
+		
+		List<AdditionalServices> services = accommodationServicesRepository.findAll();
+		return new ResponseEntity<>(services, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/getAllPrices", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<PriceInSeason>> getAllPrices(){
+		List<PriceInSeason> prices = priceInSeasonRepository.findAll();
+		return new ResponseEntity<>(prices, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/getAllAcc", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<Accommodation>> getAllAcc(){
+		
+		List<Accommodation> accs = accommodationRepository.findAll();
+		return new ResponseEntity<>(accs, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/deleteAcc", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
+	public ResponseEntity delete(@RequestBody long accId){
+					
+		accommodationRepository.deleteById(accId);
+		return new ResponseEntity<>(HttpStatus.OK);
+		
+	}
+		
+	@RequestMapping(value = "/getPriceInSeason", method = RequestMethod.POST, produces =  MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<PriceInSeasonDTO>> getPriceInSeasonByAcc(@RequestBody long id){
+		
+		List<PriceInSeasonDTO> prices =  accommodationService.getPriceInSeasonByAcc(id);
+		
+		return new ResponseEntity<>(prices, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/addNewPriceInSeason", method = RequestMethod.POST, produces =  MediaType.APPLICATION_JSON)
+	public ResponseEntity<PriceInSeasonDTO> addNewPriceInSeason(@RequestBody PriceInSeason pis, long accId){
+	
+		
+		Accommodation acc = accommodationRepository.findOneById(accId);
+		acc.getPricesInSeason().add(pis);
+		accommodationRepository.save(acc);
+		
+		return new ResponseEntity<>(new PriceInSeasonDTO(pis), HttpStatus.OK);
+	
+	}
+	
+	@RequestMapping(value = "/deletePriceInSeason", method = RequestMethod.POST, produces =  MediaType.APPLICATION_JSON)
+	public ResponseEntity deletePriceInSeason(@RequestBody long id_pis){
+		
+		priceInSeasonRepository.deleteById(id_pis);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 	
 }

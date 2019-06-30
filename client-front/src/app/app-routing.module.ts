@@ -8,6 +8,7 @@ import { AccommodationComponent} from './accommodation/accommodation.component';
 import { AccountComponent } from './users/account/account.component';
 
 
+
 const routes: Routes = [
   {
     path:'',
@@ -35,6 +36,8 @@ const routes: Routes = [
   }
 
 ];
+
+export const routing = RouterModule.forRoot(routes);
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

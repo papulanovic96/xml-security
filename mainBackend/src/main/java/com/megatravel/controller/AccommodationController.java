@@ -3,10 +3,12 @@ package com.megatravel.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.megatravel.converter.CommentConverter;
+import com.megatravel.converter.AccommodationConverter;
 import com.megatravel.dto.AccommodationDTO;
-import com.megatravel.dto.CommentDTO;
 import com.megatravel.model.Accommodation;
 import com.megatravel.model.Comment;
 import com.megatravel.model.CreateCommentRequest;
@@ -39,10 +40,6 @@ public class AccommodationController {
 	@Autowired
 	private CommentService commentService;
 	
-	private ModelMapper modelMapper;
-
-	
-	
 	@RequestMapping(value = "/findAllAvailable", method = RequestMethod.GET)
 	public ResponseEntity<List<AccommodationDTO>> findAllAvailable() {
 
@@ -50,11 +47,8 @@ public class AccommodationController {
 
 		List<AccommodationDTO> accommodationsDto = new ArrayList<AccommodationDTO>();
 		
-		for (Accommodation accommodation : accommodations) {
-			accommodationsDto.add(convertToDto(accommodation));
-		}
-		
-		
+		accommodationsDto = AccommodationConverter.fromEntityList(accommodations, acc -> AccommodationConverter.fromEntity(acc));
+				
 		if (accommodations == null)
 			return ResponseEntity.noContent().build();
 		else
@@ -69,33 +63,20 @@ public class AccommodationController {
 		
 	}
 	
-	
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String add() {
-		
-		return "accommodation has been added to your reservation";
-		
-	}
-	
-	@RequestMapping(value = "/remove", method = RequestMethod.POST)
-	public String remove() {
-		return "accommodation has been removed from your reservation";
-	}
-	
 	@RequestMapping(value = "/comment/{aid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> postCommente(@PathVariable("aid") String aid, @RequestBody CreateCommentRequest commentRequest) {
 		
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		
-//		String signed;
-//		
-//		if (!(authentication instanceof AnonymousAuthenticationToken)) {
-//			signed = authentication.getName();
-//		} else {
-//			return null;
-//		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
-		EndUser client = userService.findEndUserByUsername("rabbit19");
+		String signed;
+		
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			signed = authentication.getName();
+		} else {
+			return null;
+		}
+		
+		EndUser client = userService.findEndUserByUsername(signed);
 
 		Long id = Long.parseLong(aid);
 		Accommodation accommodation = accommodationService.getAccommodationById(id);
@@ -107,26 +88,10 @@ public class AccommodationController {
 		comment.setVisible(false);
 		
 		accommodation.getComments().add(comment);
-		CommentDTO commentDTO = CommentConverter.fromEntity(comment);
-		commentService.save(commentDTO);
+		commentService.save(comment);
 		
-		return ResponseEntity.ok("Waiting for admin reaction.");
+		return ResponseEntity.ok("Waiting...");
 		
 	}
-	
-	private AccommodationDTO convertToDto(Accommodation accommodation) {
-		AccommodationDTO accommodationDto = modelMapper.map(accommodation, AccommodationDTO.class);
-		return accommodationDto;
-	}
-	
-	private Accommodation convertToEntity(AccommodationDTO accommodationDto) {
-		Accommodation accommodation = modelMapper.map(accommodationDto, Accommodation.class);
-	   
-	  	Accommodation acc = accommodationService.getAccommodationById(accommodationDto.getId());
-	    accommodation.setId(acc.getId());
-	  
-	    return accommodation;
-	}
-	
 
 }

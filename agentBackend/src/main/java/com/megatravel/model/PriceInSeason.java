@@ -8,11 +8,15 @@
 
 package com.megatravel.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -50,6 +54,7 @@ import javax.xml.bind.annotation.XmlType;
     "currency"
 })
 @Entity
+@Table(name = "price_in_season")
 public class PriceInSeason {
 
 	@Id
@@ -57,14 +62,19 @@ public class PriceInSeason {
     protected long id;
 	
     @XmlElement(required = true)
+    @Column
     protected Months inMonth;
     
     @XmlSchemaType(name = "unsignedInt")
+    @Column
     protected long price;
     
     @XmlElement(required = true)
+    @Column
     protected Currencies currency;
 
+    
+    
     /**
      * Gets the value of the id property.
      * 
@@ -145,4 +155,5 @@ public class PriceInSeason {
         this.currency = value;
     }
 
+	
 }

@@ -45,17 +45,16 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "EndUser", namespace = "http://www.megatravel.com/users", propOrder = {
     "status",
-    "reservations"
+//    "reservations"
 })
 @JsonTypeName("EndUser")
-@JsonDeserialize(as = EndUser.class)
 public class EndUser
     extends User
 {
     @XmlElement(required = true)
     protected UserStatus status;
     
-    protected List<Reservation> reservations;
+//    protected List<Reservation> reservations;
 
     public EndUser() {
     	
@@ -107,11 +106,11 @@ public class EndUser
      * 
      * 
      */
-    public List<Reservation> getReservations() {
-        if (reservations == null) {
-            reservations = new ArrayList<Reservation>();
-        }
-        return this.reservations;
-    }
+//    public List<Reservation> getReservations() {
+//        if (reservations == null) {
+//            reservations = new ArrayList<Reservation>();
+//        }
+//        return this.reservations;
+//    }
 
 }

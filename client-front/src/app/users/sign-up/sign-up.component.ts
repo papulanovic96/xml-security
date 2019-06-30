@@ -5,8 +5,7 @@ import { FormControl, FormGroup, FormBuilder, NgModel } from '@angular/forms';
 import { User } from 'src/app/model/user.model';
 
 import { UsersService } from '../../services/users.service'; 
-import { stringify } from '@angular/compiler/src/util';
-
+import { AuthService } from '../../auth/auth.service';
 
 
 @Component({
@@ -16,20 +15,23 @@ import { stringify } from '@angular/compiler/src/util';
 })
 export class SignUpComponent implements OnInit {
 
+  isSignedUp = false;
+  isSignUpFailed = false;
+  errorMessage = '';
+
   public image ='assets/gradient.jpg';
   private location: Location;
 
   private newUser: User;
 
-  public userForm: FormGroup;
-
-  public errorMessage: NgModel;
+  public signupInfo: FormGroup;
 
   constructor(private usersService : UsersService,
-              private router: Router) {}
+              private router: Router,
+              private authService: AuthService) {}
 
   ngOnInit() {
-    this.userForm = new FormGroup({
+    this.signupInfo = new FormGroup({
       username: new FormControl(''),
       password: new FormControl(''),
       firstName: new FormControl(''),
@@ -39,7 +41,7 @@ export class SignUpComponent implements OnInit {
   }
 
   get user() { 
-    return this.userForm.controls; 
+    return this.signupInfo.controls; 
   }
 
   register() : void {
@@ -52,14 +54,18 @@ export class SignUpComponent implements OnInit {
       this.newUser.lastName = this.user.lastName.value;
       this.newUser.email = this.user.email.value;
 
-      this.usersService.save(this.newUser).subscribe(
-            data => { console.log("RES:  "+ data)
-            this.location.replace('/siginin'); // clears browser history so they can't navigate with back button
-            },
-            err => { 
-             alert(JSON.stringify(err.error))
-            }
-        )   
+      this.authService.signUp(this.newUser).subscribe(
+        data => {
+          console.log(data);
+          this.isSignedUp = true;
+          this.isSignUpFailed = false;
+        },
+        error => {
+          console.log(error);
+          this.errorMessage = error.error.message;
+          this.isSignUpFailed = true;
+        }
+      );  
   }
 
  

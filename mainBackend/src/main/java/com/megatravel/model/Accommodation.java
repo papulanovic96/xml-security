@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -51,10 +53,10 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  *         &lt;element name="image" type="{http://www.megatravel.com/accommodation}ImageResource" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="address" type="{http://www.megatravel.com/accommodation}Address"/>
  *         &lt;element name="capacity" type="{http://www.w3.org/2001/XMLSchema}unsignedInt"/>
- *         &lt;element name="priceInSeason" type="{http://www.megatravel.com/accommodation}PriceInSeason"/>
+ *         &lt;element name="priceInSeason" type="{http://www.megatravel.com/accommodation}PriceInSeason" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="additionalService" type="{http://www.megatravel.com/codebook}AdditionalServices" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="available" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="cancelation" type="{http://www.megatravel.com/accommodation}Cancelation"/>
+ *         &lt;element name="cancellation" type="{http://www.megatravel.com/accommodation}Cancellation"/>
  *         &lt;element name="rate" type="{http://www.megatravel.com/accommodation}rate"/>
  *         &lt;element name="comments" type="{http://www.megatravel.com/accommodation}Comment" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
@@ -82,19 +84,17 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "priceInSeason",
     "additionalService",
     "available",
-    "cancelation",
+    "cancellation",
     "rate",
     "comments"
 })
 @Entity
-//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="id", scope = Accommodation.class)
-//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id", scope = Accommodation.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id", scope = Accommodation.class)
 public class Accommodation {
 
 	@Id
 	@GeneratedValue
     protected long id;
-	
     @XmlElement(required = true)
     protected String name;
     
@@ -127,15 +127,14 @@ public class Accommodation {
     protected List<ImageResource> image;
     
     @XmlElement(required = true)
-    @ManyToOne
+    @OneToOne
     protected Address address;
     
     @XmlSchemaType(name = "unsignedInt")
     protected long capacity;
     
-    @XmlElement(required = true)
-    @ManyToOne
-    protected PriceInSeason priceInSeason;
+    @OneToMany
+    protected List<PriceInSeason> priceInSeason;
     
     @ManyToMany
     protected List<AdditionalServices> additionalService;
@@ -144,13 +143,14 @@ public class Accommodation {
     
     @XmlElement(required = true)
     @ManyToOne
-    protected Cancelation cancelation;
+    protected Cancellation cancellation;
     
     @XmlElement(required = true)
     protected String rate;
     
-    @ManyToMany
+    @OneToMany
     protected List<Comment> comments;
+    
 
     /**
      * Gets the value of the id property.
@@ -421,28 +421,49 @@ public class Accommodation {
         this.capacity = value;
     }
 
-    /**
+    public void setImage(List<ImageResource> image) {
+		this.image = image;
+	}
+
+	public void setAdditionalService(List<AdditionalServices> additionalService) {
+		this.additionalService = additionalService;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	/**
      * Gets the value of the priceInSeason property.
      * 
-     * @return
-     *     possible object is
-     *     {@link PriceInSeason }
-     *     
-     */
-    public PriceInSeason getPriceInSeason() {
-        return priceInSeason;
-    }
-
-    /**
-     * Sets the value of the priceInSeason property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the priceInSeason property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link PriceInSeason }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getPriceInSeason().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link PriceInSeason }
+     * 
+     * 
      */
-    public void setPriceInSeason(PriceInSeason value) {
-        this.priceInSeason = value;
+    public List<PriceInSeason> getPriceInSeason() {
+        if (priceInSeason == null) {
+            priceInSeason = new ArrayList<PriceInSeason>();
+        }
+        return this.priceInSeason;
+    }
+    
+    public void setPriceInSeason(List<PriceInSeason> prices) {
+           this.priceInSeason = prices;
     }
 
     /**
@@ -491,27 +512,27 @@ public class Accommodation {
     }
 
     /**
-     * Gets the value of the cancelation property.
+     * Gets the value of the cancellation property.
      * 
      * @return
      *     possible object is
-     *     {@link Cancelation }
+     *     {@link Cancellation }
      *     
      */
-    public Cancelation getCancelation() {
-        return cancelation;
+    public Cancellation getCancellation() {
+        return cancellation;
     }
 
     /**
-     * Sets the value of the cancelation property.
+     * Sets the value of the cancellation property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Cancelation }
+     *     {@link Cancellation }
      *     
      */
-    public void setCancelation(Cancelation value) {
-        this.cancelation = value;
+    public void setCancellation(Cancellation value) {
+        this.cancellation = value;
     }
 
     /**
@@ -566,17 +587,5 @@ public class Accommodation {
         }
         return this.comments;
     }
-
-	public void setImage(List<ImageResource> image) {
-		this.image = image;
-	}
-
-	public void setAdditionalService(List<AdditionalServices> additionalService) {
-		this.additionalService = additionalService;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
 
 }

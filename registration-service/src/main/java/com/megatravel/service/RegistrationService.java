@@ -23,10 +23,8 @@ public class RegistrationService {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		
 		user.getRoles().add(mainService.findEndUserRole());
-		
-		System.out.println("ROLA : : : : :: : : : " + user.getRoles().get(0));
-		
-		user.getReservations();
+				
+//		user.getReservations();
 		
 		user.setStatus(UserStatus.ACTIVE);
 		

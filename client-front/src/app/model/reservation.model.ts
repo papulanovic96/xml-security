@@ -5,5 +5,5 @@ export class Reservation {
     accommodation: Accommodation;
     fromDate: Date;
     tillDate: Date;
-    status: boolean;
+    status: String;
 }

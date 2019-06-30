@@ -8,9 +8,11 @@
 
 package com.megatravel.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -43,21 +45,15 @@ import javax.xml.bind.annotation.XmlType;
     "name"
 })
 @Entity
+@Table(name = "accommodation_type")
 public class AccommodationType {
 
-	public AccommodationType(long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
-	public AccommodationType() {
-		
-	}
 	@Id
 	@GeneratedValue
     protected long id;
 	
     @XmlElement(required = true)
+    @Column
     protected String name;
 
     /**

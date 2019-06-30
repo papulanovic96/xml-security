@@ -167,7 +167,7 @@
     <xs:element name="getAccommodationCategoryRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="category" type="cb:AccommodationCategory"/>
+                <xs:element name="name" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -183,7 +183,7 @@
     <xs:element name="getAccommodationTypeRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="type" type="cb:AccommodationType"/>
+                <xs:element name="name" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

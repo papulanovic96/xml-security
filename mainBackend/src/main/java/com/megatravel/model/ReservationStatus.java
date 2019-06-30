@@ -36,8 +36,11 @@ public enum ReservationStatus {
 
     @XmlEnumValue("ON HOLD")
     ON_HOLD("ON HOLD"),
+    @XmlEnumValue("APPROVED")
     APPROVED("APPROVED"),
+    @XmlEnumValue("REJECTED")
     REJECTED("REJECTED"),
+    @XmlEnumValue("CANCELED")
     CANCELED("CANCELED");
     private final String value;
 

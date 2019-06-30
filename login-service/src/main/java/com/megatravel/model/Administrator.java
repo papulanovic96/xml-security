@@ -12,9 +12,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
@@ -43,9 +41,17 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Administrator
     extends User
 {
-
+	
 	public Administrator() {
 		
 	}
 
+	public Administrator(String un, String pw, String e, String fn, String ln) {
+		this.username = un;
+    	this.password = pw;
+    	this.email = e;
+    	this.firstName = fn;
+    	this.lastName = ln;
+	}
+	
 }

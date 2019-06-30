@@ -5,9 +5,8 @@ import java.util.List;
 
 import com.megatravel.model.AccommodationCategory;
 import com.megatravel.model.AccommodationType;
-import com.megatravel.model.AdditionalServices;
 import com.megatravel.model.Address;
-import com.megatravel.model.Cancelation;
+import com.megatravel.model.Cancellation;
 import com.megatravel.model.PriceInSeason;
 
 public class AccommodationDTO {
@@ -36,13 +35,13 @@ public class AccommodationDTO {
     
 	private long capacity;
     
-	private PriceInSeason priceInSeason;
+	private List<PriceInSeason> priceInSeason;
     
 	private List<String> additionalService;
     
 	private boolean available;
     
-	private Cancelation cancelation;
+	private Cancellation cancellation;
     
 	private String rate;
     
@@ -50,8 +49,8 @@ public class AccommodationDTO {
 	
 	public AccommodationDTO(long id, String name, AccommodationType type, AccommodationCategory category, AgentDTO ownedBy,
 			Date fromDate, Date tillDate, int distance, String description, List<String> image, Address address,
-			long capacity, PriceInSeason priceInSeason, List<String> additionalService, boolean available,
-			Cancelation cancelation, String rate, List<CommentDTO> comments) {
+			long capacity, List<PriceInSeason> priceInSeason, List<String> additionalService, boolean available,
+			Cancellation cancelation, String rate, List<CommentDTO> comments) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -68,7 +67,7 @@ public class AccommodationDTO {
 		this.priceInSeason = priceInSeason;
 		this.additionalService = additionalService;
 		this.available = available;
-		this.cancelation = cancelation;
+		this.cancellation = cancelation;
 		this.rate = rate;
 		this.comments = comments;
 	}
@@ -198,11 +197,11 @@ public class AccommodationDTO {
 		this.capacity = capacity;
 	}
 
-	public PriceInSeason getPriceInSeason() {
+	public List<PriceInSeason> getPriceInSeason() {
 		return priceInSeason;
 	}
 
-	public void setPriceInSeason(PriceInSeason priceInSeason) {
+	public void setPriceInSeason(List<PriceInSeason> priceInSeason) {
 		this.priceInSeason = priceInSeason;
 	}
 
@@ -222,12 +221,12 @@ public class AccommodationDTO {
 		this.available = available;
 	}
 
-	public Cancelation getCancelation() {
-		return cancelation;
+	public Cancellation getCancellation() {
+		return cancellation;
 	}
 
-	public void setCancelation(Cancelation cancelation) {
-		this.cancelation = cancelation;
+	public void setCancellation(Cancellation cancelation) {
+		this.cancellation = cancelation;
 	}
 
 	public String getRate() {

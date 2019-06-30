@@ -19,7 +19,6 @@ import com.megatravel.validator.UserValidator;
 
 @RestController
 @RequestMapping(value = "/")
-@CrossOrigin(value = "http://localhost:4200", maxAge = 3600)
 public class RegistrationController {
 	
 	@Autowired

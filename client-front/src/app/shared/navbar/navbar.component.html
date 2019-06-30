@@ -20,7 +20,7 @@
 		   		<a class="btn btn-dark mr-2 text-white font-weight-bold" [routerLink] = "['/account']">ACCOUNT</a>
 	 	 	</li> 
 	 	 	<li class="nav-item mt-2">
-		   		<a class="btn btn-dark mr-2 text-white font-weight-bold" data-ng-click="signout()" data-ng-show="userSignedIn">SIGN OUT</a>
+		   		<a class="btn btn-dark mr-2 text-white font-weight-bold" (click)="signout()">SIGN OUT</a>
 	 	 	</li>	
 		</ul> 
 	  </div>

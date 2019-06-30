@@ -42,7 +42,7 @@ public class AccommodationConverter extends AbstractConverter{
 		aDto.setAdditionalService(addStringList);
 		
 		aDto.setAvailable(a.isAvailable());
-		aDto.setCancelation(a.getCancelation());
+		aDto.setCancellation(a.getCancellation());
 		aDto.setRate(a.getRate());
 		
 		List<Comment> comments = a.getComments();
@@ -63,7 +63,7 @@ public class AccommodationConverter extends AbstractConverter{
 		Accommodation a = new Accommodation();
 		a.setAddress(d.getAddress());
 		a.setAvailable(d.isAvailable());
-		a.setCancelation(d.getCancelation());
+		a.setCancellation(d.getCancellation());
 		a.setCapacity(d.getCapacity());
 		a.setCategory(d.getCategory());
 		a.setDescription(d.getDescription());

@@ -49,6 +49,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "users",
     "privileges"
 })
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id", scope = Role.class)
 public class Role {
 
     protected long id;
@@ -57,7 +58,7 @@ public class Role {
 
     protected List<User> users;
 
-    protected List<Privileges> privileges;
+//    protected List<Privileges> privileges;
 
     /**
      * Gets the value of the id property.
@@ -150,11 +151,11 @@ public class Role {
      * 
      * 
      */
-    public List<Privileges> getPrivileges() {
-        if (privileges == null) {
-            privileges = new ArrayList<Privileges>();
-        }
-        return this.privileges;
-    }
+//    public List<Privileges> getPrivileges() {
+//        if (privileges == null) {
+//            privileges = new ArrayList<Privileges>();
+//        }
+//        return this.privileges;
+//    }
 
 }

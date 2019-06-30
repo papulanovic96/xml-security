@@ -26,10 +26,6 @@ zuul:
       path: /registration-service/**
       stripPrefix: true
       serviceId: registration-service
-    login-service:
-      path: /login-service/**
-      stripPrefix: true
-      serviceId: login-service
 
 ribbon:
   eureka:

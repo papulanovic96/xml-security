@@ -82,7 +82,7 @@ export class AccountComponent implements OnInit {
 
     this.commentService.postComment(this.comment, accommodationId).subscribe(
       data => {
-        alert(data)
+        alert(data.content)
       },
       err =>{
 

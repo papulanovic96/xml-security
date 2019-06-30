@@ -62,7 +62,7 @@ public class ReservationDTO {
 		this.tillDate = tillDate;
 	}
 
-	public ReservationStatus setStatus() {
+	public ReservationStatus getStatus() {
 		return status;
 	}
 

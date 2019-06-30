@@ -39,6 +39,8 @@ export class AccommodationComponent implements OnInit {
  
   private _rate: number;
 
+  images = [1, 2, 3].map(() => `https://picsum.photos/900/500?random&t=${Math.random()}`);
+
   private _searchName: string;
   private _searchType: string;
   private _searchCategory: string;
@@ -46,10 +48,10 @@ export class AccommodationComponent implements OnInit {
   private _searchAS: string;
   private _searchDistance: string;
   private _searchPrice: string;
+  private _searchFromDate: Date;
+  private _searchTillDate: Date;
 
   private today: Date;
-  private _selectedFromDate: Date;
-  private _selectedTillDate: Date;
   private minDate: string;
   private minDateTill: string;
 
@@ -59,24 +61,16 @@ export class AccommodationComponent implements OnInit {
   constructor(private accommodationService: AccommodationService,
               private reservationService: ReservationService,
               private datePipe: DatePipe) { }
-
-  
+    
   get rate(): number {
     return this._rate;
   } 
 
-  get selectedFrom(): Date {
-    return this._selectedFrom;
-  }             
-  get selectedTill(): Date {
-    return this._selectedTill;
-  }
-
   get selectedFromDate(): Date {
-    return this._selectedFromDate;
+    return this._searchFromDate;
   }             
   get selectedTillDate(): Date {
-    return this._selectedTillDate;
+    return this._searchTillDate;
   }
               
   get searchName(): string {
@@ -116,19 +110,19 @@ export class AccommodationComponent implements OnInit {
   }
 
   set selectedTill(date : Date) {
-    this._selectedTill =  date;
+    this._selectedTill = date;
   }
 
-  set selectedFromDate(date : Date) {
+  set searchFromDate(date : Date) {
     this.minDateTill = this.datePipe.transform(date, 'yyyy-MM-dd');
-    this._selectedFromDate =  date;
+    this._searchFromDate =  date;
     this.filteredAccommodations = this.filterAccommodationsFromDate(date);
   }
 
-  set selectedTillDate(date : Date) {
-    this._selectedTillDate =  date;
+  set searchillDate(date : Date) {
+    this._searchTillDate =  date;
     this.filteredAccommodations = this.filterAccommodationsTillDate(date);
-    this._selectedTillDate = date;
+    this._searchTillDate = date;
   }
 
   set searchName(entry : string) {
@@ -254,10 +248,10 @@ export class AccommodationComponent implements OnInit {
     this.reservation = new Reservation();
     this.reservation.accommodation = this.accommodation;
 
-    if (this.selectedFrom != null) 
-        this.reservation.fromDate = this.selectedFrom;
-    if (this.selectedTill != null) 
-        this.reservation.tillDate = this.selectedTill;
+    if (this._selectedFrom != null) 
+        this.reservation.fromDate = this._selectedFrom;
+    if (this._selectedTill != null) 
+        this.reservation.tillDate = this._selectedTill;
     
     console.log(this.reservation)
     this.reservationService.create(this.reservation).subscribe(
@@ -270,8 +264,6 @@ export class AccommodationComponent implements OnInit {
   
     )
   }
-
- 
 
   rating(rate : number) {
     var cw = document.getElementById("rating1").clientWidth; // save original 100% pixel width

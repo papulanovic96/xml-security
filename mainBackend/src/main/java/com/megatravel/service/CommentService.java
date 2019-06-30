@@ -21,6 +21,10 @@ public class CommentService {
 		return cRepository.save(newComment);
 	}
 	
+	public Comment save(Comment comment) {
+		return cRepository.save(comment);
+	}
+	
 	public void delete(CommentDTO comment) {
 		cRepository.deleteById(comment.getId());
 	}

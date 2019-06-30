@@ -6,22 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
  
 	@Autowired
+	private UserDetailsService userDetailsService;
+	
+	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    	auth.authenticationProvider(authProvider());
     }
     
     @Override
@@ -39,7 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         		.antMatchers(HttpMethod.GET, "/accommodation/findAll").permitAll()
 	    		.antMatchers(HttpMethod.GET, "/user/findAllEndUsers").permitAll()
 		        .antMatchers(HttpMethod.POST,"/user/save").permitAll()
-		        .antMatchers(HttpMethod.POST,"/user/login/confirm").permitAll() 
+		        .antMatchers(HttpMethod.POST,"/user/login*").permitAll() 
+		        .antMatchers(HttpMethod.GET,"/user/logout").permitAll() 
 		        .antMatchers(HttpMethod.POST,"/user/findEndUser").permitAll() 
 		        .antMatchers(HttpMethod.GET, "/roles/findEndUserRole").permitAll()
 		        .antMatchers(HttpMethod.POST, "/admin-agent-creation/saveAgent").permitAll()
@@ -70,7 +76,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		        .antMatchers(HttpMethod.GET, "/message/history/*").permitAll()
 		        .antMatchers(HttpMethod.GET, "/message/inbox").permitAll()
 		        .antMatchers(HttpMethod.POST, "/accommodation/comment/{aid}").permitAll()
-		        .antMatchers(HttpMethod.POST, "user/login/confirm").permitAll()
 		        .antMatchers(HttpMethod.PUT, "/comment/accept/{id}").permitAll()
 		        .antMatchers(HttpMethod.PUT, "/comment/refuse/{id}").permitAll()
 		        .antMatchers(HttpMethod.GET, "/comment/notReviewed").permitAll()
@@ -79,7 +84,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		        .antMatchers(HttpMethod.GET, "/end-user-action/findAll").permitAll()
 		        .antMatchers(HttpMethod.DELETE, "/comment/delete/{id}").permitAll()
 		        .antMatchers(HttpMethod.GET, "/end-user-action/findAll").permitAll()
-		    .anyRequest().authenticated();
+		        .anyRequest().authenticated();
 
 
     }
@@ -88,6 +93,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
+    }
+    
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+    
+    @Bean
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
     
 }

@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Agent } from './agent.model';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { AgentList } from './agent-list';
+import { AddressAgent } from './address';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,31 @@ export class AgentService {
 
   private findAllUrl = 'http://localhost:4200/admin-agent-creation/findAgents';
   private saveUrl = 'http://localhost:4200/admin-agent-creation/saveAgent';
+  private findAllAddressesUrl = 'http://localhost:4200/address/findAll';
+  private saveItUrl = 'http://localhost:4200/address/save';
 
   constructor(private http: HttpClient) { }
+  
+  getAllAgents(): Observable<Agent[]> {
+    return this.http.get<Agent[]>(this.findAllUrl).pipe(
+      catchError(this.handleError)
+    );
+  }
 
-  getAllAgents(): Observable<AgentList> {
-    return this.http.get<AgentList>(this.findAllUrl).pipe(
+  getAllAddresses(): Observable<AddressAgent[]> {
+    return this.http.get<AddressAgent[]>(this.findAllAddressesUrl).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getAddress(id: number): Observable<Agent | undefined> {
+    return this.getAllAgents().pipe(
+      map((servicess: Agent[]) => servicess.find(s => s.id === id))
+    );
+  }
+
+  saveAddress(newAddress: AddressAgent): Observable<AddressAgent> {
+    return this.http.post<AddressAgent>(this.saveItUrl, newAddress, {responseType: 'text'}).pipe(
       catchError(this.handleError)
     );
   }

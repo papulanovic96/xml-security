@@ -1,4 +1,11 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
 <div class="col-10">
         <table class="table table-fixed table-hover">
             <thead>
@@ -10,12 +17,11 @@
                 <th scope="col-1">Password</th>
                 <th scope="col-xs-1">Username</th>
                 <th scope="col-1">BRN</th>
-                <th scope="col-xs-1">status</th>
                 <th scope="col-xs-1">Address</th>
               </tr>
             </thead>
-            <tbody>
-              <tr *ngFor = 'let agent of agL.lista'>
+            <tbody >
+              <tr *ngFor = 'let agent of agentsList'>
                 <td>{{ agent.id }}</td>
                 <td>{{ agent.email }}</td>
                 <td>{{ agent.firstName }}</td>
@@ -23,16 +29,16 @@
                 <td>{{ agent.password }}</td>
                 <td>{{ agent.username }}</td>
                 <td>{{ agent.brn }}</td>
-                <td>{{ agent.status }}</td>
                 <td>{{ agent.address_id }}</td>
               </tr>
             </tbody>
           </table>
     </div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Launch demo modal
+    <div class="text-left" style="padding: 20px">
+    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
+            + new agent
           </button>
-          
+          </div>
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -43,29 +49,32 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
+                <form>
                 <div class="modal-body">
-                        <form>
                                 <div class="form-group">
-                                  <label for="exampleInputEmail1">Email address</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                  <input type="text" class="form-control" name="firstNameInput" [(ngModel)]="agent.firstName"  placeholder="Enter first name..." required>
                                 </div>
                                 <div class="form-group">
-                                  <label for="exampleInputPassword1">Password</label>
-                                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                  <input type="text" class="form-control" name="lastnameInput" [(ngModel)]="agent.lastName" placeholder="Enter last name..." required>
                                 </div>
-                                <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="username" [(ngModel)]="agent.username" placeholder="Enter username..." required>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                              </form>
+                                <div class="form-group">
+                                    <input type="number" class="form-control" name="brn" [(ngModel)]="agent.brn" placeholder="Enter bussines number..." required>
+                                </div><div class="form-group">
+                                    <label  style="text-align: left">Address</label>
+                                <select id="sel1" class="form-control"  name="addresa" [(ngModel)]="oneAndOnlyAddress">
+                                        <option  *ngFor="let item of addresses" [ngValue] = "item" >{{ item.country }}</option>
+                                     </select></div>
+
                 </div>
+
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                  <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                  <button type="submit" class="btn btn-outline-success" (click)="onSubmit()" data-dismiss="modal"><i class="fa fa-check"></i> Save</button>
+                </div></form>
+            
               </div>
             </div>
           </div>
-       

@@ -1,3 +1,5 @@
+import { AddressAgent } from './address';
+
 export class Agent {
     constructor(
         public id: number,
@@ -7,7 +9,6 @@ export class Agent {
         public password: string,
         public username: string,
         public brn: number,
-        public status: number,
-        public address_id: number
+        public address_id: AddressAgent
     ){}
 }

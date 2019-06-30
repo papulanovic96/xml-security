@@ -14,7 +14,7 @@ export class CommentService {
   private refuseURL = 'http://localhost:4200/comment/refuse'
   private deleteURL = 'http://localhost:4200/comment/delete'
 
-  private comment = new Comment(0, '', 0, 0)
+  private comment = new Comment(0, '', 0, '')
 
   constructor(private http: HttpClient) { }
 

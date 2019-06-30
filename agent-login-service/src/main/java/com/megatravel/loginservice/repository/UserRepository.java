@@ -7,15 +7,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.megatravel.loginservice.models.Agent;
 import com.megatravel.loginservice.models.User;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	
 	List<User> findAll();
-	Agent findAgentByUsername(String name);
+	@Query(value = "select * from agentLocalBase.users where users.dtype=1 && users.username= :username", nativeQuery = true)
+	Agent findAgentByUsername(@Param("username") String username);
 	
-	@Query(value = "select * from agentLocalBase.user where user.dtype='Agent'", nativeQuery = true)
+	@Query(value = "select * from agentLocalBase.users where users.dtype=1", nativeQuery = true)
 	List<Agent> findAgents();
-
+	
 	
 
 }

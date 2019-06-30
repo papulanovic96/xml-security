@@ -43,6 +43,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Agent", namespace = "http://www.megatravel.com/users", propOrder = {
+    "id",
     "brn",
     "address"
 })

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class UserPrincipal implements UserDetails {
 
-	//private Agent agent;
+	
 	private User user;
     public UserPrincipal(User user){
         this.user = user;
@@ -25,12 +25,12 @@ public class UserPrincipal implements UserDetails {
 
         System.out.println("usao u getAuthorities() u userPrincipal klasi***");
         this.user.getRoles().forEach(r -> {
-           
+           /*
         	for(int i = 0; i < r.getPrivileges().size(); i++) {
         		GrantedAuthority authority = new SimpleGrantedAuthority(r.getPrivileges().get(i).getName());
                 authorities.add(authority);
         	}
-        
+        */
         
         });
         

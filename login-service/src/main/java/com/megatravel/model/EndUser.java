@@ -10,13 +10,15 @@ package com.megatravel.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -45,20 +47,34 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "EndUser", namespace = "http://www.megatravel.com/users", propOrder = {
     "status",
-//    "reservations"
+    "reservations"
 })
+@Entity
 @JsonTypeName("EndUser")
 @JsonDeserialize(as = EndUser.class)
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id", scope = EndUser.class)
 public class EndUser
     extends User
 {
-	
+
     @XmlElement(required = true)
     protected UserStatus status;
-//    protected List<Reservation> reservations;
+    
+    @ManyToMany
+    protected List<Reservation> reservations;
 
     public EndUser() {
     	
+    }
+    
+    public EndUser(String un, String pw, String e, String fn, String ln, UserStatus s, List<Reservation> r) {
+    	this.username = un;
+    	this.password = pw;
+    	this.email = e;
+    	this.firstName = fn;
+    	this.lastName = ln;
+    	this.status = s;
+    	this.reservations = r;
     }
     
     /**
@@ -69,9 +85,9 @@ public class EndUser
      *     {@link UserStatus }
      *     
      */
-//    public UserStatus getStatus() {
-//        return status;
-//    }
+    public UserStatus getStatus() {
+        return status;
+    }
 
     /**
      * Sets the value of the status property.
@@ -106,12 +122,12 @@ public class EndUser
      * {@link Reservation }
      * 
      * 
-//     */
-//    public List<Reservation> getReservations() {
-//        if (reservations == null) {
-//            reservations = new ArrayList<Reservation>();
-//        }
-//        return this.reservations;
-//    }
+     */
+    public List<Reservation> getReservations() {
+        if (reservations == null) {
+            reservations = new ArrayList<Reservation>();
+        }
+        return this.reservations;
+    }
 
 }

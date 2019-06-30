@@ -8,6 +8,7 @@
 
 package com.megatravel.model;
 
+import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
@@ -36,6 +37,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Administrator", namespace = "http://www.megatravel.com/users")
+@Entity
 @JsonTypeName("Administrator")
 @JsonDeserialize(as = Administrator.class)
 public class Administrator

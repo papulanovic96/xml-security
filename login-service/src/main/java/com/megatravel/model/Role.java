@@ -10,13 +10,20 @@ package com.megatravel.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
@@ -47,17 +54,30 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     "id",
     "name",
     "users",
-//    "privileges"
+    "privileges"
 })
+@Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id", scope = Role.class)
 public class Role {
 
+	@Id
+	@GeneratedValue
     protected long id;
+	
     @XmlElement(required = true)
     protected Roles name;
-
+    
+    @ManyToMany(mappedBy = "roles")
     protected List<User> users;
-
-//    protected List<Privileges> privileges;
+    
+    @ManyToMany
+    @JoinTable(
+        name = "roles_privileges", 
+        joinColumns = @JoinColumn(
+          name = "role_id", referencedColumnName = "id"), 
+        inverseJoinColumns = @JoinColumn(
+          name = "privilege_id", referencedColumnName = "id"))
+    protected List<Privileges> privileges;
 
     /**
      * Gets the value of the id property.
@@ -150,11 +170,11 @@ public class Role {
      * 
      * 
      */
-//    public List<Privileges> getPrivileges() {
-//        if (privileges == null) {
-//            privileges = new ArrayList<Privileges>();
-//        }
-//        return this.privileges;
-//    }
+    public List<Privileges> getPrivileges() {
+        if (privileges == null) {
+            privileges = new ArrayList<Privileges>();
+        }
+        return this.privileges;
+    }
 
 }

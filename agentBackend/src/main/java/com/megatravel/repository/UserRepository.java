@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query(value = "select * from booking.user where user.dtype = 'EndUser'", nativeQuery = true)
 	List<EndUser> findEndUsers();
 	
-	@Query(value = "select * from agentLocalBase.users where users.dtype = 1 && users.username = :username", nativeQuery = true)
+	@Query(value = "select * from agentLocalBase.user where user.dtype = 1 && user.username = :username", nativeQuery = true)
 	Agent findAgentByUsername(@Param("username") String username);
 	
 	

@@ -11,6 +11,12 @@ package com.megatravel.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,6 +26,8 @@ import javax.xml.bind.annotation.XmlType;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+
 
 
 /**
@@ -58,27 +66,46 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
     "roles"
 })
 @XmlSeeAlso({
+    Agent.class,
     Administrator.class,
     EndUser.class
 })
-@JsonDeserialize(as = EndUser.class)
-public class User {
+@Entity
+//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="id", scope = User.class)
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id", scope = User.class)
 
-	protected long id;
+@JsonDeserialize(as = EndUser.class)
+public abstract class User {	
+	
+	@Id
+	@GeneratedValue
+    protected long id;
+
     @XmlElement(required = true)
     protected String username;
+    
     @XmlElement(required = true)
+    
     protected String password;
     @XmlElement(required = true)
+    
     protected String email;
     @XmlElement(required = true)
+    
     protected String firstName;
     @XmlElement(required = true)
+    
     protected String lastName;
     
+    @ManyToMany
+    @JoinTable( 
+        name = "users_roles", 
+        joinColumns = @JoinColumn(
+          name = "user_id", referencedColumnName = "id"), 
+        inverseJoinColumns = @JoinColumn(
+          name = "role_id", referencedColumnName = "id")) 
     protected List<Role> roles;
 
-  
     /**
      * Gets the value of the id property.
      * 
@@ -243,5 +270,9 @@ public class User {
         }
         return this.roles;
     }
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
 
 }

@@ -28,7 +28,7 @@ export class AccommodationFormComponent implements OnInit {
   selectedCategory : number = -1;
   selectImagesMessage = "Select images";
   selectedFiles : any[];
-  prices: PriceInSeason[];
+  
   currencies= Currencies;
   selectedCurrency = Currencies.EUR;
   months= Months;
@@ -211,11 +211,10 @@ export class AccommodationFormComponent implements OnInit {
         this.renderer.addClass(price, 'border-danger');
         errors++;
       }else{
-        this.acc.priceInSeason.price = this.priceInSeason.price;
-        this.acc.priceInSeason.currency = this.selectedCurrency;
-        this.acc.priceInSeason.inMonth = this.selectedMonth;
         
-      
+        this.priceInSeason.currency = this.selectedCurrency;
+        this.priceInSeason.inMonth = this.selectedMonth;
+        this.acc.priceInSeason.push(this.priceInSeason);
         this.renderer.removeClass(price, 'border-danger');
       }
 

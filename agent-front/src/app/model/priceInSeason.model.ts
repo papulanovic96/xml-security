@@ -7,5 +7,6 @@ export class PriceInSeason{
     inMonth:Months;
     price:number;
     currency:string;
+    accId: number;
    
 }

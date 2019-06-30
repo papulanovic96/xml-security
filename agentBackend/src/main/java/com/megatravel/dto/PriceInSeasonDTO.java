@@ -8,13 +8,14 @@ public class PriceInSeasonDTO {
 	 protected Months inMonth;
 	 protected long price;
 	 protected Currencies currency;
+	 protected long accId;
 	
 	public PriceInSeasonDTO(PriceInSeason price) {
 		this.inMonth = price.getInMonth();
 		this.price = price.getPrice();
 		this.currency = price.getCurrency();
 	}
-
+	public PriceInSeasonDTO() {}
 	public Months getInMonth() {
 		return inMonth;
 	}
@@ -37,5 +38,13 @@ public class PriceInSeasonDTO {
 
 	public void setCurrency(Currencies currency) {
 		this.currency = currency;
+	}
+	public long getAccId() {
+		if(this.accId == 0)
+			accId = -1;
+		return accId;
+	}
+	public void setAccId(long accId) {
+		this.accId = accId;
 	}
 }

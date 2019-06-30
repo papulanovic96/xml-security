@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.megatravel.loginservice.models.Agent;
-import com.megatravel.loginservice.models.Credentials;
-import com.megatravel.loginservice.models.User;
+import com.megatravel.loginservice.model.Agent;
+import com.megatravel.loginservice.model.Credentials;
+import com.megatravel.loginservice.model.User;
 import com.megatravel.loginservice.service.UserService;
 
 

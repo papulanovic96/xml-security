@@ -16,7 +16,6 @@ export class Accommodation {
     category: AccommodationCategory = new AccommodationCategory();
     description: string;
     cancelation = new Cancelation();
-    image: Image[];
-    priceInSeason = new PriceInSeason();
+    priceInSeason: PriceInSeason[] = [];
     capacity: number;
 }

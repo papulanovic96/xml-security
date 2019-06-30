@@ -104,8 +104,9 @@ export class EditAccommodationnComponent implements OnInit {
 
     this.newPriceInSeason.inMonth = this.selectedMonth;
     this.newPriceInSeason.currency = this.selectedCurrency;
-
-    this.pisService.addNewPriceInSeason(this.newPriceInSeason, this.acc.id).subscribe(
+    this.newPriceInSeason.accId = this.acc.id;
+    
+    this.pisService.addNewPriceInSeason(this.newPriceInSeason).subscribe(
       data => {
 
         this.pisService.getPriceInSeasonByAcc(this.acc.id).subscribe(

@@ -13,8 +13,8 @@ export class PriceInSeasonService {
     return this.http.post<PriceInSeason[]>('api/accommodation/getPriceInSeason', accId);
   }
 
-  addNewPriceInSeason(priceInSeason : PriceInSeason, accId : number){
-    return this.http.post<PriceInSeason>('api/accommodation/addNewPriceInSeason', [priceInSeason, accId]);
+  addNewPriceInSeason(priceInSeason : PriceInSeason){//, accId : number
+    return this.http.post('api/accommodation/addNewPriceInSeason', priceInSeason);//[priceInSeason, accId]
   }
   deletePriceInSeason(ID_PIS : number){
     return this.http.post('api/accommodation/deletePriceInSeason', ID_PIS)

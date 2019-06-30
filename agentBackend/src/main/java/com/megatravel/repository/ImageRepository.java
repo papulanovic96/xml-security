@@ -14,7 +14,7 @@ public interface ImageRepository extends JpaRepository<ImageResource, Long> {
 	
 	public ImageResource findOneById(long id);
 	
-	@Query(value = "select * from agentLocalBase.accommodation_image img where img.accommodation_id = ?1", nativeQuery = true)
-	List<Long> getImagesId(long accId);
+	@Query(value = "select img.image_id from agentLocalBase.accommodation_image img where img.accommodation_id = ?1", nativeQuery = true)
+	public List<Long> getImagesId(long accId);
 	
 }

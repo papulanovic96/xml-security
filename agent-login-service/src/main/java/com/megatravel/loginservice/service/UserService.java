@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.megatravel.loginservice.models.Agent;
-import com.megatravel.loginservice.models.User;
+
+import com.megatravel.loginservice.model.Agent;
+import com.megatravel.loginservice.model.User;
 import com.megatravel.loginservice.repository.UserRepository;
 
 @Service

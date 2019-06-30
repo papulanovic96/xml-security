@@ -7,32 +7,23 @@ import java.util.Date;
 import com.megatravel.model.Accommodation;
 import com.megatravel.model.EndUser;
 import com.megatravel.model.Reservation;
+import com.megatravel.model.ReservationStatus;
 
 public class ReservationDTO {
 
-	
-	protected EndUser reservedBy;
     protected Accommodation accommodation;
     protected Date fromDate;
     protected Date tillDate;
-    protected boolean status;
+    protected ReservationStatus status;
     
     public ReservationDTO(Reservation r) {
     	
-    	this.reservedBy = r.getReservedBy();
-    	this.accommodation = r.getAccomodation();
+    	
+    	this.accommodation = r.getAccommodation();
     	this.fromDate = r.getFromDate();
     	this.tillDate = r.getTillDate();
-    	this.status = r.isStatus();
+    	this.status = r.getStatus();
     }
-
-	public EndUser getReservedBy() {
-		return reservedBy;
-	}
-
-	public void setReservedBy(EndUser reservedBy) {
-		this.reservedBy = reservedBy;
-	}
 
 	public Accommodation getAccommodation() {
 		return accommodation;
@@ -58,13 +49,12 @@ public class ReservationDTO {
 		this.tillDate = tillDate;
 	}
 
-	public boolean isStatus() {
+	public ReservationStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(ReservationStatus status) {
 		this.status = status;
 	}
-    
-	
+
 }

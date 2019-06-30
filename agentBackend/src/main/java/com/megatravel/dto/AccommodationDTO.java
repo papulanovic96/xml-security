@@ -17,7 +17,7 @@ import com.megatravel.model.AccommodationCategory;
 import com.megatravel.model.AccommodationType;
 import com.megatravel.model.AdditionalServices;
 import com.megatravel.model.Address;
-import com.megatravel.model.Cancelation;
+import com.megatravel.model.Cancellation;
 import com.megatravel.model.Comment;
 import com.megatravel.model.PriceInSeason;
 
@@ -37,26 +37,27 @@ public class AccommodationDTO {
     protected List<PriceInSeason> pricesInSeason;
     protected List<AdditionalServices> additionalService;
     protected boolean available;
-    protected Cancelation cancelation;
+    protected Cancellation cancelation;
     protected String rate;
     protected List<Comment> comments;
     
+    public AccommodationDTO() {}
     public AccommodationDTO(Accommodation acc)
     {
     	this.id = acc.getId();
     	this.category = acc.getCategory();
     	this.type = acc.getType();
     	this.description = acc.getDescription();
-    	this.cancelation = acc.getCancelation();
+    	this.cancelation = acc.getCancellation();
     	this.capacity = acc.getCapacity();
     	this.address = acc.getAddress();
     	this.image = new ArrayList<>();
-    	this.pricesInSeason = acc.getPricesInSeason();
+    	this.pricesInSeason = acc.getPriceInSeason();
     	this.additionalService = acc.getAdditionalService();
     	
     }
 
-    public AccommodationDTO() {}
+   
 	public long getId() {
 		return id;
 	}
@@ -157,11 +158,11 @@ public class AccommodationDTO {
 		this.available = available;
 	}
 
-	public Cancelation getCancelation() {
+	public Cancellation getCancelation() {
 		return cancelation;
 	}
 
-	public void setCancelation(Cancelation cancelation) {
+	public void setCancelation(Cancellation cancelation) {
 		this.cancelation = cancelation;
 	}
 

@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 @ComponentScan(basePackages={"com.megatravel.loginservice.*"})
 @EnableJpaRepositories(basePackages = {"com.megatravel.loginservice.repository"})
-@EntityScan(basePackages = {"com.megatravel.loginservice.models"})
+@EntityScan(basePackages = {"com.megatravel.loginservice.model"})
 
 @EnableEurekaClient
 public class LoginServiceApp {

@@ -59,7 +59,7 @@ public class AccommodationController {
 	@RequestMapping(value="/addNewAccommodation", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
 	public ResponseEntity<AccommodationDTO> add(@RequestBody Accommodation accommodation) {
 		
-		Agent agent = userService.getCurrentAgent();//NE RADI!
+		Agent agent = userService.getCurrentAgent();
 		
 		accommodation.setOwnedBy(agent);
 		Accommodation acc = accommodationRepository.save(accommodation);
@@ -111,15 +111,21 @@ public class AccommodationController {
 		return new ResponseEntity<>(prices, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/addNewPriceInSeason", method = RequestMethod.POST, produces =  MediaType.APPLICATION_JSON)
-	public ResponseEntity<PriceInSeasonDTO> addNewPriceInSeason(@RequestBody PriceInSeason pis, long accId){
-	
+	@RequestMapping(value = "/addNewPriceInSeason", method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON)
+	public ResponseEntity addNewPriceInSeason(@RequestBody PriceInSeasonDTO pis){
+	//, long accId
 		
-		Accommodation acc = accommodationRepository.findOneById(accId);
-		acc.getPricesInSeason().add(pis);
+		Accommodation acc = accommodationRepository.findOneById(pis.getAccId());
+		
+		PriceInSeason priceInSeason = new PriceInSeason();
+		priceInSeason.setCurrency(pis.getCurrency());
+		priceInSeason.setPrice(pis.getPrice());
+		priceInSeason.setInMonth(pis.getInMonth());
+		
+		acc.getPriceInSeason().add(priceInSeason);
 		accommodationRepository.save(acc);
 		
-		return new ResponseEntity<>(new PriceInSeasonDTO(pis), HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	
 	}
 	

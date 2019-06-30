@@ -5,11 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import com.megatravel.config.SOAPConnector;
 import com.megatravel.model.Agent;
 import com.megatravel.model.EndUser;
-import com.megatravel.model.SyncUserResponse;
 import com.megatravel.model.User;
 import com.megatravel.repository.UserRepository;
 

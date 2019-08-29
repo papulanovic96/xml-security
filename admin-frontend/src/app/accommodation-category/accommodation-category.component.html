@@ -1,38 +1,40 @@
 
 <div class="col-5">
-        <table class="table table-fixed table-hover">
-            <thead>
-              <tr>
-                <th scope="col-xs-1">id</th>
-                <th scope="col-1">name</th>
-                <th scope="col-xs-1" colspan="2"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor = 'let cat of categories'>
-                <td>{{ cat.id }}</td>
-                <td>{{ cat.name }}</td>
-                <td><a [routerLink]="['./accommodation-category-modify', cat.id]"><button class="btn btn-outline-warning"><i class="fa fa-edit"></i> Modify</button></a></td>
-                <td><button type="button" (click)="delete(cat.id)" class="btn btn-outline-danger"><i class="fa fa-close"></i> Delete</button></td>
-              </tr>
-            </tbody>
-          </table>
-    </div>
-    <div class=row>
-    <div class="col-1"></div>
+  <table class="table table-fixed table-hover">
+    <thead>
+      <tr>
+        <th scope="col-xs-1">id</th>
+        <th scope="col-1">name</th>
+        <th scope="col-xs-1" colspan="2"></th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = 'let cat of categories'>
+          <td>{{ cat.id }}</td>
+          <td>{{ cat.name }}</td>
+          <td><a [routerLink]="['./accommodation-category-modify', cat.id]"><button class="btn btn-outline-warning"><i class="fa fa-edit"></i> Modify</button></a></td>
+          <td><button type="button" (click)="delete(cat.name)" class="btn btn-outline-danger"><i class="fa fa-close"></i> Delete</button></td>
+        </tr>
+      </tbody> 
+  </table>
+</div>
+
+<div class="row text-center">
+  <div class="col-1"></div>
     <div class="col-4">
-    <div class="card text-right">
-    <div class="card-body">
-      <form #asForm="ngForm">
-            <div class="form-row">
-      <div class="col-8 my-1 text-right">
-        <input type="text" class="form-control" id="name" required name="name" [(ngModel)]="category.name" placeholder="Enter category name..." >
-      </div>
-      <div class="col my-1 text-right">
-            <button type="submit" class="btn btn-success" (click)="onSubmit()"><i class="fa fa-plus"></i> Add category</button>
+      <div class="card text-right">
+        <div class="card-body">
+          <form #asForm="ngForm">
+              <div class="form-row">
+                <div class="col-8 my-1 text-right">
+                  <input type="text" class="form-control" id="name" required name="name" [(ngModel)]="category.name" placeholder="Enter category name..." >
+                </div>
+                <div class="col my-1 text-right">
+                    <button type="submit" class="btn btn-success" (click)="onSubmit()"><i class="fa fa-plus"></i> Add category</button>
+                </div>
+              </div>
+          </form>
+        </div>
       </div>
     </div>
-    </form>
-    </div>
-    </div></div></div>
-       
+</div>

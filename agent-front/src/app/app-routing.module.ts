@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginFormComponent } from './login-form/login-form.component'
+import { LoginFormComponent } from './auth/login-form/login-form.component'
 import { AccommodationFormComponent } from './accommodation-form/accommodation-form.component'
 import { HomeComponent } from './home/home.component'
 import { AccommodationsComponent} from './accommodations/accommodations.component'
@@ -8,7 +8,7 @@ import { EditAccommodationnComponent } from './edit-accommodationn/edit-accommod
 
 const routes: Routes = [
   {
-   path: '', redirectTo: '/login', pathMatch: 'full'
+   path: '', redirectTo: '/home', pathMatch: 'full'
   
   },
   {
@@ -28,13 +28,13 @@ const routes: Routes = [
         path: 'accommodations', component: AccommodationsComponent, children:[
 
           {
-            path: '', redirectTo: 'addAccommodations', pathMatch: 'full'
+            path: '', redirectTo: 'create', pathMatch: 'full'
           },
           {
-            path: 'addAccommodations', component: AccommodationFormComponent
+            path: 'create', component: AccommodationFormComponent
           },
           {
-            path: 'editAccommodation', component: EditAccommodationnComponent
+            path: 'update', component: EditAccommodationnComponent
           }
 
         ]

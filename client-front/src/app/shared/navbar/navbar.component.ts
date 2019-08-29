@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { UsersService } from '../../services/users.service';
+import { AuthService } from '../../auth/auth.service';
+import { TokenStorageService  } from '../../auth/token-storage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,24 +11,30 @@ import { UsersService } from '../../services/users.service';
 })
 export class NavbarComponent implements OnInit {
 
+  isLoggedIn : boolean;
+
   public logo = 'assets/logo.png'
 
-  constructor(private userService: UsersService) { }
+
+  constructor(private authService: AuthService,
+              private tokenStorageService: TokenStorageService,
+              private router: Router) {}
 
   ngOnInit() {
+
+    if (this.tokenStorageService.getToken() != null) {
+      this.isLoggedIn = true;
+    }
 
   }
 
   signout() {
-    console.log("DOSO")
-    this.userService.signout().subscribe( 
-      data => {
-        console.log(data)
-      }, 
-      err => {
-
-      }
-    )
+    this.tokenStorageService.signOut();
+    window.location.reload();
+  }
+  
+  popUpSignUp() {
+    
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdditionalServices } from '../additional-services';
 import { AdditionalServicesModifyService } from './additional-services-modify.service';
+import { UpdateAdditionalServiceRequest } from '../additional-services';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -13,9 +14,11 @@ export class AdditionalServicesModifyComponent implements OnInit {
   pageTitle: string;
   aService: AdditionalServices;
 
-  constructor(private aServiceService: AdditionalServicesModifyService, private route: ActivatedRoute, private router: Router)  {
+  update = new UpdateAdditionalServiceRequest;
 
-   }
+  constructor(private aServiceService: AdditionalServicesModifyService, 
+              private route: ActivatedRoute, 
+              private router: Router) { }
 
   ngOnInit() {
     const param = this.route.snapshot.paramMap.get('id');
@@ -29,12 +32,16 @@ export class AdditionalServicesModifyComponent implements OnInit {
 
   getAdditionalServiceId(id: number) {
     this.aServiceService.getOneService(id).subscribe(
-      aService => this.aService = aService
+      aService => { this.aService = aService; 
+                    this.update.oldName = this.aService.name
+                    this.pageTitle += this.aService.name }
     );
   }
 
-  onModify(id: number) {
-    this.aServiceService.updateService(id, this.aService).subscribe();
+  onModify() {
+    this.update.newName = this.aService.name
+    console.log(this.update)
+    this.aServiceService.updateService(this.update).subscribe();
     this.router.navigate(['additional-services']);
   }
 

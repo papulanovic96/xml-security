@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { AdditionalServices } from '../additional-services';
+import { AdditionalServices, UpdateAdditionalServiceRequest } from '../additional-services';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
@@ -16,8 +16,10 @@ export class AdditionalServicesModifyService implements OnInit{
     })
   };
 
-  private findAllURL = 'http://localhost:4200/additional-services/findAll';
-  private modifyURL = 'http://localhost:4200/additional-services/modify';
+  private zuurl = 'http://localhost:8761/';
+
+  private findAllURL = this.zuurl + 'main-backend/additional-services';
+  private modifyURL = this.zuurl + 'main-backend/additional-services';
 
 
   constructor(private http: HttpClient) { }
@@ -28,8 +30,8 @@ export class AdditionalServicesModifyService implements OnInit{
     );
   }
 
-  updateService(id: number, aService: AdditionalServices): Observable<Object> {
-    return this.http.put<number>(this.modifyURL + '/' + id, aService, {responseType: 'text'}).pipe(
+  updateService(request: UpdateAdditionalServiceRequest): Observable<AdditionalServices[]> {
+    return this.http.put<AdditionalServices[]>(this.modifyURL, request, {responseType: 'json'}).pipe(
       catchError(this.handleError)
     );
   }

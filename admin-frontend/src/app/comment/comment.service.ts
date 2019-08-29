@@ -2,48 +2,62 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Comment } from './comment';
+import { Comment, UpdateCommentRequest, CommentsUpdateResponse } from './comment';
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
 
-  private findAllURL = 'http://localhost:4200/comment/notReviewed'
-  private findAllacceptedURL = 'http://localhost:4200/comment/accepted'
-  private acceptURL = 'http://localhost:4200/comment/accept'
-  private refuseURL = 'http://localhost:4200/comment/refuse'
-  private deleteURL = 'http://localhost:4200/comment/delete'
+  private zuurl = 'http://localhost:8761/';
+
+  private findComments = this.zuurl + 'main-backend/comments'
+  private findRefusedUrl = this.zuurl + 'main-backend/comments/refused'
+  private findAcceptedUrl = this.zuurl + 'main-backend/comments/approved'
+  private acceptURL = this.zuurl + 'main-backend/comments/approve'
+  private refuseURL = this.zuurl + 'main-backend/comments/refuse'
+  private deleteURL = this.zuurl + 'main-backend/comments/delete/'
 
   private comment = new Comment(0, '', 0, '')
 
+  private updateRequest = new UpdateCommentRequest;
+
   constructor(private http: HttpClient) { }
 
-  getComment(): Observable<Comment[]> {
-    return this.http.get<Comment[]>(this.findAllURL).pipe(
+  getComments(): Observable<Comment[]> {
+    return this.http.get<Comment[]>(this.findComments).pipe(
       catchError(this.handleError)
     );
   }
 
-  getCommentAccepted(): Observable<Comment[]> {
-    return this.http.get<Comment[]>(this.findAllacceptedURL).pipe(
+  getRefusedComments(): Observable<Comment[]> {
+    return this.http.get<Comment[]>(this.findRefusedUrl).pipe(
       catchError(this.handleError)
     );
   }
 
-  acceptComment(id: number): Observable<Object> {
-    return this.http.put<number>(this.acceptURL + '/' + id, this.comment, {responseType: 'text'}).pipe(
+  getAcceptedComments(): Observable<Comment[]> {
+    return this.http.get<Comment[]>(this.findAcceptedUrl).pipe(
       catchError(this.handleError)
     );
   }
 
-  blockComment(id: number): Observable<Object> {
-    return this.http.put<number>(this.refuseURL + '/' + id, this.comment, {responseType: 'text'}).pipe(
+  approve(id: number): Observable<CommentsUpdateResponse> {
+    this.updateRequest.id = id;
+    return this.http.put<CommentsUpdateResponse>(this.acceptURL, this.updateRequest).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  refuse(id: number): Observable<CommentsUpdateResponse> {
+    this.updateRequest.id = id;
+    console.log(this.updateRequest);
+    return this.http.put<CommentsUpdateResponse>(this.refuseURL, this.updateRequest).pipe(
       catchError(this.handleError)
     );
   }
 
   deleteComment(id: number): Observable<Object> {
-    return this.http.delete(this.deleteURL + '/' + id).pipe(
+    return this.http.delete(this.deleteURL + id).pipe(
       catchError(this.handleError)
     )
   }

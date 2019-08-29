@@ -1,9 +1,8 @@
 {
-	"/": {
-		"target": "http://localhost:8000",
-		"secure": false,
-		"changeOrigin": true
+    "/**": {
+      "target": "http://localhost:8761/",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
     }
-    
-    
 }

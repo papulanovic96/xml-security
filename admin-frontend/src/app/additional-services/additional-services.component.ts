@@ -20,16 +20,16 @@ export class AdditionalServicesComponent implements OnInit {
     );
   }
 
-  delete(id: number) {
-    this.serviceAdditional.deleteService(id).subscribe();
-    window.location.reload();
+  delete(name: string) {
+    this.serviceAdditional.deleteService(name).subscribe( 
+      data => { this.services = data }
+    );
   }
 
   onSubmit() {
     this.serviceAdditional.addService(this.service).subscribe(
-      service => this.services.push(service)
+      data => { this.services = data }
     );
-    window.location.reload();
-  }
+   }
 
 }

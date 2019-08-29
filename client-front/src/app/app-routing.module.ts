@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { UsersComponent } from './users/users.component';
-import { SignUpComponent } from './users/sign-up/sign-up.component';
-import { SignInComponent } from './users/sign-in/sign-in.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { AccommodationComponent} from './accommodation/accommodation.component';
-import { AccountComponent } from './users/account/account.component';
-
+import { AccountComponent } from './account/account.component';
+import { InboxComponent } from './inbox/inbox.component';
 
 
 const routes: Routes = [
@@ -31,8 +30,8 @@ const routes: Routes = [
     component: AccountComponent
   },
   {
-    path:'users',
-    component: UsersComponent
+    path:'inbox',
+    component: InboxComponent
   }
 
 ];

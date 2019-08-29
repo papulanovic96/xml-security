@@ -22,15 +22,15 @@ export class AccommodationTypeComponent implements OnInit {
     )
   }
 
-  delete(id: number) {
-    this.aTypeService.deleteType(id).subscribe();
-    window.location.reload();
+  delete(name: string) {
+    this.aTypeService.deleteType(name).subscribe(
+      response => { this.types = response }
+    );
   }
 
   onSubmit() {
     this.aTypeService.addType(this.type).subscribe(
-      type => this.types.push(type)
+      response => { this.types = response }
     );
-    window.location.reload();
   }
 }

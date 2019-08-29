@@ -1,7 +1,17 @@
-import { User } from "./user.model";
-
 export class Comment {
-    id: string;
     content: string;
-    endUsername: String;
+    postedBy: string;
+    visible: boolean;
 }
+
+export class CreateCommentRequest {
+    accommodationName: string;
+    content: string;
+    fromDate: Date;
+    tillDate: Date;
+}
+
+export class CreateCommentResponse  {
+    feedback: string;
+}
+

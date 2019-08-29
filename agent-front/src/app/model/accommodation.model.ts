@@ -3,11 +3,10 @@ import { AccommodationType } from './accommodationType.model';
 import { AccommodationCategory } from './accommodationCategory.model';
 import { Address } from './address.model';
 import { AdditionalService } from './additionalservice.model';
-import { Cancelation } from './cancelation.model';
-import { PriceInSeason } from './priceInSeason.model';
+import { Cancelation, CancellationRequest } from './cancelation.model';
+import { PriceInSeason, PriceRequest } from './priceInSeason.model';
 
 export class Accommodation {
-
     id: number;
     name: string;
     address: Address = new Address();
@@ -18,4 +17,17 @@ export class Accommodation {
     cancelation = new Cancelation();
     priceInSeason: PriceInSeason[] = [];
     capacity: number;
+}
+
+export class CreateAccommodationRequest {
+    name: string
+    type: string
+    category: string
+    description: string
+    city: string
+    capacity: number
+    cancellation = new CancellationRequest()
+    pricelist: PriceRequest[] = []
+    additionalServices: string[] = []
+    images: string[] = []
 }

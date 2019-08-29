@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Agent } from './agent.model';
+import { Agent, CreateAgentRequest } from './agent.model';
 import { catchError, map } from 'rxjs/operators';
-import { AgentList } from './agent-list';
-import { AddressAgent } from './address';
+import { Address } from '../address.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgentService {
 
-  private findAllUrl = 'http://localhost:4200/admin-agent-creation/findAgents';
-  private saveUrl = 'http://localhost:4200/admin-agent-creation/saveAgent';
-  private findAllAddressesUrl = 'http://localhost:4200/address/findAll';
-  private saveItUrl = 'http://localhost:4200/address/save';
+  private zuurl = 'http://localhost:8761/';
+
+  private findAllUrl = this.zuurl + 'main-backend/agents';
+  private saveUrl = this.zuurl + 'agent-creation-service';
+  private findAllAddressesUrl = this.zuurl + 'main-backend/addresses';
+  private saveItUrl = this.zuurl + 'main-backend/addresses';
 
   constructor(private http: HttpClient) { }
   
@@ -24,26 +25,14 @@ export class AgentService {
     );
   }
 
-  getAllAddresses(): Observable<AddressAgent[]> {
-    return this.http.get<AddressAgent[]>(this.findAllAddressesUrl).pipe(
+  getAllAddresses(): Observable<Address[]> {
+    return this.http.get<Address[]>(this.findAllAddressesUrl).pipe(
       catchError(this.handleError)
     );
   }
 
-  getAddress(id: number): Observable<Agent | undefined> {
-    return this.getAllAgents().pipe(
-      map((servicess: Agent[]) => servicess.find(s => s.id === id))
-    );
-  }
-
-  saveAddress(newAddress: AddressAgent): Observable<AddressAgent> {
-    return this.http.post<AddressAgent>(this.saveItUrl, newAddress, {responseType: 'text'}).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  saveAgent(newAgent: Agent): Observable<Agent> {
-    return this.http.post<Agent>(this.saveUrl, newAgent, {responseType: 'text'}).pipe(
+  saveAgent(request: CreateAgentRequest): Observable<Agent[]> {
+    return this.http.post<Agent[]>(this.saveUrl, request).pipe(
       catchError(this.handleError)
     );
   }

@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { AccommodationType } from '../accommodation-type';
+import {  AccommodationType, UpdateAccommodationTypeRequest, CodebookResponse } from '../accommodation-type';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
@@ -9,15 +9,16 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class AccommodationTypeModifyService implements OnInit{
 
+  private zuurl = 'http://localhost:8761/';
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      'Authorization': 'my-auth-token'
     })
   };
 
-  private findAllURL = 'http://localhost:4200/accommodation-type/findAll';
-  private modifyURL = 'http://localhost:4200/accommodation-type/modify';
+  private findAllURL = this.zuurl + 'main-backend/accommodation-types';
+  private modifyURL = this.zuurl +  'main-backend/accommodation-types';
 
   constructor(private http: HttpClient) { }
 
@@ -27,8 +28,8 @@ export class AccommodationTypeModifyService implements OnInit{
     );
   }
 
-  updateType(id: number, aType: AccommodationType): Observable<Object> {
-    return this.http.put<number>(this.modifyURL + '/' + id, aType, {responseType: 'text'}).pipe(
+  updateType(request: UpdateAccommodationTypeRequest): Observable<AccommodationType[]> {
+    return this.http.put<AccommodationType[]>(this.modifyURL, request).pipe(
       catchError(this.handleError)
     );
   }

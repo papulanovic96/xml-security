@@ -6,3 +6,17 @@ export class Comment{
         public posted_by_id: string
     ){}
 }
+
+export class UpdateCommentRequest {
+    id: number;
+}
+
+export class CprdCommentResponse {
+    feedback: string;
+}
+
+export class CommentsUpdateResponse {
+    approved: Comment[];
+    refused: Comment[];
+}
+

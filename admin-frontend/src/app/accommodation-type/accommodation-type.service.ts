@@ -1,7 +1,7 @@
 import { OnInit, Injectable } from '@angular/core'
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AccommodationType } from './accommodation-type';
+import { AccommodationType, CreateAccommodationTypeRequest, DeleteAccommodationTypeRequest } from './accommodation-type';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError} from 'rxjs/operators';
@@ -18,12 +18,16 @@ export class AccommodationTypeService implements OnInit {
         })
     }
 
-    private saveTypeURL = 'http://localhost:4200/accommodation-type/save';
-    private deleteTypeURL = 'http://localhost:4200/accommodation-type/delete';
+    private zuurl = 'http://localhost:8761/';
+
+    private createRequest = new CreateAccommodationTypeRequest;
+
+    private saveTypeURL = this.zuurl + 'main-backend/accommodation-types';
+    private deleteTypeURL = this.zuurl +'main-backend/accommodation-types/delete/';
     private getTypeURL: string;
 
     constructor(private http: HttpClient) {
-        this.getTypeURL = 'http://localhost:4200/accommodation-type/findAll';
+        this.getTypeURL =  this.zuurl +'main-backend/accommodation-types';
     }
 
     getTypes(): Observable<AccommodationType[]> {
@@ -32,14 +36,15 @@ export class AccommodationTypeService implements OnInit {
         )
     }    
 
-    deleteType(id:number): Observable<Object> {
-        return this.http.delete(this.deleteTypeURL + '/' + id, {responseType: 'text'}).pipe(
+    deleteType(name:string): Observable<AccommodationType[]> {
+        return this.http.delete<AccommodationType[]>(this.deleteTypeURL + name).pipe(
             catchError(this.handleError)
         );
     }
 
-    addType(newType: AccommodationType): Observable<AccommodationType> {
-        return this.http.post<AccommodationType>(this.saveTypeURL, newType, {responseType: 'text'}).pipe(
+    addType(newType: AccommodationType): Observable<AccommodationType[]> {
+        this.createRequest.name = newType.name;
+        return this.http.post<AccommodationType[]>(this.saveTypeURL, this.createRequest, {responseType: 'json'}).pipe(
             catchError(this.handleError)
         );
     }

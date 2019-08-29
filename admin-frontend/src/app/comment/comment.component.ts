@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommentService } from './comment.service';
-import { Comment } from './comment';
+import { Comment} from './comment';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -8,32 +8,30 @@ import { Comment } from './comment';
 })
 export class CommentComponent implements OnInit {
 
-  comments: Comment[];
-  acceptedComments: Comment[];
+  refusedComments: Comment[];
+  acceptedComments: Comment[]
 
   constructor(private serviceComment: CommentService) { }
 
   ngOnInit() {
-    this.serviceComment.getComment().subscribe(
-      comments => this.comments = comments
+    this.serviceComment.getAcceptedComments().subscribe(
+      response => { this.acceptedComments = response }
     );
-
-    this.serviceComment.getCommentAccepted().subscribe(
-      acceptedComments => this.acceptedComments = acceptedComments
+    this.serviceComment.getRefusedComments().subscribe(
+      response => { this.refusedComments = response }
     );
   }
 
-  activate(id: number) {
-    this.serviceComment.acceptComment(id).subscribe();
-    this.serviceComment.getCommentAccepted().subscribe(acceptedComments => this.acceptedComments = acceptedComments);
-    this.serviceComment.getComment().subscribe(comments => this.comments = comments);
-
+  approve(id: number) {    
+    this.serviceComment.approve(id).subscribe(
+      response => { this.acceptedComments = response.approved
+                    this.refusedComments = response.refused });
   }
 
-  block(id: number) {
-    this.serviceComment.blockComment(id).subscribe();
-    this.serviceComment.getCommentAccepted().subscribe(acceptedComments => this.acceptedComments = acceptedComments);
-    this.serviceComment.getComment().subscribe(comments => this.comments = comments);
+  refuse(id: number) {
+    this.serviceComment.refuse(id).subscribe(
+       response => { this.acceptedComments = response.approved
+                     this.refusedComments = response.refused; console.log(response) });
   }
 
 }

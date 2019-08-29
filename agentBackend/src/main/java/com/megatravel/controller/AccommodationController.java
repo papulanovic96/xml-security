@@ -16,7 +16,6 @@ import com.megatravel.converter.AccommodationConverter;
 import com.megatravel.dto.response.ResponseAccommodation;
 import com.megatravel.dto.soap.CreateAccommodationRequest;
 import com.megatravel.dto.soap.CudAccommodationResponse;
-import com.megatravel.dto.soap.DeleteAccommodationRequest;
 import com.megatravel.dto.soap.UpdateAccommodationRequest;
 import com.megatravel.service.AccommodationService;
 

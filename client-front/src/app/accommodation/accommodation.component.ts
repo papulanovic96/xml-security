@@ -5,7 +5,7 @@ import { AccommodationService } from '../services/accommodation.service';
 import { ReservationService } from '../services/reservation.service';
 
 import { Accommodation } from '../model/accommodation.model';
-import { Reservation } from '../model/reservation.model';
+import { CreateReservationRequest } from '../model/reservation.model';
 import { Agent } from '../model/agent.model';
 
 import { isNgTemplate } from '@angular/compiler';
@@ -35,21 +35,21 @@ export class AccommodationComponent implements OnInit {
   accommodation: Accommodation;
   accommodations: Accommodation[];
   filteredAccommodations: Accommodation[];
-  reservation: Reservation;
+  reservation: CreateReservationRequest;
  
   private _rate: number;
 
   images = [1, 2, 3].map(() => `https://picsum.photos/900/500?random&t=${Math.random()}`);
 
-  private _searchName: string;
-  private _searchType: string;
-  private _searchCategory: string;
-  private _searchCapacity: string;
-  private _searchAS: string;
-  private _searchDistance: string;
-  private _searchPrice: string;
-  private _searchFromDate: Date;
-  private _searchTillDate: Date;
+  private searchName: string;
+  private searchType: string;
+  private searchCategory: string;
+  private searchCapacity: string;
+  private searchAS: string;
+  private searchDistance: string;
+  private searchPrice: string;
+  private searchFromDate: Date;
+  private searchTillDate: Date;
 
   private today: Date;
   private minDate: string;
@@ -61,50 +61,15 @@ export class AccommodationComponent implements OnInit {
   constructor(private accommodationService: AccommodationService,
               private reservationService: ReservationService,
               private datePipe: DatePipe) { }
-    
-  get rate(): number {
-    return this._rate;
-  } 
-
-  get selectedFromDate(): Date {
-    return this._searchFromDate;
+  
+  get selectedFrom(): Date {
+    return this._selectedFrom;
   }             
-  get selectedTillDate(): Date {
-    return this._searchTillDate;
+  
+  get selectedTill(): Date {
+    return this._selectedTill;
   }
-              
-  get searchName(): string {
-    return this._searchName;
-  }
-
-  get searchType(): string {
-    return this._searchType;
-  }
-
-  get searchCategory(): string {
-    return this._searchCategory;
-  }
-
-  get searchCapacity(): string {
-    return this._searchCapacity;
-  }
-
-  get searchDistance(): string {
-    return this._searchDistance;
-  }
-
-  get searchPrice(): string {
-    return this._searchPrice;
-  }
-
-  get searchAS(): string {
-    return this._searchAS;
-  }
-
-  set rate(rate : number) {
-    this._rate = rate;
-  }
-
+ 
   set selectedFrom(date : Date) {
     this._selectedFrom = date;
   }
@@ -113,99 +78,6 @@ export class AccommodationComponent implements OnInit {
     this._selectedTill = date;
   }
 
-  set searchFromDate(date : Date) {
-    this.minDateTill = this.datePipe.transform(date, 'yyyy-MM-dd');
-    this._searchFromDate =  date;
-    this.filteredAccommodations = this.filterAccommodationsFromDate(date);
-  }
-
-  set searchillDate(date : Date) {
-    this._searchTillDate =  date;
-    this.filteredAccommodations = this.filterAccommodationsTillDate(date);
-    this._searchTillDate = date;
-  }
-
-  set searchName(entry : string) {
-    this._searchName = entry;
-    this.filteredAccommodations = this.filterAccommodationsName(entry);
-  }
-
-  set searchType(entry : string) {
-    this._searchType = entry;
-    this.filteredAccommodations = this.filterAccommodationsType(entry);
-  }
-
-  set searchCategory(entry : string) {
-    this._searchCategory = entry;
-    this.filteredAccommodations = this.filterAccommodationsCategory(entry);
-  }
-
-  set searchCapacity(entry : string) {
-    this._searchCategory = entry;
-    this.filteredAccommodations = this.filterAccommodationsCapacity(entry);
-    if(entry.length == 0) 
-      this.filteredAccommodations = this.accommodations;
-  }
-
-  set searchAS(entry : string) {
-    this._searchAS = entry;
-    this.filteredAccommodations = this.filterAccommodationsAS(entry);
-  }
-
-  set searchDistance(entry : string) {
-    this._searchDistance = entry;
-    this.filteredAccommodations = this.filterAccommodationsDistance(entry);
-    if(entry.length == 0) 
-      this.filteredAccommodations = this.accommodations;
-  }
-
-  set searchPrice(entry : string) {
-    this._searchPrice = entry;
-    this.filteredAccommodations = this.filterAccommodationsPrice(entry);
-    if(entry.length == 0) 
-      this.filteredAccommodations = this.accommodations;
-  }
-
-  filterAccommodationsFromDate(search : Date) { 
-    return this.accommodations.filter(accommodation => accommodation.fromDate > search);
-  }
-
-  filterAccommodationsTillDate(search : Date) { 
-    return this.accommodations.filter(accommodation => accommodation.fromDate < search);
-  }
-
-  filterAccommodationsName(search : string) { 
-    return this.accommodations.filter(accommodation => accommodation.name.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-  }
-
-  filterAccommodationsType(search : string) { 
-    return this.accommodations.filter(accommodation => accommodation.type.name.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-  }
-
-  filterAccommodationsCategory(search : string) { 
-    return this.accommodations.filter(accommodation => accommodation.category.name.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-  }
-
-  filterAccommodationsCapacity(search : string) { 
-    return this.accommodations.filter(accommodation => accommodation.capacity >= search);
-  }
-
-  filterAccommodationsPrice(search : string) { 
-    var price = +search;
-    
-    return this.accommodations.filter(accommodation => accommodation.priceInSeason.price <= price);
-  }
-
-  filterAccommodationsAS(search : string) { 
-    return this.accommodations.filter(accommodation => accommodation.additionalService
-                              .filter(addition =>  addition.name.toLowerCase().indexOf(search.toLowerCase()) !== -1));
-  }
-
-  filterAccommodationsDistance(search : string) { 
-    var distance = +search;
-    return this.accommodations.filter(accommodation => accommodation.distance <= distance);
-  }
-  
   sortByCategory() : void {
     this.accommodations.sort((a,b) => a.category.name.localeCompare(b.category.name));
   }
@@ -214,9 +86,6 @@ export class AccommodationComponent implements OnInit {
     this.accommodations.sort((a,b) => a.type.name.localeCompare(b.type.name));
   }
   
-  sortByPrice() : void {
-    this.accommodations.sort((a,b) => a.priceInSeason.price -  b.priceInSeason.price);
-  }
 
   sortByDistance() : void {
     this.accommodations.sort((a,b) => a.distance - b.distance);
@@ -227,48 +96,36 @@ export class AccommodationComponent implements OnInit {
   }
   
   ngOnInit() {
-      
       this.today = new Date();
       this.minDate = this.datePipe.transform(this.today, 'yyyy-MM-dd');
       this.minDateTill = this.datePipe.transform(this.today, 'yyyy-MM-dd');
 
       this.accommodationService.getAccommodations().subscribe(
         data => { 
-          console.log(data)
                   this.accommodations = data;
-                  this.filteredAccommodations = data;
                 }
       )
   }
 
   reserve(index : string) : void  {
-    var position = +index;
-    this.accommodation = this.accommodations.find(accommodation => (accommodation.id) === (position+1));
-   
-    this.reservation = new Reservation();
-    this.reservation.accommodation = this.accommodation;
+    this.accommodation = this.accommodations[index];
+    this.reservation = new CreateReservationRequest();
+    this.reservation.accommodationName = this.accommodation.name;
 
-    if (this._selectedFrom != null) 
-        this.reservation.fromDate = this._selectedFrom;
-    if (this._selectedTill != null) 
-        this.reservation.tillDate = this._selectedTill;
+    if (this.selectedFrom != null) 
+        this.reservation.fromDate = this.selectedFrom;
+    if (this.selectedTill != null) 
+        this.reservation.tillDate = this.selectedTill;
     
     console.log(this.reservation)
     this.reservationService.create(this.reservation).subscribe(
       data => {
-          console.log(data)
+         alert(data.feedback)
       },
       err => {
-        alert(err.error)
+        alert(err.error.message)
       }
   
     )
   }
-
-  rating(rate : number) {
-    var cw = document.getElementById("rating1").clientWidth; // save original 100% pixel width
-    window.document.getElementById("rating1").style.width = Math.round(cw * (rate / 5)) + 'px';
-  }
-
-
-  }
+}

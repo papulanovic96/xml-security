@@ -9,9 +9,11 @@ import { catchError } from 'rxjs/operators';
 })
 export class AdditionalServicesService implements OnInit{
 
-  private findAllURL = 'http://localhost:4200/additional-services/findAll'
-  private deleteByIdURL = 'http://localhost:4200/additional-services/delete'
-  private saveURL = 'http://localhost:4200/additional-services/save'
+  private zuurl = 'http://localhost:8761/';
+
+  private findAllURL = this.zuurl + 'main-backend/additional-services'
+  private deleteByIdURL = this.zuurl + 'main-backend/additional-services/delete/'
+  private saveURL = this.zuurl + 'main-backend/additional-services'
 
   constructor(private http: HttpClient) { }
 
@@ -21,14 +23,14 @@ export class AdditionalServicesService implements OnInit{
     )
   }
 
-  deleteService(serviceId: number): Observable<Object> {
-    return this.http.delete(this.deleteByIdURL + '/' + serviceId, {responseType: 'text'}).pipe(
+  deleteService(serviceName: string): Observable<AdditionalServices[]> {
+    return this.http.delete<AdditionalServices[]>(this.deleteByIdURL + serviceName).pipe(
       catchError(this.handleError)
     );
   } 
 
-  addService(service: AdditionalServices): Observable<AdditionalServices> {
-    return this.http.post<AdditionalServices>(this.saveURL, service, {responseType: 'text'}).pipe(
+  addService(service: AdditionalServices): Observable<AdditionalServices[]> {
+    return this.http.post<AdditionalServices[]>(this.saveURL, service, {responseType: 'json'}).pipe(
       catchError(this.handleError)
     );
   }

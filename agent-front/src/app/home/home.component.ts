@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthentService } from '../services/AuthentService';
+import { TokenStorageService } from '../auth//token-storage.service';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -10,19 +9,19 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
 
-  
   navLinks = [
     {path: "accommodations", label: "Accomodations"},
     {path: "messages", label: "Messages"}
   ]
 
-  constructor(private authent:AuthentService, private router: Router, private http : HttpClient) { }
+  constructor(private tokeStorage: TokenStorageService, 
+              private router: Router) { }
 
   ngOnInit() {
   }
 
   logOut(){
-    this.authent.logOutUser();
+    this.tokeStorage.signOut();
   }
 
 }

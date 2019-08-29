@@ -22,19 +22,16 @@ export class EndUserComponent implements OnInit {
   }
 
   activate(username: string) {
-    this.endUserService.activateEndUser(username).subscribe();
-    window.location.reload();
+    this.endUserService.activateEndUser(username).subscribe( response => this.endUsers = response );
   }
 
   block(username: string) {
-    this.endUserService.blockEndUser(username).subscribe();
-    window.location.reload();
+    this.endUserService.blockEndUser(username).subscribe( response => this.endUsers = response );
   }
 
   delete(endUser: EndUser) {
     this.commentService.deleteComment(endUser.id).subscribe();
-    this.endUserService.deleteEndUser(endUser.username).subscribe();
-    window.location.reload();
+    this.endUserService.deleteEndUser(endUser.username).subscribe( response => this.endUsers = response );
   }
 
 }

@@ -15,11 +15,11 @@ export class AccommodationService {
   private zuurl: string;
 
   constructor(private http: HttpClient) {
-    this.zuurl = 'http://localhost:8761';
+    this.zuurl = 'http://localhost:8761/';
    }
 
    public getAccommodations() : Observable<Accommodation[]> {
-     return this.http.get<Accommodation[]>(this.zuurl + "/main-backend/accommodation/findAllAvailable");
+     return this.http.get<Accommodation[]>(this.zuurl + "main-backend/accommodations");
    }
    
 }

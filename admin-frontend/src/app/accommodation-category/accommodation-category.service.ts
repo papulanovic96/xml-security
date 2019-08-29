@@ -1,52 +1,58 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
-import { AccommodationCategory } from './accommodation-category';
+import { AccommodationCategory, CreateAccommodationCategoryRequest, UpdateAccommodationCategoryRequest, DeleteAccommodationCategoryRequest } from './accommodation-category';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AccommodationCategoryService implements OnInit{
+export class AccommodationCategoryService implements OnInit {
 
-  httpOptions = {
-    headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'my-auth-token'
-    })
-}
+  private zuurl = 'http://localhost:8761/';
+  private createCategoryURL = this.zuurl + 'main-backend/accommodation-categories';
+  private updateCategoryURL = this.zuurl + 'main-backend/accommodation-categories';
+  private deleteCategoryURL = this.zuurl + 'main-backend/accommodation-categories/delete/';
+  private getCategoriesURL = this.zuurl + 'main-backend/accommodation-categories';
+  private getCategoryURL = this.zuurl + 'main-backend/accommodation-categories/find/';
 
-private saveCategoryURL = 'http://localhost:4200/accommodation-category/save';
-private deleteCategoryURL = 'http://localhost:4200/accommodation-category/delete';
-private getCategoryURL: string;
+  private createRequest: CreateAccommodationCategoryRequest;
 
   constructor(private http: HttpClient) {
-    this.getCategoryURL = 'http://localhost:4200/accommodation-category/findAll';
-   }
+  }
 
   getCategories(): Observable<AccommodationCategory[]> {
-    return this.http.get<AccommodationCategory[]>(this.getCategoryURL, this.httpOptions).pipe(
+    return this.http.get<AccommodationCategory[]>(this.getCategoriesURL).pipe(
         catchError(this.handleError)
     )
-}    
+  } 
+  getCategory(id: number): Observable<AccommodationCategory> {
+    return this.http.get<AccommodationCategory>(this.getCategoryURL + id).pipe(
+        catchError(this.handleError)
+    )
+  }   
 
-deleteCategory(id:number): Observable<Object> {
-    return this.http.delete(this.deleteCategoryURL + '/' + id, {responseType: 'text'}).pipe(
+  createCategory(newCat: string): Observable<AccommodationCategory[]> {
+    this.createRequest = new CreateAccommodationCategoryRequest();
+    this.createRequest.name = newCat;
+    return this.http.post<AccommodationCategory[]>(this.createCategoryURL, this.createRequest).pipe(
         catchError(this.handleError)
     );
-}
+  }
 
-addCategory(newCat: AccommodationCategory): Observable<AccommodationCategory> {
-    return this.http.post<AccommodationCategory>(this.saveCategoryURL, newCat, {responseType: 'text'}).pipe(
-        catchError(this.handleError)
-    );
-}
+  deleteCategory(name : string) : Observable<AccommodationCategory[]> {
+    return this.http.delete<AccommodationCategory[]>(this.deleteCategoryURL + name);
+  }
+  
+  updateCategory(update : UpdateAccommodationCategoryRequest) : Observable<AccommodationCategory[]> {
+    return this.http.put<AccommodationCategory[]>(this.updateCategoryURL, update);
+  }
 
-ngOnInit() {
+  ngOnInit() {
 
-}
+  }
 
-private handleError(err: HttpErrorResponse) {
+  private handleError(err: HttpErrorResponse) {
     // in a real world app, we may send the server to some remote logging infrastructure
     // instead of just logging it to the console
     let errorMessage = '';
@@ -59,6 +65,7 @@ private handleError(err: HttpErrorResponse) {
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     console.error(errorMessage);
+    alert(errorMessage)
     return throwError(errorMessage);
   }
 }

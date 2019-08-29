@@ -12,8 +12,6 @@ export class AuthenticationService {
 
     }
 
-
-
     login(username: string, password: string) {
         return this.http.post<any>(this.zuurl + `/login`, { username, password })
             .pipe(map(user => {

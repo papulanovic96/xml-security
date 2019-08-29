@@ -9,3 +9,7 @@ export class EndUser{
         public status: number
     ) {}
 }
+
+export class UserResponse { 
+    feedback: string;
+}

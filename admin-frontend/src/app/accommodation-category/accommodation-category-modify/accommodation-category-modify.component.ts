@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AccommodationCategory } from '../accommodation-category';
-import { AccommodationCategoryModifyService } from './accommodation-category-modify.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { AccommodationCategory, UpdateAccommodationCategoryRequest } from '../accommodation-category';
+import { AccommodationCategoryService } from '../accommodation-category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -10,12 +10,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AccommodationCategoryModifyComponent implements OnInit {
 
+  @Input() childMessage;
+
   pageTitle: string;
   someCategory: AccommodationCategory;
 
-  constructor(private aCategoryService: AccommodationCategoryModifyService, private route: ActivatedRoute, private router: Router)  {
+  update = new UpdateAccommodationCategoryRequest();
 
-   }
+  constructor(private aCategoryService: AccommodationCategoryService, private route: ActivatedRoute, private router: Router)  {
+
+  }
 
   ngOnInit() {
     const param = this.route.snapshot.paramMap.get('id');
@@ -28,18 +32,17 @@ export class AccommodationCategoryModifyComponent implements OnInit {
   }
 
   getCategoryID(id: number) {
-    this.aCategoryService.getCategoryID(id).subscribe(
-      someCategory => this.someCategory = someCategory
+    this.aCategoryService.getCategory(id).subscribe(
+      someCategory => { this.someCategory = someCategory 
+                        this.update.oldName = someCategory.name
+                        this.pageTitle += someCategory.name}
     );
   }
 
-  onModify(id: number) {
-    this.aCategoryService.updateCategory(id, this.someCategory).subscribe();
-    this.router.navigate(['accommodation-category']);
-  }
-
-  onBack(): void {
-    this.router.navigate(['accommodation-category']);
+  apply() {
+    console.log(this.update)
+    this.update.newName = this.someCategory.name;
+    this.aCategoryService.updateCategory(this.update).subscribe();
   }
 
 }

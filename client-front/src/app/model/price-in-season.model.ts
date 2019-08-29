@@ -1,6 +1,5 @@
 export class PriceInSeason {
-    currency: string;
-    id: string;
-    inMonth: string;
+    month: string;
     price: number;
+    currency: string;
 }

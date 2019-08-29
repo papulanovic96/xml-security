@@ -1,29 +1,40 @@
 <div id="back">
 	<div>
-	<nav class="navbar navbar-dark ">
-	  <div class="container-fluid">
-		<nav class="navbar-header flex-column">
-			
-			<a class="navbar-brand" [routerLink] = "['/']">
-				<img [src]='logo'>
-			</a>
+		<nav class="navbar navbar-dark ">
+			<div class="container-fluid">
+				<nav class="navbar-header flex-column">
+					<a class="navbar-brand" [routerLink] = "['/']">
+						<img [src]='logo'>
+					</a>
+				</nav>
+				
+				<ul class="nav nav-pills mb-4">
+					<li class="nav-item mt-2" *ngIf="!isLoggedIn">
+						<a class="btn btn-dark mr-2 text-white font-weight-bold fa fa-user-plus" data-toggle="modal" data-target="#signup"></a>
+					</li>
+					<li class="nav-item mt-2" *ngIf="!isLoggedIn">
+						<a class="btn btn-dark mr-2 text-white font-weight-bold fa fa-sign-in"  data-toggle="modal" data-target="#signin1"></a>
+					</li>
+					<li class="nav-item mt-2" *ngIf="isLoggedIn">
+						<a class="btn btn-dark mr-2 text-white font-weight-bold fa fa-user-circle" [routerLink] = "['account']"></a>
+					</li> 
+					<li class="nav-item mt-2" *ngIf="isLoggedIn">
+						<a class="btn btn-dark mr-2 text-white font-weight-bold fa fa-envelope" [routerLink] = "['inbox']"></a>
+					</li>
+					<li class="nav-item mt-2" *ngIf="isLoggedIn">
+						<a class="btn btn-dark mr-2 text-white font-weight-bold fa fa-sign-out" (click)="signout()"></a>
+					</li>	
+				</ul> 
+			</div>
 		</nav>
-		
-		<ul class="nav nav-pills mb-4">
-		 	<li class="nav-item mt-2">
-			  	<a class="btn btn-dark mr-2 text-white font-weight-bold" [routerLink] = "['/signup']" data-ng-hide="userSignedIn">SIGN UP</a>
-			</li>
-			<li class="nav-item mt-2">
-		   		<a class="btn btn-dark mr-2 text-white font-weight-bold"  [routerLink] = "['/signin']" data-ng-hide="userSignedIn">SIGN IN</a>
-	 	 	</li>
-	 	 	<li class="nav-item mt-2">
-		   		<a class="btn btn-dark mr-2 text-white font-weight-bold" [routerLink] = "['/account']">ACCOUNT</a>
-	 	 	</li> 
-	 	 	<li class="nav-item mt-2">
-		   		<a class="btn btn-dark mr-2 text-white font-weight-bold" (click)="signout()">SIGN OUT</a>
-	 	 	</li>	
-		</ul> 
-	  </div>
-	</nav>
 	</div>
 </div>
+
+<div class="modal fade bd-example-modal-sm" id="signup" tabindex="-1" role="dialog" aria-labelledby="signup" aria-hidden="true">
+	<app-sign-up></app-sign-up>
+</div>
+
+<div class="modal" id="signin1" tabindex="-1" role="dialog" aria-labelledby="signin" aria-hidden="true">
+	<app-sign-in></app-sign-in>
+</div>
+

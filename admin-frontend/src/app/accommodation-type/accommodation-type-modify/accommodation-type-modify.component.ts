@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AccommodationType } from '../accommodation-type';
+import { AccommodationType, UpdateAccommodationTypeRequest } from '../accommodation-type';
 import { AccommodationTypeModifyService } from './accommodation-type-modify.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -12,6 +12,8 @@ export class AccommodationTypeModifyComponent implements OnInit {
 
   pageTitle: string;
   someType: AccommodationType;
+  
+  update = new UpdateAccommodationTypeRequest;
 
   constructor(private aTypeService: AccommodationTypeModifyService, private route: ActivatedRoute, private router: Router)  {
 
@@ -29,12 +31,15 @@ export class AccommodationTypeModifyComponent implements OnInit {
 
   getTypeID(id: number) {
     this.aTypeService.getTypeById(id).subscribe(
-      someType => this.someType = someType
+      someType => { this.someType = someType 
+                    this.update.oldName = someType.name}
     );
   }
 
-  onModify(id: number) {
-    this.aTypeService.updateType(id, this.someType).subscribe();
+  apply() {
+    this.update.newName = this.someType.name;
+    console.log(this.update)
+    this.aTypeService.updateType(this.update).subscribe();
     this.router.navigate(['accommodation-type']);
   }
 

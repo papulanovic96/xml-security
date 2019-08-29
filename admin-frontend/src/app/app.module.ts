@@ -4,7 +4,6 @@ import { RouterModule} from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 import { AccommodationTypeComponent } from './accommodation-type/accommodation-type.component';
 import { AdditionalServicesComponent } from './additional-services/additional-services.component';
 import { AdditionalServicesModifyComponent } from './additional-services/additional-services-modify/additional-services-modify.component';
@@ -14,6 +13,10 @@ import { AccommodationCategoryModifyComponent } from './accommodation-category/a
 import { EndUserComponent } from './end-user/end-user.component';
 import { CommentComponent } from './comment/comment.component';
 import { AgentComponent } from './agent/agent.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { SigninComponent } from './auth/signin/signin.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -26,13 +29,17 @@ import { AgentComponent } from './agent/agent.component';
     AccommodationCategoryModifyComponent,
     EndUserComponent,
     CommentComponent,
-    AgentComponent
+    AgentComponent,
+    SigninComponent,
   ],
   imports: [
+    AngularFontAwesomeModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     FormsModule,
+    CommonModule,
     RouterModule.forRoot([
       {path:'accommodation-type', component: AccommodationTypeComponent},
       {path:'accommodation-type/accommodation-type-modify/:id', component: AccommodationTypeModifyComponent},
@@ -42,7 +49,8 @@ import { AgentComponent } from './agent/agent.component';
       {path:'accommodation-category/accommodation-category-modify/:id', component: AccommodationCategoryModifyComponent},
       {path:'end-user-action', component: EndUserComponent},
       {path:'comment', component: CommentComponent},
-      {path:'admin-agent-creation', component: AgentComponent}
+      {path:'admin-agent-creation', component: AgentComponent},
+      {path:'sign-in', component: SigninComponent}
     ], {useHash: true})
   ],
   providers: [],

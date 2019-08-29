@@ -1,14 +1,22 @@
-import { AddressAgent } from './address';
+import { Address } from '../address.model';
 
 export class Agent {
-    constructor(
-        public id: number,
-        public email: string,
-        public firstName: string,
-        public lastName: string,
-        public password: string,
-        public username: string,
-        public brn: number,
-        public address_id: AddressAgent
-    ){}
+    id: number
+    username: string
+    password: string
+    email: string
+    firstName: string
+    lastName: string
+    address: Address
+    brn: number
+}
+
+export class CreateAgentRequest { 
+    username: string;
+    password: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    city: string;
+    brn: number;
 }

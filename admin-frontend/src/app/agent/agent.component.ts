@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Agent } from './agent.model';
+import { Agent, CreateAgentRequest } from './agent.model';
 import { AgentService } from './agent.service';
-import { AgentList } from './agent-list';
-import { AddressAgent } from './address';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Address, AgentAddress } from '../address.model';
 
 @Component({
   selector: 'app-agent',
@@ -12,32 +11,30 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class AgentComponent implements OnInit {
 
-  agentsList: Agent[] = [];
-  addresses: AddressAgent[] = [];
-  oneAndOnlyAddress = new AddressAgent('', '', 0, '', 0, 0);
-  agent = new Agent(0, '', '', '', '', '', 0, this.oneAndOnlyAddress);
-  agL = new AgentList(this.agentsList);
+  agents: Agent[];
+  addresses: Address[]
+
+  agent = new CreateAgentRequest;
+  city: string;
 
   constructor(private agentService: AgentService) { }
 
   ngOnInit() {
     this.agentService.getAllAgents().subscribe(
-      agentsList => { this.agentsList = agentsList}
-    );
-
+      response =>  { this.agents = response, console.log(response) }
+    )
     this.agentService.getAllAddresses().subscribe(
-      addresses => {this.addresses = addresses}
-    );
+      addresses => this.addresses = addresses
+    )
   }
 
   onSubmit() {
+    this.agent.city = this.city;
     this.agentService.saveAgent(this.agent).subscribe(
-      agent => this.agentsList.push(agent)
+      response =>  { this.agentService.getAllAgents().subscribe(
+        response =>  { this.agents = response, console.log(response) }
+      )}
     );
-    this.agentService.saveAddress(this.oneAndOnlyAddress).subscribe(
-      oneAndOnlyAddress => this.agent.address_id = oneAndOnlyAddress
-    );
-    window.location.reload();
   }
 
 }

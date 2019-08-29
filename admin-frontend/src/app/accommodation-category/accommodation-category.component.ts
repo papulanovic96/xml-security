@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AccommodationCategory } from './accommodation-category';
+import { AccommodationCategory, DeleteAccommodationCategoryRequest, CreateAccommodationCategoryRequest } from './accommodation-category';
 import { AccommodationCategoryService } from './accommodation-category.service';
 
 @Component({
@@ -12,6 +12,9 @@ export class AccommodationCategoryComponent implements OnInit {
   categories: AccommodationCategory[] = [];
   category = new AccommodationCategory(0, '');
 
+  deleteCat: DeleteAccommodationCategoryRequest;
+  createCat: CreateAccommodationCategoryRequest;
+
   constructor(private aCategoryService: AccommodationCategoryService) { }
 
   
@@ -23,16 +26,21 @@ export class AccommodationCategoryComponent implements OnInit {
     )
   }
 
-  delete(id: number) {
-    this.aCategoryService.deleteCategory(id).subscribe();
-    window.location.reload();
+  delete(name: string) {
+    this.aCategoryService.deleteCategory(name).subscribe(
+      response => {this.categories = response;}
+    );
+   
   }
 
   onSubmit() {
-    this.aCategoryService.addCategory(this.category).subscribe(
-      category => this.categories.push(category)
+    this.aCategoryService.createCategory(this.category.name).subscribe(
+      response => {this.categories = response}
     );
-    window.location.reload();
+  }
+
+  selected(cat: string) : string {
+    return cat;
   }
 
 }

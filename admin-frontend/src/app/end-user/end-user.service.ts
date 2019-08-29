@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { EndUser } from './end-user';
+import { EndUser, UserResponse } from './end-user';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -9,10 +9,12 @@ import { catchError } from 'rxjs/operators';
 })
 export class EndUserService {
 
-  private findAllUrl = 'http://localhost:4200/end-user-action/findAll';
-  private activateURL = 'http://localhost:4200/end-user-action/activate';
-  private blockURL = 'http://localhost:4200/end-user-action/block';
-  private deleteURL = 'http://localhost:4200/end-user-action/delete';
+  private zuurl = "http://localhost:8761/"
+
+  private findAllUrl = this.zuurl + 'main-backend/users/find/endusers';
+  private activateURL = this.zuurl + 'main-backend/users/activate/';
+  private blockURL = this.zuurl + 'main-backend/users/block/';
+  private deleteURL = this.zuurl + 'main-backend/users/delete/';
 
   constructor(private http: HttpClient) { }
 
@@ -22,20 +24,20 @@ export class EndUserService {
     );
   }
 
-  activateEndUser(username: string): Observable<Object> {
-    return this.http.put<string>(this.activateURL + '/' + username, {responseType: 'text'}).pipe(
+  activateEndUser(username: string): Observable<EndUser[]> {
+    return this.http.put<EndUser[]>(this.activateURL + username, null).pipe(
       catchError(this.handleError)
     );
   }
 
-  blockEndUser(username: string): Observable<Object> {
-    return this.http.put<string>(this.blockURL + '/' + username, {responseType: 'text'}).pipe(
+  blockEndUser(username: string): Observable<EndUser[]> {
+    return this.http.put<EndUser[]>(this.blockURL + username, null).pipe(
       catchError(this.handleError)
     );
   }
 
-  deleteEndUser(username: string): Observable<Object> {
-    return this.http.delete(this.deleteURL + '/' + username).pipe(
+  deleteEndUser(username: string): Observable<EndUser[]> {
+    return this.http.delete<EndUser[]>(this.deleteURL + username).pipe(
       catchError(this.handleError)
     );
   }

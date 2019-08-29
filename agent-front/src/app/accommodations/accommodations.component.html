@@ -1,7 +1,5 @@
 <div class="container-fluid">
   <div class="row pt-3 mt-3">
-
-
     <div class="col-12">
       <div class="list-group border rounded w-100" style="max-height: 320px; overflow-y:  scroll;">
         <div *ngFor="let acc of accommodations" class="list-group-item" style="display: block">
@@ -10,23 +8,19 @@
               <p class="font-italic">{{acc.name}}</p>
             </div>
             <div class="col-3">
-              <button class="btn btn-link" (click)="editAccClick(acc)">Edit</button>
+              <button class="btn btn-link" (click)="update(acc)">Edit</button>
             </div>
             <div class="col-3">
-              <button class="btn btn-link" (click)="deleteAccClick(acc)">Delete</button>
+              <button class="btn btn-link" (click)="delete(acc)">Delete</button>
             </div>
           </div>
         </div>
       </div>
-
     </div>
-
   </div><br>
   <div class="row">
     <div class="col-12">
-      
       <router-outlet></router-outlet>
     </div>
-
   </div>
 </div>

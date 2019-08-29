@@ -4,3 +4,8 @@ export class AdditionalServices {
                 public name: string) 
         { }
 }
+
+export class UpdateAdditionalServiceRequest {
+        oldName: string;
+        newName: string;
+}

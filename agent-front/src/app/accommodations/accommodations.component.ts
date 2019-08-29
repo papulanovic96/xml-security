@@ -14,37 +14,24 @@ export class AccommodationsComponent implements OnInit {
   accommodations: Accommodation[];
   acc = new Accommodation();
 
-  constructor(private http : HttpClient, private accService : AccommodationService,  private router : Router, private route: ActivatedRoute) { 
-
-    this.accService.getAllAccommodations().subscribe(
-      data => {
-              this.accommodations = data;
-             
-      }
-    )
-
-  }
+  constructor(private accommodationService : AccommodationService,  
+              private router : Router, 
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.accommodationService.getThatIOwn().subscribe(
+      data => { this.accommodations = data }
+    )
   }
 
-
-  deleteAccClick(acc : Accommodation){
-    this.accService.deleteAcc(acc).subscribe(
-
-      success => {
-        this.accService.getAllAccommodations().subscribe(
-          data => {
-                  this.accommodations = data;
-                 
-          })
-      }
-
+  delete(acc : Accommodation){
+    this.accommodationService.delete(acc).subscribe(
+      data => { this.accommodations = data }
     )
   }
 
   editAccClick(acc : Accommodation){
-    this.accService.setEditingAcc(acc);
+    this.accommodationService.setEditingAcc(acc);
     this.router.navigate(['editAccommodation'], {relativeTo : this.route});
   }
 

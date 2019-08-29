@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { Accommodation } from '../model/accommodation.model';
-import { Reservation } from '../model/reservation.model';
+import { CreateReservationRequest, CudReservationResponse, CancelReservationRequest } from '../model/reservation.model';
 
 
 import { Observable, throwError} from 'rxjs';
@@ -20,8 +20,12 @@ export class ReservationService {
     this.zuurl = 'http://localhost:8761'; 
    }
 
-   public create(reservation: Reservation) : Observable<Reservation> { 
-     return this.http.post<Reservation>(this.zuurl + "/main-backend/reservation/create", reservation);
+   public create(reservation: CreateReservationRequest) : Observable<CudReservationResponse> { 
+     return this.http.post<CudReservationResponse>(this.zuurl + "/main-backend/reservations", reservation);
    }
+
+   public cancel(reservation: CancelReservationRequest) : Observable<CudReservationResponse> { 
+    return this.http.post<CudReservationResponse>(this.zuurl + "/main-backend/reservations/cancel", reservation);
+  }
 
 }

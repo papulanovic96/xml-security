@@ -2,33 +2,36 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { JwtModule } from '@auth0/angular-jwt';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UsersComponent } from './users/users.component';
-import { SignUpComponent } from './users/sign-up/sign-up.component';
-import { SignInComponent } from './users/sign-in/sign-in.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { SignInComponent } from './auth/sign-in/sign-in.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { AccommodationComponent } from './accommodation/accommodation.component';
 import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
-import { AccountComponent } from './users/account/account.component';
+import { AccountComponent } from './account/account.component';
 
-import { httpInterceptorProviders } from './auth/auth-interceptor';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth-interceptor';
+import { InboxComponent } from './inbox/inbox.component';
+import { ChatComponent } from './chat/chat.component';
+ 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent,
     SignUpComponent,
     SignInComponent,
     NavbarComponent,
     AccommodationComponent,
     AccommodationDetailsComponent,
-    AccountComponent
+    AccountComponent,
+    InboxComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -36,16 +39,16 @@ import { httpInterceptorProviders } from './auth/auth-interceptor';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: function  tokenGetter() {
-             return     localStorage.getItem('access_token');},
-        whitelistedDomains: ['localhost:4200'],
-        blacklistedRoutes: ['http://localhost:4200/login']
-      }
-    })
+    AngularFontAwesomeModule
   ],
-  providers: [httpInterceptorProviders],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

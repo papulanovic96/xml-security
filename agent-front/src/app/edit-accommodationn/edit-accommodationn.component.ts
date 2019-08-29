@@ -9,6 +9,7 @@ import { Reservation } from '../model/reservation.model';
 import { ReservationService } from '../services/reservation.service';
 import { Months } from '../model/months.enum';
 import { Currencies } from '../model/currencies.enum';
+
 @Component({
   selector: 'app-edit-accommodationn',
   templateUrl: './edit-accommodationn.component.html',
@@ -27,20 +28,17 @@ export class EditAccommodationnComponent implements OnInit {
   selectedCurrency = Currencies.EUR;
   newPriceInSeason: PriceInSeason = new PriceInSeason();
   
-  
-
-  constructor(private accService : AccommodationService, private imgService : ImageService, 
-    private pisService : PriceInSeasonService, private reservationService : ReservationService) { 
-
+  constructor(private accService : AccommodationService, 
+              private imgService : ImageService, 
+              private pisService : PriceInSeasonService, 
+              private reservationService : ReservationService) { 
     this.acc = accService.getEditingAcc();
     this.loadAcc();
-
   }
-
 
   ngOnInit() {
-  }
 
+  }
 
   keysCurrencies():Array<string>{
     var keys = Object.keys(this.currencies);
@@ -56,7 +54,6 @@ export class EditAccommodationnComponent implements OnInit {
 
     this.images = [];
    
-
     this.imgService.getImagesIdsByAcc(this.acc).subscribe(
 
       data => {
@@ -122,7 +119,6 @@ export class EditAccommodationnComponent implements OnInit {
 
   }
   deletePriceInSeason(price){
-
     this.pisService.deletePriceInSeason(price.id);
   }
   

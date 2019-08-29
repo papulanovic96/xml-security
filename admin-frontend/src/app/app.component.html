@@ -2,22 +2,23 @@
 <div style="text-align:center">
   <nav class="navbar navbar-expand navbar-dark bg-primary">
     <ul class = "nav navbar-nav">
-      <li><a class="nav-link">Admin</a></li>
-      <li class='nav-item dropdown'><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Manage</a>
+      <li><a class="nav-link"><i class="fa fa-user"></i> Admin</a></li>
+      <li class='nav-item dropdown'><a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Manage</a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/additional-services']" routerLinkActive="router-link-active" >Additional services</a>
-          <a class="dropdown-item" [routerLink]="['/accommodation-type']" routerLinkActive="router-link-active">Accommodation type</a>
-          <a class="dropdown-item" [routerLink]="['/accommodation-category']" routerLinkActive="router-link-active">Accommodation category</a>
+          <a class="dropdown-item" [routerLink]="['additional-services']" routerLinkActive="router-link-active" >Additional services</a>
+          <a class="dropdown-item" [routerLink]="['accommodation-type']" routerLinkActive="router-link-active">Accommodation type</a>
+          <a class="dropdown-item" [routerLink]="['accommodation-category']" routerLinkActive="router-link-active">Accommodation category</a>
         </div>
       </li>
-      <li class='nav-item dropdown'><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Users</a>
+      <li class='nav-item dropdown'><a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Users</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" [routerLink]="['/end-user-action']" routerLinkActive="router-link-active" >EndUsers</a>
-            <a class="dropdown-item" [routerLink]="['/admin-agent-creation']" routerLinkActive="router-link-active">Agents</a>
-          </div>
-        </li>
-        <li class='nav-item'><a class="nav-link" [routerLink]="['/comment']" routerLinkActive="router-link-active">Comments</a>
-          </li>
+          <a class="dropdown-item" [routerLink]="['end-user-action']" routerLinkActive="router-link-active" >EndUsers</a>
+          <a class="dropdown-item" [routerLink]="['admin-agent-creation']" routerLinkActive="router-link-active">Agents</a>
+       </div>
+      </li>
+      <li class='nav-item'><a class="nav-link" [routerLink]="['comment']" routerLinkActive="router-link-active">Comments</a></li>
+      <li class='nav-item'><a class="nav-link" [routerLink]="['sign-in']" routerLinkActive="router-link-active">Sign in</a>
+      <li class='nav-item'><a class="nav-link"  (click)="signOut()">Sign out</a>
     </ul>
   </nav>
   <br><br>

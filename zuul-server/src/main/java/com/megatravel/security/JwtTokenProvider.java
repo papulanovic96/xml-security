@@ -13,11 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.megatravel.model.JwtToken;
-import com.megatravel.model.UserD;
-import com.megatravel.service.MicroService;
-import com.megatravel.service.UserService;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -35,13 +30,8 @@ public class JwtTokenProvider {
     private long validityInMilliseconds = 3600000; // 1h
 
     @Autowired
-    private MicroService microService;
+	private UserDetailsImplementation userDetailsService;
 
-    @Autowired
-	private UserService userDetailsService;
-
-    
-    
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
@@ -61,18 +51,16 @@ public class JwtTokenProvider {
                 .setExpiration(validity)//
                 .signWith(SignatureAlgorithm.HS256, secretKey)//
                 .compact();
-        microService.save(new JwtToken(token));
         return token;
     }
 
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader(AUTHORIZATION);
-        /*if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+        
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7, bearerToken.length());
-        }*/
-        if (bearerToken != null ) {
-            return bearerToken;
         }
+        
         return null;
     }
 
@@ -80,16 +68,8 @@ public class JwtTokenProvider {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return true;
     }
-    public boolean isTokenPresentInDB (String token) {
-        return microService.findToken(token);
-    }
-    //user details with out database hit
-    public UserDetails getUserDetails(String token) {
-        String userName =  getUsername(token);
-        List<String> roleList = getRoleList(token);
-        UserDetails userDetails = new UserD(userName,roleList.toArray(new String[roleList.size()]));
-        return userDetails;
-    }
+    
+    
     public List<String> getRoleList(String token) {
         return (List<String>) Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).
                 getBody().get(AUTH);

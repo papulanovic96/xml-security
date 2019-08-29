@@ -21,12 +21,33 @@ zuul:
     main-backend:
       path: /main-backend/**
       stripPrefix: true
+      sensitive-headers:
+      - Cookie, Set-Cookie
       serviceId: main-backend
-    registration-service:
-      path: /registration-service/**
+    client-registration-service:
+      path: /client-registration-service/**
       stripPrefix: true
-      serviceId: registration-service
-
+      serviceId: client-registration-service
+    login-service:
+      path: /login-service/**
+      stripPrefix: true
+      serviceId: login-service
+    agent-backend:
+      path: /agent-backend/**
+      stripPrefix: true
+      sensitive-headers:
+      - Cookie, Set-Cookie
+      serviceId: agent-backend
+    agent-creation-service:
+      path: /agent-creation-service/**
+      stripPrefix: true
+      serviceId: agent-creation-service
+    agent-login-service:
+      path: /agent-login-service/**
+      stripPrefix: true
+      serviceId: agent-login-service   
+      
+      
 ribbon:
   eureka:
     enabled: true
@@ -36,4 +57,3 @@ management:
     web:
       exposure:
         include: "*"
-        

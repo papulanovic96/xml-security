@@ -11,19 +11,29 @@ import org.springframework.xml.xsd.XsdSchema;
 @Configuration
 public class XsdConfig {
 	
-	@Bean
+	@Bean(name = "accommodationSchema")
 	public XsdSchema accommodationSchema() {
-	    return new SimpleXsdSchema(new ClassPathResource("Accommodation.xsd"));
+	    return new SimpleXsdSchema(new ClassPathResource("schemes/Accommodation.xsd"));
 	}
 
-	@Bean
+	@Bean(name = "reservationSchema")
 	public XsdSchema reservationSchema() {
-	    return new SimpleXsdSchema(new ClassPathResource("Reservation.xsd"));
+	    return new SimpleXsdSchema(new ClassPathResource("schemes/Reservation.xsd"));
 	}
 	
-	@Bean
+	@Bean(name = "messageSchema")
 	public XsdSchema messageSchema() {
-	    return new SimpleXsdSchema(new ClassPathResource("Message.xsd"));
+	    return new SimpleXsdSchema(new ClassPathResource("schemes/Message.xsd"));
 	}
-
+	
+	@Bean(name = "codebookSchema")
+	public XsdSchema codebookSchema() {
+	    return new SimpleXsdSchema(new ClassPathResource("schemes/Codebook.xsd"));
+	}
+	
+	@Bean(name = "userSchema")
+	public XsdSchema userSchema() {
+	    return new SimpleXsdSchema(new ClassPathResource("schemes/Users.xsd"));
+	}
+	
 }

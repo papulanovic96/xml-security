@@ -1,59 +1,48 @@
 package com.megatravel.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager; 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-import com.megatravel.model.Agent;
-import com.megatravel.model.Credentials;
+
+import com.megatravel.converter.AgentConverter;
+import com.megatravel.dto.response.ResponseAgent;
+import com.megatravel.dto.soap.CreateAgentRequest;
 import com.megatravel.service.UserService;
 
+
 @RestController
-@RequestMapping("/agent")
+@RequestMapping("/agents")
 public class AgentController {
 
 	@Autowired
-	private RestTemplate restTemplate;
-
-
-	@Autowired
-	AuthenticationManager authenticationManager;
-
-	@Autowired
-	private UserService userservice;
+	private UserService userService;
 	
-	@RequestMapping(value="/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
-	public ResponseEntity login(@RequestBody Credentials credent) {
+	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ResponseAgent>> completeRegistration(@RequestBody CreateAgentRequest request) {
+		return ResponseEntity.ok(AgentConverter.fromEntityList(userService.complete(request), agent -> AgentConverter.toResponseFromEntity(agent)));
+	}
 		
-		Boolean logged = restTemplate.postForObject("http://login-service/login/tryToLogin", credent, Boolean.class);
-		/*
-		 UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(credent.getUsername(), credent.getPassword());
-		 Authentication auth = authenticationManager.authenticate(authReq);
-		 SecurityContext sc = SecurityContextHolder.getContext();
-		 sc.setAuthentication(auth);*/
-		
-		if(logged)
-			return new ResponseEntity(HttpStatus.OK);
-		else
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+	@RequestMapping(value="/find/username={username}", method = RequestMethod.GET)
+	public ResponseEntity<ResponseAgent> findByUsername(@PathVariable("username") String username) {
+		if (userService.findAgent(username) != null) 
+			return ResponseEntity.ok(AgentConverter.toResponseFromEntity(userService.findAgent(username)));
+		else 
+			return null;	
 	}
 	
-
-		
-	
-	
+	@RequestMapping(value="/find/brn={brn}", method = RequestMethod.GET)
+	public ResponseEntity<ResponseAgent> findByBrn(@PathVariable("brn") String username) {
+		if (userService.findAgent(username) != null) 
+			return ResponseEntity.ok(AgentConverter.toResponseFromEntity(userService.findAgent(username)));
+		else 
+			return null;	
+	}
+			
 }

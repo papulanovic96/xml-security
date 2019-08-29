@@ -8,24 +8,24 @@
 		<version>2.1.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>agentBackend</artifactId>
+	<groupId>com.megatravel</groupId>
+	<artifactId>agent-backend2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>agentBackend</name>
-	<description>Demo project for Spring Boot</description>
+	<name>agent-backend2</name>
+	<description>Agent backend</description>
 
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
-		
-		<org.springframework-version>4.0.0.RELEASE</org.springframework-version>
-		 <hibernate.version>5.1.0.Final</hibernate.version> 
+		<spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+		<p6spy.version>3.8.1</p6spy.version>
 	</properties>
 
 	<dependencies>
-	
-			
-
+		<dependency>
+			<groupId>p6spy</groupId>
+			<artifactId>p6spy</artifactId>
+			<version>${p6spy.version}</version>
+		</dependency>
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -50,6 +50,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
 			<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
@@ -65,12 +69,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jersey</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -94,28 +92,26 @@
 		    <groupId>wsdl4j</groupId>
 		    <artifactId>wsdl4j</artifactId>
 		</dependency>
-		
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.0</version>
+	  	</dependency> 
 	<dependency>
     	<groupId>org.springframework.boot</groupId>
     	<artifactId>spring-boot-starter-security</artifactId>
     	<version>2.1.3.RELEASE</version>
 	</dependency>
 		
-		<dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.4.1</version>
-        </dependency>
-		
+	<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+	</dependency>
 	</dependencies>
-	
-	
-	<dependencyManagement>
-		
-		<dependencies>
-		
 
-	
+	<dependencyManagement>
+		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -134,8 +130,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-	
-	
-	
+
 </project>

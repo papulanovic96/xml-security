@@ -1,76 +1,133 @@
 package com.megatravel.security;
+
+import javax.ws.rs.HttpMethod;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
-
-import com.megatravel.repository.UserRepository;
-
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private UserPrincipalDetailsService userPrincipalDetailsService;
-    private UserRepository userRepository;
-
-    public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService, UserRepository userRepository) {
-        this.userPrincipalDetailsService = userPrincipalDetailsService;
-        this.userRepository = userRepository;
-    }
-
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception{
-    	return super.authenticationManagerBean();
-    }
-    
-    
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(authenticationProvider());
-    }
-
+	
+	@Autowired
+    private JwtTokenProvider jwtTokenProvider;
+	@Autowired
+	private UserDetailsImplementation userDetailsService;
+	@Autowired
+	private JwtAuthEntryPoint unauthorizedHandler;
+	    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        // Disable CSRF (cross site request forgery)
+        http.csrf().disable();
+
+        // No session will be created or used by spring security
         http
-                // remove csrf and state in session because in jwt we do not need them
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                // add jwt filters (1. authentication, 2. authorization)
-                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
-                .authorizeRequests()
-                // configure access rules
-                .antMatchers("/agent/login").permitAll()
-                .antMatchers("/accommodation/*").permitAll()
-                .antMatchers("/images/*").permitAll()
-                .antMatchers("/reservations/*").permitAll()
-                //.antMatchers("/accommodation/*").hasRole("AGENT")
-                //.antMatchers("/api/public/admin/*").hasRole("ADMIN")
-                .anyRequest().authenticated();
+        	.sessionManagement()
+        	.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        // Entry points
+        http.authorizeRequests()
+	        .antMatchers(HttpMethod.GET, "/accommodation/findAllAvailable").permitAll()
+			.antMatchers(HttpMethod.GET, "/accommodation/findAll").permitAll()
+			.antMatchers(HttpMethod.GET, "/user/findAllEndUsers").permitAll()
+	        .antMatchers(HttpMethod.POST,"/user/save").permitAll()
+	        .antMatchers(HttpMethod.POST,"/user/login*").permitAll() 
+	        .antMatchers(HttpMethod.GET,"/user/logout").permitAll() 
+	        .antMatchers(HttpMethod.POST,"/user/findEndUser").permitAll() 
+	        .antMatchers(HttpMethod.GET, "/roles/findEndUserRole").permitAll()
+	        .antMatchers(HttpMethod.POST, "/admin-agent-creation/saveAgent").permitAll()
+	        .antMatchers(HttpMethod.GET, "/admin-agent-creation/findAgents").permitAll()
+	        .antMatchers(HttpMethod.DELETE, "/end-user-action/delete/{username}").permitAll()
+	        .antMatchers(HttpMethod.DELETE, "/end-user-action/block/{username}").permitAll()
+	        .antMatchers(HttpMethod.DELETE, "/end-user-action/activate/{username}").permitAll()
+	        .antMatchers(HttpMethod.POST, "/accommodation-category/save").permitAll()
+	        .antMatchers(HttpMethod.DELETE, "/accommodation-category/delete/{id}").permitAll()
+	        .antMatchers(HttpMethod.GET, "/accommodation-category/findById/{id}").permitAll()
+	        .antMatchers(HttpMethod.GET, "/accommodation-category/findAll").permitAll()
+	        .antMatchers(HttpMethod.PUT, "/accommodation-category/modify/{id}").permitAll()
+	        .antMatchers(HttpMethod.POST, "/accommodation-type/save").permitAll()
+	        .antMatchers(HttpMethod.DELETE, "/accommodation-type/delete/{id}").permitAll()
+	        .antMatchers(HttpMethod.GET, "/accommodation-type/findById/{id}").permitAll()
+	        .antMatchers(HttpMethod.GET, "/accommodation-type/findAll").permitAll()
+	        .antMatchers(HttpMethod.PUT, "/accommodation-type/modify/{id}").permitAll()
+	        .antMatchers(HttpMethod.POST, "/additional-services/save").permitAll()
+	        .antMatchers(HttpMethod.DELETE, "/additional-services/delete/{id}").permitAll()
+	        .antMatchers(HttpMethod.GET, "/additional-services/findById/{id}").permitAll()
+	        .antMatchers(HttpMethod.GET, "/additional-services/findAll").permitAll()
+	        .antMatchers(HttpMethod.PUT, "/additional-services/modify/{id}").permitAll()
+	        .antMatchers(HttpMethod.POST, "/token/find").permitAll()
+	        .antMatchers(HttpMethod.POST, "/token/save").permitAll()
+	        .antMatchers(HttpMethod.POST, "/reservation/create").permitAll()
+	        .antMatchers(HttpMethod.GET, "/user/reservations").permitAll()
+	        .antMatchers(HttpMethod.POST, "/message/send").permitAll()
+	        .antMatchers(HttpMethod.GET, "/message/history/*").permitAll()
+	        .antMatchers(HttpMethod.GET, "/message/inbox").permitAll()
+	        .antMatchers(HttpMethod.POST, "/accommodation/comment/{aid}").permitAll()
+	        .antMatchers(HttpMethod.PUT, "/comment/accept/{id}").permitAll()
+	        .antMatchers(HttpMethod.PUT, "/comment/refuse/{id}").permitAll()
+	        .antMatchers(HttpMethod.GET, "/comment/notReviewed").permitAll()
+	        .antMatchers(HttpMethod.GET, "/comment/accepted").permitAll()
+	        .antMatchers(HttpMethod.GET, "/comment/byUserId/{id}").permitAll()
+	        .antMatchers(HttpMethod.GET, "/end-user-action/findAll").permitAll()
+	        .antMatchers(HttpMethod.DELETE, "/comment/delete/{id}").permitAll()
+	        .antMatchers(HttpMethod.GET, "/end-user-action/findAll").permitAll()
+	        .antMatchers(HttpMethod.GET, "/address/findAll").permitAll()
+	        .antMatchers(HttpMethod.POST, "/address/save").permitAll()
+	        .antMatchers(HttpMethod.GET, "/app.component.css").permitAll()
+	        .antMatchers(HttpMethod.POST, "/booking/message").hasAuthority("ROLE_AGENT")
+	    .anyRequest().authenticated();
+
+        // If a user try to access a resource without having enough permissions
+        http
+        	.exceptionHandling()
+        	.accessDeniedPage("/login")
+        	.authenticationEntryPoint(unauthorizedHandler);
+;
+
+        // Apply JWT
+        http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
+       
+        // Optional, if you want to test the API from a browser
+        http.httpBasic();
     }
 
-    @Bean
-    DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
-
-        return daoAuthenticationProvider;
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        // Allow eureka client to be accessed without authentication
+        web.ignoring().antMatchers("/*/")//
+                .antMatchers("/eureka/**")//
+                .antMatchers(HttpMethod.OPTIONS, "/**"); // Request type options should be allowed.
     }
-
+    
+    @Override
+    protected void configure(AuthenticationManagerBuilder authManagerBuilder) throws Exception {
+        authManagerBuilder
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(bCryptPasswordEncoder());
+    }
+    
+    @Override
     @Bean
-    PasswordEncoder passwordEncoder() {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+	
+	@Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+ 
+    
+
 }

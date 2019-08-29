@@ -8,7 +8,6 @@
 
 package com.megatravel.model;
 
-import javax.persistence.Column;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
@@ -37,7 +36,6 @@ public enum UserStatus {
     ACTIVE("Active"),
     @XmlEnumValue("Blocked")
     BLOCKED("Blocked");
-    @Column
     private final String value;
 
     UserStatus(String v) {

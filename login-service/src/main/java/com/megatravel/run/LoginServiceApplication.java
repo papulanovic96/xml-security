@@ -1,31 +1,27 @@
 package com.megatravel.run;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-@EnableAutoConfiguration
 @EnableFeignClients("com.megatravel.*")
-@ComponentScan(basePackages= {"com.megatravel.controller",
-							  "com.megatravel.security",
-							  "com.megatravel.service",
-							   "com.megatravel.config"})
-@EntityScan("com.megatravel.model")
+@Configuration
+@ComponentScan(basePackages= {"com.megatravel.controller", 
+							  "com.megatravel.exception", 
+							  "com.megatravel.security", 
+							   "com.megatravel.service"})
 @EnableEurekaClient
+@CrossOrigin(value = "http://localhost:4200", maxAge = 3600)
 public class LoginServiceApplication {
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(LoginServiceApplication.class, args);
 	}
-	
-	//extend remove
 
 }

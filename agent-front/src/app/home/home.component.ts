@@ -9,19 +9,27 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  isLoggedIn = false;
+  roles: string[] = [];
+
+  public logo = 'assets/logo.png'
+
   navLinks = [
-    {path: "accommodations", label: "Accomodations"},
-    {path: "messages", label: "Messages"}
+    {path: "accommodations", label: "Accomodations"}
   ]
 
-  constructor(private tokeStorage: TokenStorageService, 
-              private router: Router) { }
+  constructor(private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.roles = this.tokenStorage.getAuthorities();
+    }
   }
 
-  logOut(){
-    this.tokeStorage.signOut();
+  signOut(){
+    this.tokenStorage.signOut();
+    this.isLoggedIn = false;
   }
 
 }

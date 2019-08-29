@@ -39,7 +39,7 @@ export class TokenStorageService {
 
     if (localStorage.getItem(TOKEN_KEY)) {
       JSON.parse(localStorage.getItem(AUTHORITIES_KEY)).forEach(authority => {
-        this.roles.push(authority.authority);
+        this.roles.push(authority);
       });
     }
 

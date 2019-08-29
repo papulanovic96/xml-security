@@ -13,7 +13,7 @@ const httpOptions = {
 })
 export class AuthService {
 
-  private signinUrl = 'http://localhost:8761/client-login-service';
+  private signinUrl = 'http://localhost:8761/login-service';
 
   constructor(private http: HttpClient) {
   }

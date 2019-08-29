@@ -11,6 +11,8 @@ import { Months } from '../model/months.enum';
 import { Cancelation } from '../model/cancelation.model';
 import { CodebookService } from '../services/codebook.service';
 import { AccommodationCategory } from '../model/accommodationCategory.model';
+import { TokenStorageService } from '../auth/token-storage.service';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-accommodation-form',
@@ -18,7 +20,10 @@ import { AccommodationCategory } from '../model/accommodationCategory.model';
   styleUrls: ['./accommodation-form.component.css']
 })
 export class AccommodationFormComponent implements OnInit {
-
+  isLoggedIn = false;
+  roles: string[] = [];
+  role: string;
+  
   request:CreateAccommodationRequest = new CreateAccommodationRequest();
   additionalServices: AdditionalService[];
   types: AccommodationType[];
@@ -52,12 +57,18 @@ export class AccommodationFormComponent implements OnInit {
               private imgService: ImageService, 
               private _elementRef : ElementRef, 
               private renderer:Renderer2,
-              private codebookService: CodebookService) {}
+              private codebookService: CodebookService,
+              private tokenStorage: TokenStorageService) {}
   
   ngOnInit() {
     this.codebookService.getAdditionalServices().subscribe(
       data => { this.additionalServices = data }
     )
+
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.roles = this.tokenStorage.getAuthorities();
+    }
 
     this.codebookService.getCategories().subscribe(
       data => this.categories = data
@@ -67,6 +78,16 @@ export class AccommodationFormComponent implements OnInit {
       data => this.types = data
     )
 
+  }
+
+  checkRole() : boolean {
+    this.role = this.roles.find(role => role == "ROLE_AGENT" )
+
+    console.log(this.role)
+    if (this.role != undefined)
+      return true;
+    
+    return false;
   }
 
   apply() {
@@ -79,9 +100,6 @@ export class AccommodationFormComponent implements OnInit {
     delete this.months[this.selectedMonth]
 
     this.request.pricelist.push(price);
-
-    console.log(this.request.pricelist)
-
   }
 
   finish(){
@@ -223,8 +241,9 @@ export class AccommodationFormComponent implements OnInit {
       this.priceInSeason = new PriceInSeason();
       this.selectedCategory = -1;
       this.cancelation = new Cancelation();
+      this.months= Months;
       this.selectedMonth = Months.JANUARY;
-
+      
     } else {
         return;
     } 

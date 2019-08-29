@@ -24,7 +24,6 @@ export class SignInComponent implements OnInit {
   public account = 'assets/user.png';
 
   RouterLink : RouterLink;
-  ;
   
   signRequest = new FormGroup({
     username: new FormControl(''),

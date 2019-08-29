@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { AccommodationsComponent } from './accommodations/accommodations.component';
 import { EditAccommodationnComponent } from './edit-accommodationn/edit-accommodationn.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { EditAccommodationnComponent } from './edit-accommodationn/edit-accommod
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AngularFontAwesomeModule
   ],
   providers: [
     {

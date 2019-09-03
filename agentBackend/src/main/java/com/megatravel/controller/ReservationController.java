@@ -33,16 +33,14 @@ public class ReservationController {
 	
 	@PreAuthorize("hasRole('ROLE_AGENT')")
 	@RequestMapping(value = "/approve", method = RequestMethod.PUT, produces =  MediaType.APPLICATION_JSON)
-	public ResponseEntity<CudReservationResponse> approve(@RequestBody UpdateReservationRequest request){
-		reservationService.approve(request);
-		return ResponseEntity.ok(new CudReservationResponse("Reservation with id '" + request.getId() + "' has been approved!"));
+	public ResponseEntity<List<ResponseReservation>> approve(@RequestBody UpdateReservationRequest request){
+		return ResponseEntity.ok(ReservationConverter.fromEntityList(reservationService.approve(request), (reservation -> ReservationConverter.toResponseFromEntity(reservation))));
 	}
 	
 	@PreAuthorize("hasRole('ROLE_AGENT')")
 	@RequestMapping(value = "/reject", method = RequestMethod.PUT, produces =  MediaType.APPLICATION_JSON)
-	public ResponseEntity<CudReservationResponse> reject(@RequestBody UpdateReservationRequest request){
-		reservationService.reject(request);
-		return ResponseEntity.ok(new CudReservationResponse("Reservation with id '" + request.getId() + "' has been rejected!"));
+	public ResponseEntity<List<ResponseReservation>> reject(@RequestBody UpdateReservationRequest request){
+		return ResponseEntity.ok(ReservationConverter.fromEntityList(reservationService.reject(request), (reservation -> ReservationConverter.toResponseFromEntity(reservation))));
 	}
 	
 }

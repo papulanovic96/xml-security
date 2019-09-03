@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.megatravel.converter.EndUserConverter;
 import com.megatravel.converter.MessageConverter;
+import com.megatravel.dto.response.ResponseEndUser;
 import com.megatravel.dto.response.ResponseMessage;
 import com.megatravel.dto.soap.CreateMessageRequest;
 import com.megatravel.dto.soap.CreateMessageResponse;
@@ -27,21 +29,21 @@ public class MessageController {
 	private MessageService messageService;
 	
 	@PreAuthorize("hasRole('ROLE_AGENT')")
-	@RequestMapping(value = "/send", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CreateMessageResponse> sendMessage(@RequestBody CreateMessageRequest request) {
-		return ResponseEntity.ok(messageService.send(request));
+	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ResponseMessage>> sendMessage(@RequestBody CreateMessageRequest request) {
+		return ResponseEntity.ok(MessageConverter.fromEntityList(messageService.send(request), (message -> MessageConverter.toResponseFromEntity(message))));
 	}
 
 	@PreAuthorize("hasRole('ROLE_AGENT')")
-	@RequestMapping(value = "/inbox", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ResponseMessage>> inbox() {	
-		return ResponseEntity.ok(MessageConverter.fromEntityList(messageService.inbox(), (message -> MessageConverter.toResponseFromEntityForAgent(message))));
+	@RequestMapping(value = "/inbox", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ResponseEndUser>> inbox() {	
+		return ResponseEntity.ok(EndUserConverter.fromEntityList(messageService.inbox(), (client -> EndUserConverter.toResponseFromEntity(client))));
 	}
 	
 	@PreAuthorize("hasRole('ROLE_AGENT')")
-	@RequestMapping(value = "/history/username={username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/history/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ResponseMessage>> chatHistory(@PathVariable("username") String username) {
-		return ResponseEntity.ok(MessageConverter.fromEntityList(messageService.findChatHistory(username), (message -> MessageConverter.toResponseFromEntityForAgent(message))));
+		return ResponseEntity.ok(MessageConverter.fromEntityList(messageService.findChatHistory(username), (message -> MessageConverter.toResponseFromEntity(message))));
 		
 	}
 	

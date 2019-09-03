@@ -169,6 +169,7 @@ public class UserService {
 		return userRepository.findEndUsers();
 	}
 
+	@Transactional(readOnly = true)
 	public List<Reservation> findMyReservations() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
@@ -179,7 +180,8 @@ public class UserService {
 		
 		return enduser.getReservations();
 	}
-
+	
+	@Transactional(readOnly = true)
 	public List<Agent> findMyInbox(long clientId) {
 		return userRepository.findMyInbox(clientId);
 	}

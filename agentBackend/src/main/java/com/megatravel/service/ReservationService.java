@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.xml.soap.MessageFactory;
-import javax.xml.ws.WebServiceException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ws.client.core.WebServiceTemplate;
@@ -20,6 +21,7 @@ import com.megatravel.dto.soap.CreateReservationRequest;
 import com.megatravel.dto.soap.CudReservationResponse;
 import com.megatravel.dto.soap.UpdateReservationRequest;
 import com.megatravel.exception.ExceptionResponse;
+import com.megatravel.model.Agent;
 import com.megatravel.model.Reservation;
 import com.megatravel.model.ReservationStatus;
 import com.megatravel.repository.ReservationRepository;
@@ -37,22 +39,15 @@ public class ReservationService {
 
 	@Autowired
 	private SOAPConnector soapConnector;
+	
+	@Autowired
+	private UserService userService;
 
 	@Transactional(readOnly = true)
 	public List<Reservation> findAll() {
 		return reservationRepository.findAll();
 	}
 	
-	/*
-	 * @Transactional(readOnly = true) public List<ResponseReservation>
-	 * findByAccommodation(long id) { List<Reservation> reservations =
-	 * reservationRepository.findAllByAccommodation(id); List<ResponseReservation>
-	 * response = ReservationConverter.fromEntityList(reservations, (reservation ->
-	 * ReservationConverter.toResponseFromEntity(reservation)));
-	 * 
-	 * return response; }
-	 */
-
 	@Transactional(rollbackFor = Exception.class)
 	public void save(Reservation reservation) {
 		reservationRepository.save(reservation);
@@ -63,13 +58,14 @@ public class ReservationService {
 		Reservation reservation = ReservationConverter.toReservationFromRequest(request);
 		reservation.setAccommodation(accommodationService.findByName(request.getAccommodationName()));
 
+		
 		reservationRepository.save(reservation);
 		
 		return "Reservation request for '" + request.getAccommodationName() + "' has been sent!";
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void approve(UpdateReservationRequest request) {
+	public List<Reservation> approve(UpdateReservationRequest request) {
 		
 		Optional<Reservation> reservation = reservationRepository.findById(request.getId());
 		
@@ -95,15 +91,19 @@ public class ReservationService {
             CudReservationResponse response = (CudReservationResponse) soapConnector.callWebService(MAIN_APP + "booking/reservation", request);
 		            
     		reservationRepository.save(reservation.get());
+    		
+            return findMyReservations();   
 
         } catch (Exception s) {
             s.printStackTrace();
+  
+            return findMyReservations();   
         }
 		
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void reject(UpdateReservationRequest request) {
+	public List<Reservation> reject(UpdateReservationRequest request) {
 		Optional<Reservation> reservation = reservationRepository.findById(request.getId());
 		
 		if (reservation.isPresent() == false)
@@ -129,8 +129,12 @@ public class ReservationService {
 			            
     		reservationRepository.save(reservation.get());
 
+            return findMyReservations();   
+
         } catch (Exception s) {
             s.printStackTrace();
+            
+            return findMyReservations();   
         }
 	}
 
@@ -151,5 +155,14 @@ public class ReservationService {
 		reservationRepository.save(reservation);
 
 		return "Reservation with id '" + request.getId() + "' has been: " + request.getStatus().name();
+	}
+
+	@Transactional(readOnly = true)
+	public List<Reservation> findMyReservations() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		Agent agent = userService.findAgent(authentication.getName());
+		
+		return reservationRepository.findMyReservations(agent.getId());
 	}
 }

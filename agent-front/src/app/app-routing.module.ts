@@ -7,6 +7,8 @@ import { AccommodationsComponent} from './accommodations/accommodations.componen
 import { EditAccommodationnComponent } from './edit-accommodationn/edit-accommodationn.component';
 import { AuthGuard } from './auth/guards/auth-guard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { InboxComponent } from './inbox/inbox.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 const routes: Routes = [
   {
@@ -40,6 +42,12 @@ const routes: Routes = [
             path: 'update', component: EditAccommodationnComponent, canActivate: [AuthGuard]
           }
         ]
+      },
+      {
+        path: 'inbox', component: InboxComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'reservations', component: ReservationComponent, canActivate: [AuthGuard]
       }
     ]
   }

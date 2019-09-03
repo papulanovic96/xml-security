@@ -85,10 +85,8 @@ export class EditAccommodationnComponent implements OnInit {
     )
 
     this.pisService.getPriceInSeasonByAcc(this.acc.id).subscribe(
-
       data => {
         this.pricesInSeason = data;
-        
       }
     )
     

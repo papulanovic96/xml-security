@@ -1,28 +1,43 @@
 package com.megatravel.dto.response;
 
-import com.megatravel.model.MessageStatus;
+import com.megatravel.model.Roles;
 
 public class ResponseMessage {
 	
-	private String from;
+	private String sender;
 	
+	private String recipient;
+
 	private String content;
+	
+	private Roles sentBy;
 
-	private MessageStatus status;
-
-	public ResponseMessage(String from, String content, MessageStatus status) {
+	public ResponseMessage() {
+		
+	}
+	
+	public ResponseMessage(String sender, String recipient, String content, Roles sentBy) {
 		super();
-		this.from = from;
+		this.sender = sender;
+		this.recipient = recipient;
 		this.content = content;
-		this.status = status;
+		this.sentBy = sentBy;
 	}
 
-	public String getFrom() {
-		return from;
+	public String getSender() {
+		return sender;
 	}
 
-	public void setFrom(String from) {
-		this.from = from;
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+
+	public String getRecipient() {
+		return recipient;
+	}
+
+	public void setRecipient(String recipient) {
+		this.recipient = recipient;
 	}
 
 	public String getContent() {
@@ -33,12 +48,12 @@ public class ResponseMessage {
 		this.content = content;
 	}
 
-	public MessageStatus getStatus() {
-		return status;
+	public Roles getSentBy() {
+		return sentBy;
 	}
 
-	public void setStatus(MessageStatus status) {
-		this.status = status;
+	public void setSentBy(Roles sentBy) {
+		this.sentBy = sentBy;
 	}
 
 }

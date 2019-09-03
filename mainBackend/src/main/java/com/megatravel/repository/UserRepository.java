@@ -30,10 +30,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	List<Agent> findAgents();
 
 	@Query(value =  "SELECT * FROM maindb.user as u " + 
-					"JOIN accommodation AS a ON u.id = a.owned_by_id " + 
-					"JOIN reservation AS r ON r.accommodation_id = a.id " + 
-					"JOIN user_reservations AS ur ON ur.reservations_id = r.id " + 
-					"WHERE end_user_id = ?1 GROUP BY owned_by_id", nativeQuery = true)
+					"JOIN message AS m ON m.agent_id = u.id " + 
+					"GROUP BY m.agent_id ", nativeQuery = true)
 	List<Agent> findMyInbox(long clientId);
 
 

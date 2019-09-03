@@ -1,10 +1,7 @@
 import { Reservation } from './reservation.model';
 
 export class EndUser{
-
-    id: number;
+    username: string;
     firstName: string;
     lastName: string;
-    reservations: Array<Reservation>;
-
 }

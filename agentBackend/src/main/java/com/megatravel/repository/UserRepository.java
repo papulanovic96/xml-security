@@ -21,10 +21,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	Agent findAgentByUsername(String username);
 	
-	@Query(value = "select * from booking.user where user.dtype = 'EndUser'", nativeQuery = true)
+	@Query(value = "select * from user where user.dtype = 'EndUser'", nativeQuery = true)
 	List<EndUser> findEndUsers();	
 	
-	@Query(value = "select * from maindb.user where user.dtype = 'Agent'", nativeQuery = true)
+	@Query(value = "select * from user where user.dtype = 'Agent'", nativeQuery = true)
 	List<Agent> findAgents();
+
+	@Query(value =  "SELECT * FROM user AS u " + 
+					"JOIN message AS m ON m.client_id = u.id " + 
+					"GROUP BY u.id", nativeQuery = true)
+	List<EndUser> findMyInbox(long agentId);
 
 }

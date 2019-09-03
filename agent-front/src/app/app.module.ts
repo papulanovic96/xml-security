@@ -12,6 +12,8 @@ import { AccommodationsComponent } from './accommodations/accommodations.compone
 import { EditAccommodationnComponent } from './edit-accommodationn/edit-accommodationn.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { InboxComponent } from './inbox/inbox.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HomeComponent,
     AccommodationsComponent,
     EditAccommodationnComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    InboxComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

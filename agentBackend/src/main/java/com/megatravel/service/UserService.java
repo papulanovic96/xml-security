@@ -16,6 +16,8 @@ import com.megatravel.dto.soap.CreateAgentRequest;
 import com.megatravel.dto.soap.UserResponse;
 import com.megatravel.model.Agent;
 import com.megatravel.model.EndUser;
+import com.megatravel.model.Message;
+import com.megatravel.model.Reservation;
 import com.megatravel.model.Roles;
 import com.megatravel.model.User;
 import com.megatravel.repository.UserRepository;
@@ -34,6 +36,9 @@ public class UserService {
 	
 	@Autowired
 	private RoleService roleService;
+	
+	@Autowired
+	private ReservationService reservationService;
 	
 	@Transactional(readOnly = true)
 	public User findUser(String username) {
@@ -94,6 +99,16 @@ public class UserService {
 		
         return userRepository.findAgents();
 
+	}
+
+	@Transactional(readOnly = true)
+	public List<EndUser> findMyInbox(long agentId) {
+		return userRepository.findMyInbox(agentId);
+	}
+
+	@Transactional(readOnly = true)
+	public List<Reservation> findMyReservations() {
+		return reservationService.findMyReservations();
 	}
 	
 	

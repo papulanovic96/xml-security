@@ -23,12 +23,11 @@ export class InboxComponent implements OnInit {
   private agentName = "";
   private numberOfMessages: number;
 
-  constructor(private usersService: UsersService,
-              private messageService: MessageService) { }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit() {
     this.agent = new Agent();
-    this.usersService.inbox().subscribe(
+    this.messageService.inbox().subscribe(
       response => { 
       this.agents = response;
       this.agent = this.agents[0];

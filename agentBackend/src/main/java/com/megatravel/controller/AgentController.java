@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.megatravel.converter.AgentConverter;
+import com.megatravel.converter.ReservationConverter;
 import com.megatravel.dto.response.ResponseAgent;
+import com.megatravel.dto.response.ResponseReservation;
 import com.megatravel.dto.soap.CreateAgentRequest;
 import com.megatravel.service.UserService;
 
@@ -47,6 +49,12 @@ public class AgentController {
 			return ResponseEntity.ok(AgentConverter.toResponseFromEntity(userService.findAgent(username)));
 		else 
 			return null;	
+	}
+	
+	@PreAuthorize("hasRole('ROLE_AGENT')")
+	@RequestMapping(value = "/reservations", method = RequestMethod.GET)
+	public ResponseEntity<List<ResponseReservation>> findMyReservations() {
+		return ResponseEntity.ok(ReservationConverter.fromEntityList(userService.findMyReservations(),reservation -> ReservationConverter.toResponseFromEntity(reservation)));
 	}
 			
 }

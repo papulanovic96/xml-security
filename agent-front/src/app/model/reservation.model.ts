@@ -2,12 +2,14 @@ import { EndUser } from './endUser.model';
 import { Accommodation } from './accommodation.model';
 
 export class Reservation {
-    reservationId: number;
-    reservedBy: EndUser;
-    dateFrom: Date;
-    dateTo: Date;
-    finalPrice: number;
-    status: boolean;
+    id: number;
     accommodation: Accommodation;
-   
+    fromDate: Date;
+    tillDate: Date;
+    status: string;
+}
+
+export class UpdateReservationRequest {
+    id: number;
+    status: string;
 }

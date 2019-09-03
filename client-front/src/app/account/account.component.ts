@@ -66,7 +66,6 @@ export class AccountComponent implements OnInit {
     this.userService.findMyReservations().subscribe(
       data => {
         this.reservations = data;
-        console.log(this.reservations)
       },
       err => {
         console.log(err.error)

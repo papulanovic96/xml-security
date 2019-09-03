@@ -8,6 +8,7 @@
           </a>
         </nav>
         <a *ngIf="isAgent" class="btn btn-dark text-white font-weight-bold fa fa-hotel" [routerLink]="['accommodations']"><h6>Accommodations</h6></a>
+        <a *ngIf="isAgent" class="btn btn-dark text-white font-weight-bold fa fa-eye" [routerLink]="['reservations']"><h6>Reservations</h6></a>
 
         <ul class="nav nav-pills mb-4">
           <li class="nav-item mt-2" *ngIf="isAgent">

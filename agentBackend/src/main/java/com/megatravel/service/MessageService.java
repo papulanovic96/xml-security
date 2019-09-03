@@ -45,15 +45,17 @@ public class MessageService {
 		EndUser client = null;
 		
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			System.out.println("TW: " + authentication.getName() + " " + username);
+
 			agent = userService.findAgent(authentication.getName());
 			client = userService.findEndUser(username);
 		}
-		
+				
 		return messageRepository.findChatHistory(agent.getId(), client.getId());
 	}
 
 	@Transactional(readOnly = true)
-	public List<Message> inbox() {
+	public List<EndUser> inbox() {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
@@ -62,8 +64,8 @@ public class MessageService {
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			agent = userService.findAgent(authentication.getName());
 		}
-		
-		return messageRepository.findMyInbox(agent.getId());
+				
+		return userService.findMyInbox(agent.getId());
 	}
 
 	@Transactional(rollbackFor = Exception.class)
@@ -72,7 +74,7 @@ public class MessageService {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public CreateMessageResponse send(CreateMessageRequest request) {
+	public List<Message> send(CreateMessageRequest request) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
@@ -111,25 +113,20 @@ public class MessageService {
 	
 	            request.setSender(agent.getUsername());
 	            
-	            CreateMessageResponse response = null;
-	            try {	
-		            response = (CreateMessageResponse) webServiceTemplate.marshalSendAndReceive(MAIN_APP + "booking/message",request);
+	            CreateMessageResponse response = (CreateMessageResponse) webServiceTemplate.marshalSendAndReceive(MAIN_APP + "booking/message",request);
 		            
-		            save(message);
+		        save(message);
 		            
-	            } catch (Exception e) {
-					 throw new ExceptionResponse("Sync db fail!", HttpStatus.INTERNAL_SERVER_ERROR);
-				}
-	            
-	            
-	            return response;
-	            
+		        return messageRepository.findChatHistory(agent.getId(), client.getId());
+		       
 		} catch (Exception s) {
 	            s.printStackTrace();
-				 throw new ExceptionResponse("Sync db fail!", HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
+
+		return messageRepository.findChatHistory(agent.getId(), client.getId());
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	public void recieve(CreateMessageRequest request) {
 		EndUser client = userService.findEndUser(request.getSender());
 

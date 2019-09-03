@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, throwError} from 'rxjs';
 import { Message, CreateMessageRequest, CreateMessageResponse } from '../model/message.model';
+import { Agent } from '../model/agent.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,8 @@ export class MessageService {
     return this.http.post<Message[]>(this.zuurl + "main-backend/messages/", message);
   }
 
-  public inbox() : Observable<Message[]> {
-    return this.http.get<Message[]>(this.zuurl + "main-backend/messages/inbox/");
+  public inbox() : Observable<Agent[]> {
+    return this.http.get<Agent[]>(this.zuurl + "main-backend/messages/inbox/");
   }
 
   public chat(withAgent : string) : Observable<Message[]> {

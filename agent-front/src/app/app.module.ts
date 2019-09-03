@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { AccommodationsComponent } from './accommodations/accommodations.component';
 import { EditAccommodationnComponent } from './edit-accommodationn/edit-accommodationn.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     LoginFormComponent,
     HomeComponent,
     AccommodationsComponent,
-    EditAccommodationnComponent
+    EditAccommodationnComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

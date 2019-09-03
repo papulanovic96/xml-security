@@ -34,7 +34,8 @@ export class SigninComponent implements OnInit {
   })
 
   constructor(private authService: AuthService,
-              private tokenStorage: TokenStorageService) { }
+              private tokenStorage: TokenStorageService,
+              private router: Router) { }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {

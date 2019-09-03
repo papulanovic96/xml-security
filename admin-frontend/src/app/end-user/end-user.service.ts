@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class EndUserService {
 
-  private zuurl = "http://localhost:8761/"
+  private zuurl = "https://localhost:8443/"
 
   private findAllUrl = this.zuurl + 'main-backend/users/find/endusers';
   private activateURL = this.zuurl + 'main-backend/users/activate/';

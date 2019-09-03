@@ -22,9 +22,9 @@
                 <td>{{ user.password }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.status }}</td>
-                <td><button type="button" (click)="activate(user.username)" class="btn btn-outline-success"><i class="fa fa-check-circle-o"></i> Activate</button></td>
-                <td><button type="button" (click)="block(user.username)" class="btn btn-outline-warning"><i class="fa fa-ban"></i> Block</button></td>
-                <td><button type="button" (click)="delete(user)" class="btn btn-outline-danger"><i class="fa fa-close"></i> Delete</button></td>
+                <td *ngIf="isAdmin"><button type="button" (click)="activate(user.username)" class="btn btn-outline-success"><i class="fa fa-check-circle-o"></i> Activate</button></td>
+                <td *ngIf="isAdmin"><button type="button" (click)="block(user.username)" class="btn btn-outline-warning"><i class="fa fa-ban"></i> Block</button></td>
+                <td *ngIf="isAdmin"><button type="button" (click)="delete(user)" class="btn btn-outline-danger"><i class="fa fa-close"></i> Delete</button></td>
               </tr>
             </tbody>
           </table>

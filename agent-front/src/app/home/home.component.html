@@ -7,10 +7,10 @@
             <img [src]='logo'>
           </a>
         </nav>
-        <a class="btn btn-dark text-white font-weight-bold fa fa-hotel" [routerLink]="['accommodations']"><h6>Accommodations</h6></a>
+        <a *ngIf="isAgent" class="btn btn-dark text-white font-weight-bold fa fa-hotel" [routerLink]="['accommodations']"><h6>Accommodations</h6></a>
 
         <ul class="nav nav-pills mb-4">
-          <li class="nav-item mt-2" *ngIf="isLoggedIn">
+          <li class="nav-item mt-2" *ngIf="isAgent">
             <a class="btn btn-dark mr-2 fa fa-envelope" [routerLink] = "['inbox']"></a>
           </li> 
           <li class="nav-item mt-2">
@@ -24,4 +24,3 @@
 </div>
 
 <router-outlet></router-outlet>
-

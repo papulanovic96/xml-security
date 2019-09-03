@@ -3,6 +3,7 @@ import { Agent, CreateAgentRequest } from './agent.model';
 import { AgentService } from './agent.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Address, AgentAddress } from '../address.model';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-agent',
@@ -16,8 +17,10 @@ export class AgentComponent implements OnInit {
 
   agent = new CreateAgentRequest;
   city: string;
+  isAdmin: boolean;
 
-  constructor(private agentService: AgentService) { }
+  constructor(private agentService: AgentService,
+              private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
     this.agentService.getAllAgents().subscribe(
@@ -26,6 +29,9 @@ export class AgentComponent implements OnInit {
     this.agentService.getAllAddresses().subscribe(
       addresses => this.addresses = addresses
     )
+
+    if (this.tokenStorage.getAuthorities().includes('ROLE_ADMIN'))
+      this.isAdmin = true;
   }
 
   onSubmit() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccommodationTypeService } from './accommodation-type.service';
 import { AccommodationType } from './accommodation-type';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-accommodation-type',
@@ -11,8 +12,10 @@ export class AccommodationTypeComponent implements OnInit {
 
   types: AccommodationType[] = [];
   type = new AccommodationType(0, '');
+  isAdmin: boolean;
 
-  constructor(private aTypeService: AccommodationTypeService) { }
+  constructor(private aTypeService: AccommodationTypeService,
+              private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
     this.aTypeService.getTypes().subscribe(
@@ -20,6 +23,9 @@ export class AccommodationTypeComponent implements OnInit {
         this.types = types;
       }
     )
+
+    if (this.tokenStorage.getAuthorities().includes('ROLE_ADMIN'))
+      this.isAdmin = true;
   }
 
   delete(name: string) {

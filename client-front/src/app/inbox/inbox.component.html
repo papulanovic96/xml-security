@@ -11,14 +11,14 @@
       <div role="document">
         <div class="modal-content">
           <div class="modal-header">
-              <pre><h5 class="modal-title text-dark" id="sendMessage">CHAT HISTORY WITH </h5><h5><input type="text" [(ngModel)]="agentName"  readonly="readonly" unselectable="on" style="border: none;"></h5></pre>
+              <pre><h4 class="modal-title text-dark" id="sendMessage"><strong>CHAT HISTORY WITH</strong> </h4><h5><input type="text" [(ngModel)]="agentName"  readonly="readonly" unselectable="on" style="border: none;"></h5></pre>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
           </div>
           <div class="container modal-body bg-dark" *ngFor="let m of chat">
             <div class="row">
-                <div class="col-6 border-none" style="height: 10px"  *ngIf="m.sentBy == 'END_USER'" ></div>
+                <div class="col-6 border-none"  *ngIf="m.sentBy == 'END_USER'" ></div>
                 <div class="card bg-info col-6" *ngIf="m.sentBy == 'END_USER'" >
                   <div class="card-body float-right border-info text-white text-center">
                     {{m.content}}
@@ -29,7 +29,7 @@
                     {{m.content}}
                   </div>
                 </div>
-                <div class="col-6" style="height: 10px" *ngIf="m.sentBy == 'AGENT'"></div>
+                <div class="col-6" *ngIf="m.sentBy == 'AGENT'"></div>
             </div>
           </div>
           <div class="container my-4">

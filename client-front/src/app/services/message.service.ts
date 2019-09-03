@@ -12,19 +12,19 @@ export class MessageService {
   private zuurl: string;
 
   constructor(private http: HttpClient) {
-    this.zuurl = 'http://localhost:8761';
+    this.zuurl = 'https://localhost:8443/';
   }
 
   public sendMessage(message : CreateMessageRequest) : Observable<Message[]> {
-    return this.http.post<Message[]>(this.zuurl + "/main-backend/messages", message);
+    return this.http.post<Message[]>(this.zuurl + "main-backend/messages/", message);
   }
 
   public inbox() : Observable<Message[]> {
-    return this.http.get<Message[]>(this.zuurl + "/main-backend/messages/inbox");
+    return this.http.get<Message[]>(this.zuurl + "main-backend/messages/inbox/");
   }
 
   public chat(withAgent : string) : Observable<Message[]> {
-    return this.http.get<Message[]>(this.zuurl + "/main-backend/messages/history/username=" + withAgent);
+    return this.http.get<Message[]>(this.zuurl + "main-backend/messages/history/username=" + withAgent);
   }
 
 }

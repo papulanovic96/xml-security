@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class AccommodationCategoryService implements OnInit {
 
-  private zuurl = 'http://localhost:8761/';
+  private zuurl = 'https://localhost:8443/';
   private createCategoryURL = this.zuurl + 'main-backend/accommodation-categories';
   private updateCategoryURL = this.zuurl + 'main-backend/accommodation-categories';
   private deleteCategoryURL = this.zuurl + 'main-backend/accommodation-categories/delete/';

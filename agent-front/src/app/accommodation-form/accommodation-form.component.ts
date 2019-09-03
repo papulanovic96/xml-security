@@ -21,8 +21,7 @@ import { stringify } from '@angular/compiler/src/util';
 })
 export class AccommodationFormComponent implements OnInit {
   isLoggedIn = false;
-  roles: string[] = [];
-  role: string;
+  isAgent: boolean;
   
   request:CreateAccommodationRequest = new CreateAccommodationRequest();
   additionalServices: AdditionalService[];
@@ -61,14 +60,17 @@ export class AccommodationFormComponent implements OnInit {
               private tokenStorage: TokenStorageService) {}
   
   ngOnInit() {
+    
+    if (this.tokenStorage.getToken() != null) { 
+      this.isLoggedIn = true;
+
+      if (this.tokenStorage.getAuthorities().includes('ROLE_AGENT'))
+        this.isAgent = true;
+    }
+
     this.codebookService.getAdditionalServices().subscribe(
       data => { this.additionalServices = data }
     )
-
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getAuthorities();
-    }
 
     this.codebookService.getCategories().subscribe(
       data => this.categories = data
@@ -77,17 +79,6 @@ export class AccommodationFormComponent implements OnInit {
     this.codebookService.getTypes().subscribe(
       data => this.types = data
     )
-
-  }
-
-  checkRole() : boolean {
-    this.role = this.roles.find(role => role == "ROLE_AGENT" )
-
-    console.log(this.role)
-    if (this.role != undefined)
-      return true;
-    
-    return false;
   }
 
   apply() {

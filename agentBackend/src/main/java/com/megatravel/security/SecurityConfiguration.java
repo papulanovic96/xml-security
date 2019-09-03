@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -29,77 +31,40 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         // Disable CSRF (cross site request forgery)
-        http.csrf().disable();
+        http
+        	.csrf()
+        	.disable();
 
         // No session will be created or used by spring security
         http
         	.sessionManagement()
         	.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        // Entry points
-        http.authorizeRequests()
-	        .antMatchers(HttpMethod.GET, "/accommodation/findAllAvailable").permitAll()
-			.antMatchers(HttpMethod.GET, "/accommodation/findAll").permitAll()
-			.antMatchers(HttpMethod.GET, "/user/findAllEndUsers").permitAll()
-	        .antMatchers(HttpMethod.POST,"/user/save").permitAll()
-	        .antMatchers(HttpMethod.POST,"/user/login*").permitAll() 
-	        .antMatchers(HttpMethod.GET,"/user/logout").permitAll() 
-	        .antMatchers(HttpMethod.POST,"/user/findEndUser").permitAll() 
-	        .antMatchers(HttpMethod.GET, "/roles/findEndUserRole").permitAll()
-	        .antMatchers(HttpMethod.POST, "/admin-agent-creation/saveAgent").permitAll()
-	        .antMatchers(HttpMethod.GET, "/admin-agent-creation/findAgents").permitAll()
-	        .antMatchers(HttpMethod.DELETE, "/end-user-action/delete/{username}").permitAll()
-	        .antMatchers(HttpMethod.DELETE, "/end-user-action/block/{username}").permitAll()
-	        .antMatchers(HttpMethod.DELETE, "/end-user-action/activate/{username}").permitAll()
-	        .antMatchers(HttpMethod.POST, "/accommodation-category/save").permitAll()
-	        .antMatchers(HttpMethod.DELETE, "/accommodation-category/delete/{id}").permitAll()
-	        .antMatchers(HttpMethod.GET, "/accommodation-category/findById/{id}").permitAll()
-	        .antMatchers(HttpMethod.GET, "/accommodation-category/findAll").permitAll()
-	        .antMatchers(HttpMethod.PUT, "/accommodation-category/modify/{id}").permitAll()
-	        .antMatchers(HttpMethod.POST, "/accommodation-type/save").permitAll()
-	        .antMatchers(HttpMethod.DELETE, "/accommodation-type/delete/{id}").permitAll()
-	        .antMatchers(HttpMethod.GET, "/accommodation-type/findById/{id}").permitAll()
-	        .antMatchers(HttpMethod.GET, "/accommodation-type/findAll").permitAll()
-	        .antMatchers(HttpMethod.PUT, "/accommodation-type/modify/{id}").permitAll()
-	        .antMatchers(HttpMethod.POST, "/additional-services/save").permitAll()
-	        .antMatchers(HttpMethod.DELETE, "/additional-services/delete/{id}").permitAll()
-	        .antMatchers(HttpMethod.GET, "/additional-services/findById/{id}").permitAll()
-	        .antMatchers(HttpMethod.GET, "/additional-services/findAll").permitAll()
-	        .antMatchers(HttpMethod.PUT, "/additional-services/modify/{id}").permitAll()
-	        .antMatchers(HttpMethod.POST, "/token/find").permitAll()
-	        .antMatchers(HttpMethod.POST, "/token/save").permitAll()
-	        .antMatchers(HttpMethod.POST, "/reservation/create").permitAll()
-	        .antMatchers(HttpMethod.GET, "/user/reservations").permitAll()
-	        .antMatchers(HttpMethod.POST, "/message/send").permitAll()
-	        .antMatchers(HttpMethod.GET, "/message/history/*").permitAll()
-	        .antMatchers(HttpMethod.GET, "/message/inbox").permitAll()
-	        .antMatchers(HttpMethod.POST, "/accommodation/comment/{aid}").permitAll()
-	        .antMatchers(HttpMethod.PUT, "/comment/accept/{id}").permitAll()
-	        .antMatchers(HttpMethod.PUT, "/comment/refuse/{id}").permitAll()
-	        .antMatchers(HttpMethod.GET, "/comment/notReviewed").permitAll()
-	        .antMatchers(HttpMethod.GET, "/comment/accepted").permitAll()
-	        .antMatchers(HttpMethod.GET, "/comment/byUserId/{id}").permitAll()
-	        .antMatchers(HttpMethod.GET, "/end-user-action/findAll").permitAll()
-	        .antMatchers(HttpMethod.DELETE, "/comment/delete/{id}").permitAll()
-	        .antMatchers(HttpMethod.GET, "/end-user-action/findAll").permitAll()
-	        .antMatchers(HttpMethod.GET, "/address/findAll").permitAll()
-	        .antMatchers(HttpMethod.POST, "/address/save").permitAll()
-	        .antMatchers(HttpMethod.GET, "/app.component.css").permitAll()
-	        .antMatchers(HttpMethod.POST, "/booking/message").hasAuthority("ROLE_AGENT")
-	    .anyRequest().authenticated();
-
         // If a user try to access a resource without having enough permissions
         http
         	.exceptionHandling()
-        	.accessDeniedPage("/login")
+        	.accessDeniedPage("/signin")
         	.authenticationEntryPoint(unauthorizedHandler);
 ;
 
         // Apply JWT
-        http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
+        http
+        	.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
        
         // Optional, if you want to test the API from a browser
-        http.httpBasic();
+        http
+        	.httpBasic();
+        
+        //https
+        http
+        	.requiresChannel()
+        	.anyRequest()
+        	.requiresSecure();
+        
+        //XSS
+        http
+        	.headers()
+        	.contentSecurityPolicy("script-src 'self' https://trustedscripts.example.com; object-src https://trustedplugins.example.com; report-uri /csp-report-endpoint/");
     }
 
     @Override

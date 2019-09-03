@@ -18,7 +18,7 @@ export class AccommodationTypeService implements OnInit {
         })
     }
 
-    private zuurl = 'http://localhost:8761/';
+    private zuurl = 'https://localhost:8443/';
 
     private createRequest = new CreateAccommodationTypeRequest;
 

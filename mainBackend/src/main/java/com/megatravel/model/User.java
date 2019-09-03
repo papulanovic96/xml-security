@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
@@ -84,7 +85,7 @@ public abstract class User implements UserDetails {
     protected String username;
     
 	@XmlElement(required = true)
-    protected String password;
+	protected String password;
     
 	@XmlElement(required = true)
     protected String email;

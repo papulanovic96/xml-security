@@ -38,7 +38,8 @@ export class LoginFormComponent implements OnInit {
                      this.isLoginFailed = false;
                      this.isLoggedIn = true;
                      this.roles = this.tokenStorage.getAuthorities();
-                     window.location.reload() },
+                     this.router.navigate(['/home']); 
+        },
         error =>  {  alert(error.error.message);
                      this.error = error.error.message;
                      this.isLoginFailed = true;}

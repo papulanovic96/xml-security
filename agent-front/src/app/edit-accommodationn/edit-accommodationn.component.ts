@@ -9,6 +9,7 @@ import { Reservation } from '../model/reservation.model';
 import { ReservationService } from '../services/reservation.service';
 import { Months } from '../model/months.enum';
 import { Currencies } from '../model/currencies.enum';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-edit-accommodationn',
@@ -28,15 +29,25 @@ export class EditAccommodationnComponent implements OnInit {
   selectedCurrency = Currencies.EUR;
   newPriceInSeason: PriceInSeason = new PriceInSeason();
   
+  isLoggedIn: boolean;
+  isAgent: boolean;
+  
   constructor(private accService : AccommodationService, 
               private imgService : ImageService, 
               private pisService : PriceInSeasonService, 
-              private reservationService : ReservationService) { 
+              private reservationService : ReservationService,
+              private tokenStorage: TokenStorageService) { 
     this.acc = accService.getEditingAcc();
     this.loadAcc();
   }
 
   ngOnInit() {
+    if (this.tokenStorage.getToken() != null) { 
+      this.isLoggedIn = true;
+
+      if (this.tokenStorage.getAuthorities().includes('ROLE_AGENT'))
+        this.isAgent = true;
+    }
 
   }
 

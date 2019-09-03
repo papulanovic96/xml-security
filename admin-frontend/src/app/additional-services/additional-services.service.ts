@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class AdditionalServicesService implements OnInit{
 
-  private zuurl = 'http://localhost:8761/';
+  private zuurl = 'https://localhost:8443/';
 
   private findAllURL = this.zuurl + 'main-backend/additional-services'
   private deleteByIdURL = this.zuurl + 'main-backend/additional-services/delete/'

@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  isLoggedIn = false;
-  roles: string[] = [];
+  isLoggedIn: boolean;
+  isAgent: boolean;
 
   public logo = 'assets/logo.png'
 
@@ -21,10 +21,12 @@ export class HomeComponent implements OnInit {
   constructor(private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
-    if (this.tokenStorage.getToken()) {
+    if (this.tokenStorage.getToken() != null) { 
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getAuthorities();
-    }
+
+      if (this.tokenStorage.getAuthorities().includes('ROLE_AGENT'))
+        this.isAgent = true;
+    }  
   }
 
   signOut(){

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdditionalServicesService } from './additional-services.service'
 import { AdditionalServices } from './additional-services';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-additional-services',
@@ -12,12 +13,19 @@ export class AdditionalServicesComponent implements OnInit {
   services: AdditionalServices[];
   service = new AdditionalServices(0, '');
 
-  constructor(private serviceAdditional: AdditionalServicesService) { }
+  isAdmin: boolean;
+
+  constructor(private serviceAdditional: AdditionalServicesService,
+              private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
     this.serviceAdditional.getAdditionalServices().subscribe(
       services => this.services = services
     );
+
+    if (this.tokenStorage.getAuthorities().includes('ROLE_ADMIN'))
+      this.isAdmin = true;
+
   }
 
   delete(name: string) {

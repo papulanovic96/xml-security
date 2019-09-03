@@ -8,12 +8,12 @@ export class AuthenticationService {
     private zuurl: string;
 
     constructor(private http: HttpClient) { 
-      this.zuurl = 'http://localhost:8761';
+      this.zuurl = 'https://localhost:8443/';
 
     }
 
     login(username: string, password: string) {
-        return this.http.post<any>(this.zuurl + `/login`, { username, password })
+        return this.http.post<any>(this.zuurl + `login`, { username, password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {

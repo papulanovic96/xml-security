@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +25,13 @@ public class AgentController {
 	@Autowired
 	private UserService userService;
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ResponseAgent>> completeRegistration(@RequestBody CreateAgentRequest request) {
 		return ResponseEntity.ok(AgentConverter.fromEntityList(userService.complete(request), agent -> AgentConverter.toResponseFromEntity(agent)));
 	}
 		
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/find/username={username}", method = RequestMethod.GET)
 	public ResponseEntity<ResponseAgent> findByUsername(@PathVariable("username") String username) {
 		if (userService.findAgent(username) != null) 
@@ -37,6 +40,7 @@ public class AgentController {
 			return null;	
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/find/brn={brn}", method = RequestMethod.GET)
 	public ResponseEntity<ResponseAgent> findByBrn(@PathVariable("brn") String username) {
 		if (userService.findAgent(username) != null) 

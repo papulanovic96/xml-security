@@ -12,6 +12,7 @@ import { TokenStorageService  } from '../../auth/token-storage.service';
 export class NavbarComponent implements OnInit {
 
   isLoggedIn : boolean;
+  isEndUser: boolean;
 
   public logo = 'assets/logo.png'
 
@@ -24,6 +25,9 @@ export class NavbarComponent implements OnInit {
 
     if (this.tokenStorageService.getToken() != null) {
       this.isLoggedIn = true;
+
+      if (this.tokenStorageService.getAuthorities().includes('ROLE_END_USER'))
+        this.isEndUser = true;
     }
 
   }

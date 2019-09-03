@@ -17,6 +17,10 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SigninComponent } from './auth/signin/signin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuard } from './auth/guards/auth-guard.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,7 @@ import { CommonModule } from '@angular/common';
     CommentComponent,
     AgentComponent,
     SigninComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     AngularFontAwesomeModule,
@@ -41,19 +46,27 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     CommonModule,
     RouterModule.forRoot([
-      {path:'accommodation-type', component: AccommodationTypeComponent},
-      {path:'accommodation-type/accommodation-type-modify/:id', component: AccommodationTypeModifyComponent},
-      {path:'additional-services', component: AdditionalServicesComponent},
-      {path:'additional-services/additional-services-modify/:id', component: AdditionalServicesModifyComponent},
-      {path:'accommodation-category', component: AccommodationCategoryComponent},
-      {path:'accommodation-category/accommodation-category-modify/:id', component: AccommodationCategoryModifyComponent},
-      {path:'end-user-action', component: EndUserComponent},
-      {path:'comment', component: CommentComponent},
-      {path:'admin-agent-creation', component: AgentComponent},
-      {path:'sign-in', component: SigninComponent}
-    ], {useHash: true})
+      {path:'accommodation-type', component: AccommodationTypeComponent, canActivate: [AuthGuard]},
+      {path:'accommodation-type/accommodation-type-modify/:id', component: AccommodationTypeModifyComponent, canActivate: [AuthGuard]},
+      {path:'additional-services', component: AdditionalServicesComponent, canActivate: [AuthGuard]},
+      {path:'additional-services/additional-services-modify/:id', component: AdditionalServicesModifyComponent, canActivate: [AuthGuard]},
+      {path:'accommodation-category', component: AccommodationCategoryComponent, canActivate: [AuthGuard]},
+      {path:'accommodation-category/accommodation-category-modify/:id', component: AccommodationCategoryModifyComponent, canActivate: [AuthGuard]},
+      {path:'end-user-action', component: EndUserComponent, canActivate: [AuthGuard]},
+      {path:'comment', component: CommentComponent, canActivate: [AuthGuard]},
+      {path:'admin-agent-creation', component: AgentComponent, canActivate: [AuthGuard]},
+      {path:'sign-in', component: SigninComponent},
+      {path: '**', component: PageNotFoundComponent},
+      {path: '404', component: PageNotFoundComponent}
+    ])
   ],
-  providers: [],
+  providers: [
+    { 
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

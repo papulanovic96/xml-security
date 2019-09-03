@@ -8,7 +8,7 @@ import { Comment, UpdateCommentRequest, CommentsUpdateResponse } from './comment
 })
 export class CommentService {
 
-  private zuurl = 'http://localhost:8761/';
+  private zuurl = 'https://localhost:8443/';
 
   private findComments = this.zuurl + 'main-backend/comments'
   private findRefusedUrl = this.zuurl + 'main-backend/comments/refused'

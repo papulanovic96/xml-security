@@ -20,6 +20,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { InboxComponent } from './inbox/inbox.component';
 import { ChatComponent } from './chat/chat.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
  
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ChatComponent } from './chat/chat.component';
     AccommodationDetailsComponent,
     AccountComponent,
     InboxComponent,
-    ChatComponent
+    ChatComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

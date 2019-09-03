@@ -12,13 +12,13 @@
           <tr *ngFor = 'let tip of types'>
             <td>{{ tip.id }}</td>
             <td>{{ tip.name }}</td>
-            <td><a [routerLink]="['accommodation-type-modify', tip.id]"><button class="btn btn-outline-warning"><i class="fa fa-edit"></i> Modify</button></a></td>
-            <td><button type="button" (click)="delete(tip.name)" class="btn btn-outline-danger"><i class="fa fa-close"></i> Delete</button></td>
+            <td *ngIf="isAdmin"><a [routerLink]="['accommodation-type-modify', tip.id]"><button class="btn btn-outline-warning"><i class="fa fa-edit"></i> Modify</button></a></td>
+            <td *ngIf="isAdmin"><button type="button" (click)="delete(tip.name)" class="btn btn-outline-danger"><i class="fa fa-close"></i> Delete</button></td>
           </tr>
         </tbody>
       </table>
 </div>
-<div class=row>
+<div class=row *ngIf="isAdmin">
 <div class="col-1"></div>
 <div class="col-4">
 <div class="card text-right">

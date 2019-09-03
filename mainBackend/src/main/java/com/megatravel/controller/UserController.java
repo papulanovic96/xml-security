@@ -36,6 +36,7 @@ public class UserController {
 		return ResponseEntity.ok(userService.completeEndUser(request));
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/find/endusers", method = RequestMethod.GET)
 	public ResponseEntity<List<ResponseEndUser>> test() {
 		return ResponseEntity.ok(EndUserConverter.fromEntityList(userService.findEndUsers(), enduser -> EndUserConverter.toResponseFromEntity(enduser)));
@@ -63,23 +64,26 @@ public class UserController {
 	}
 	
 	//TODO sync with agent db!
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/delete/{username}", method = RequestMethod.DELETE)
 	public ResponseEntity<List<ResponseEndUser>> deleteUser(@PathVariable("username") String username) {
 		return ResponseEntity.ok(EndUserConverter.fromEntityList(userService.delete(username), enduser -> EndUserConverter.toResponseFromEntity(enduser)));
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/block/{username}", method = RequestMethod.PUT)
 	public ResponseEntity<List<ResponseEndUser>> blockUser(@PathVariable String username) {
 		return ResponseEntity.ok(EndUserConverter.fromEntityList(userService.block(username), enduser -> EndUserConverter.toResponseFromEntity(enduser)));
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/activate/{username}", method = RequestMethod.PUT)
 	public ResponseEntity<List<ResponseEndUser>> activateUser(@PathVariable String username) {
 		return ResponseEntity.ok(EndUserConverter.fromEntityList(userService.activate(username), enduser -> EndUserConverter.toResponseFromEntity(enduser)));
 	}
 	
+	@PreAuthorize("hasRole('ROLE_END_USER')")
 	@RequestMapping(value = "/reservations", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('END_USER')")
 	public ResponseEntity<List<ResponseReservation>> findMyReservations() {
 		return ResponseEntity.ok(ReservationConverter.fromEntityList(userService.findMyReservations(),reservation -> ReservationConverter.toResponseFromEntity(reservation)));
 	}

@@ -15,10 +15,10 @@
 					<li class="nav-item mt-2" *ngIf="!isLoggedIn">
 						<a class="btn btn-dark mr-2 text-white font-weight-bold fa fa-sign-in"  data-toggle="modal" data-target="#signin1"></a>
 					</li>
-					<li class="nav-item mt-2" *ngIf="isLoggedIn">
+					<li class="nav-item mt-2" *ngIf="isEndUser">
 						<a class="btn btn-dark mr-2 text-white font-weight-bold fa fa-user-circle" [routerLink] = "['account']"></a>
 					</li> 
-					<li class="nav-item mt-2" *ngIf="isLoggedIn">
+					<li class="nav-item mt-2" *ngIf="isEndUser">
 						<a class="btn btn-dark mr-2 text-white font-weight-bold fa fa-envelope" [routerLink] = "['inbox']"></a>
 					</li>
 					<li class="nav-item mt-2" *ngIf="isLoggedIn">

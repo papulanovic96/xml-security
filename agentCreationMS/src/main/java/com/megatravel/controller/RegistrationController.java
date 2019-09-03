@@ -23,6 +23,11 @@ public class RegistrationController {
 	public RegistrationController(RegistrationService registrationService) {
 		this.registrationService = registrationService;
 	}
+	   
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> get() {
+		return ResponseEntity.ok("TEST");
+	}
 	
 	//TODO Cannot register without address
 	@RequestMapping(method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

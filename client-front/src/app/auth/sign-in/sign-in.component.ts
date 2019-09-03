@@ -22,8 +22,6 @@ export class SignInComponent implements OnInit {
   private login: SigninRequest;
 
   public account = 'assets/user.png';
-
-  RouterLink : RouterLink;
   
   signRequest = new FormGroup({
     username: new FormControl(''),
@@ -31,7 +29,8 @@ export class SignInComponent implements OnInit {
   })
 
   constructor(private authService: AuthService,
-              private tokenStorage: TokenStorageService) { }
+              private tokenStorage: TokenStorageService,
+              private router: Router) { }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -62,6 +61,7 @@ export class SignInComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getAuthorities();
         window.location.reload();
+        this.router.navigate(['/accommodation']);
       }, 
       error => {
         alert(error.error.message);
@@ -73,7 +73,7 @@ export class SignInComponent implements OnInit {
 
   signOut() {
      this.tokenStorage.signOut();
-     window.location.reload();
+     this.router.navigate(['/accommodation']);
   }
 
    loggedIn(): boolean{

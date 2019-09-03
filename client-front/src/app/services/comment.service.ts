@@ -12,11 +12,11 @@ export class CommentService {
   private zuurl: string;
 
   constructor(private http: HttpClient) {
-    this.zuurl = 'http://localhost:8761';
+    this.zuurl = 'https://localhost:8443';
   }
 
   public postComment(comment: CreateCommentRequest) {
-    return this.http.post<CreateCommentResponse>(this.zuurl + "/main-backend/comments" ,comment);
+    return this.http.post<CreateCommentResponse>(this.zuurl + "/main-backend/comments/" ,comment);
   }
 
 

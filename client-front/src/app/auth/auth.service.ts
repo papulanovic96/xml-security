@@ -14,8 +14,8 @@ const httpOptions = {
 })
 export class AuthService {
 
-  private signupUrl = 'http://localhost:8761/client-registration-service';
-  private signinUrl = 'http://localhost:8761/login-service';
+  private signupUrl = 'https://localhost:8443/client-registration-service/';
+  private signinUrl = 'https://localhost:8443/login-service/';
 
   constructor(private http: HttpClient) {
   }

@@ -1,17 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-
 import { AccommodationService } from '../services/accommodation.service';
 import { ReservationService } from '../services/reservation.service';
-
 import { Accommodation } from '../model/accommodation.model';
 import { CreateReservationRequest } from '../model/reservation.model';
-import { Agent } from '../model/agent.model';
-
-import { isNgTemplate } from '@angular/compiler';
-
-
-
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({ 
   selector: 'app-accommodation',
@@ -39,6 +32,9 @@ export class AccommodationComponent implements OnInit {
  
   private _rate: number;
 
+  private isEndUser: boolean = false;
+  private roles: string[];
+
   images = [1, 2, 3].map(() => `https://picsum.photos/900/500?random&t=${Math.random()}`);
 
   private searchName: string;
@@ -57,9 +53,11 @@ export class AccommodationComponent implements OnInit {
 
   public _selectedFrom: Date;
   public _selectedTill: Date;
+
   
   constructor(private accommodationService: AccommodationService,
               private reservationService: ReservationService,
+              private tokenStorage: TokenStorageService,
               private datePipe: DatePipe) { }
   
   get selectedFrom(): Date {
@@ -100,6 +98,13 @@ export class AccommodationComponent implements OnInit {
       this.minDate = this.datePipe.transform(this.today, 'yyyy-MM-dd');
       this.minDateTill = this.datePipe.transform(this.today, 'yyyy-MM-dd');
 
+      if (this.tokenStorage.getToken() != null) {
+        if (this.tokenStorage.getAuthorities().includes('ROLE_END_USER'))
+          this.isEndUser = true;
+        this.roles = this.tokenStorage.getAuthorities();
+      }
+
+
       this.accommodationService.getAccommodations().subscribe(
         data => { 
                   this.accommodations = data;
@@ -117,7 +122,6 @@ export class AccommodationComponent implements OnInit {
     if (this.selectedTill != null) 
         this.reservation.tillDate = this.selectedTill;
     
-    console.log(this.reservation)
     this.reservationService.create(this.reservation).subscribe(
       data => {
          alert(data.feedback)

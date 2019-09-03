@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccommodationCategory, DeleteAccommodationCategoryRequest, CreateAccommodationCategoryRequest } from './accommodation-category';
 import { AccommodationCategoryService } from './accommodation-category.service';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-accommodation-category',
@@ -15,7 +16,10 @@ export class AccommodationCategoryComponent implements OnInit {
   deleteCat: DeleteAccommodationCategoryRequest;
   createCat: CreateAccommodationCategoryRequest;
 
-  constructor(private aCategoryService: AccommodationCategoryService) { }
+  isAdmin: boolean;
+
+  constructor(private aCategoryService: AccommodationCategoryService,
+              private tokenStorage: TokenStorageService) { }
 
   
   ngOnInit() {
@@ -24,6 +28,9 @@ export class AccommodationCategoryComponent implements OnInit {
         this.categories = categories;
       }
     )
+
+    if (this.tokenStorage.getAuthorities().includes('ROLE_ADMIN'))
+      this.isAdmin = true;
   }
 
   delete(name: string) {

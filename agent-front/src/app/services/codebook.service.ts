@@ -10,7 +10,7 @@ import { AdditionalService } from '../model/additionalservice.model';
 })
 export class CodebookService {
 
-  private zuurl = 'http://localhost:8761/'
+  private zuurl = 'https://localhost:8443/'
   
   private categoriesUrl = 'agent-backend/accommodation-categories'
   private typesUrl = 'agent-backend/accommodation-types'

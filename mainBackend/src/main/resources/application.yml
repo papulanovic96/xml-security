@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: main-backend
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://localhost:3306/maindb?useSSL=true&createDatabaseIfNotExist=true
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect#  jackson:#    default-property-inclusion: NON_NULL
+    
+server:
+  port: 8445
+  ssl:
+    key-store: classpath:ks/main-backend.p12
+    key-alias: main-backend
+    key-store-type: PKCS12
+    key-store-password: megatravel
+    key-password: megatravel
+    trust-store: classpath:ks/tsmain-backend.p12
+    trust-store-password: megatravel
+    trust-store-type: PKCS12
+        
+  error:    whitelabel:      enabled: false 
+# Tell Spring Security (if used) to require requests over HTTPS
+# security.require-ssl=true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: https://eureka:admin@localhost:8443/eureka/
+  instance:
+    hostname: localhost    nonSecurePortEnabled: false
+    securePortEnabled: true
+    statusPageUrl: 'https://${eureka.instance.hostname}:${server.port}/info'
+    healthCheckUrl: 'https://${eureka.instance.hostname}:${server.port}/health'
+    homePageUrl: 'https://${eureka.instance.hostname}:${server.port}/'
+
+  
+spring.jackson.default-property-inclusion: NON_NULL

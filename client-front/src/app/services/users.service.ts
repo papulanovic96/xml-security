@@ -17,15 +17,15 @@ export class UsersService {
   private zuurl: string;
 
   constructor(private http: HttpClient) {
-    this.zuurl = 'http://localhost:8761';
+    this.zuurl = 'https://localhost:8443/';
   }
 
   public findMyReservations() : Observable<Reservation[]>{
-    return this.http.get<Reservation[]>(this.zuurl + "/main-backend/users/reservations");
+    return this.http.get<Reservation[]>(this.zuurl + "main-backend/users/reservations/");
   }
 
   public inbox() : Observable<Agent[]>{
-    return this.http.get<Agent[]>(this.zuurl + "/main-backend/messages/inbox");
+    return this.http.get<Agent[]>(this.zuurl + "main-backend/messages/inbox/");
   }
   
   private handleException(err: HttpErrorResponse): Observable<never> {

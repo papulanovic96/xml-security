@@ -37,6 +37,11 @@ public class RegistrationController {
 		this.userValidator = userValidator;
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> get() {
+		return ResponseEntity.ok("TEST");
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> register(@RequestBody EndUser user, BindingResult bindingResults) {
 	

@@ -10,7 +10,7 @@ import { Address } from '../address.model';
 })
 export class AgentService {
 
-  private zuurl = 'http://localhost:8761/';
+  private zuurl = 'https://localhost:8443/';
 
   private findAllUrl = this.zuurl + 'main-backend/agents';
   private saveUrl = this.zuurl + 'agent-creation-service';

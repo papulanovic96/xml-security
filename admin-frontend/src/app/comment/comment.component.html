@@ -17,7 +17,7 @@
             <td>{{ comm.content }}</td>
             <td>{{ comm.visible }}</td>
             <td>{{ comm.postedBy }}</td>
-            <td><button type="button" (click)="approve(comm.id)" class="btn btn-outline-success"><i class="fa fa-check-circle-o"></i>Approve</button></td>
+            <td *ngIf="isAdmin"><button type="button" (click)="approve(comm.id)" class="btn btn-outline-success"><i class="fa fa-check-circle-o"></i>Approve</button></td>
           </tr>
         </tbody>
       </table>
@@ -39,7 +39,7 @@
             <td>{{ comm.content }}</td>
             <td>{{ comm.visible }}</td>
             <td>{{ comm.postedBy }}</td>
-            <td><button type="button" (click)="refuse(comm.id)" class="btn btn-outline-danger"><i class="fa fa-ban"></i> Deny</button></td>
+            <td *ngIf="isAdmin"><button type="button" (click)="refuse(comm.id)" class="btn btn-outline-danger"><i class="fa fa-ban"></i> Deny</button></td>
           </tr>
         </tbody>
       </table>

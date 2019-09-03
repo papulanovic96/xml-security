@@ -6,12 +6,14 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { AccommodationComponent} from './accommodation/accommodation.component';
 import { AccountComponent } from './account/account.component';
 import { InboxComponent } from './inbox/inbox.component';
-
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuard } from '../app/auth/guards/auth-guard.service';
 
 const routes: Routes = [
   {
     path:'',
-    component: AccommodationComponent
+    redirectTo: 'accommodation',
+    pathMatch: 'full'
   },
   {
     path:'signup',
@@ -27,11 +29,21 @@ const routes: Routes = [
   },
   {
     path:'account',
-    component: AccountComponent
+    component: AccountComponent,
+    canActivate: [AuthGuard],
   },
   {
     path:'inbox',
-    component: InboxComponent
+    component: InboxComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '**', 
+    component: PageNotFoundComponent
+  },
+  {
+    path: 'pnf-404', 
+    component: PageNotFoundComponent
   }
 
 ];

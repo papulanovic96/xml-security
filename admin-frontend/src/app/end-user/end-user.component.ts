@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EndUser } from './end-user';
 import { EndUserService } from './end-user.service';
 import { CommentService } from '../comment/comment.service';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-end-user',
@@ -12,13 +13,19 @@ export class EndUserComponent implements OnInit {
 
   endUsers: EndUser[];
   endUser = new EndUser(0, '', '', '', '', '', 0,);
+  isAdmin: boolean;
 
-  constructor(private endUserService: EndUserService, private commentService: CommentService) { }
+  constructor(private endUserService: EndUserService,
+              private commentService: CommentService,
+              private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
     this.endUserService.getEndUsers().subscribe(
       endUsers => this.endUsers = endUsers
     );
+
+    if (this.tokenStorage.getAuthorities().includes('ROLE_ADMIN'))
+      this.isAdmin = true;
   }
 
   activate(username: string) {

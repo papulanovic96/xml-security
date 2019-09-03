@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,16 +26,19 @@ public class MessageController {
 	@Autowired
 	private MessageService messageService;
 	
+	@PreAuthorize("hasRole('ROLE_AGENT')")
 	@RequestMapping(value = "/send", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CreateMessageResponse> sendMessage(@RequestBody CreateMessageRequest request) {
 		return ResponseEntity.ok(messageService.send(request));
 	}
-	
+
+	@PreAuthorize("hasRole('ROLE_AGENT')")
 	@RequestMapping(value = "/inbox", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ResponseMessage>> inbox() {	
 		return ResponseEntity.ok(MessageConverter.fromEntityList(messageService.inbox(), (message -> MessageConverter.toResponseFromEntityForAgent(message))));
 	}
 	
+	@PreAuthorize("hasRole('ROLE_AGENT')")
 	@RequestMapping(value = "/history/username={username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ResponseMessage>> chatHistory(@PathVariable("username") String username) {
 		return ResponseEntity.ok(MessageConverter.fromEntityList(messageService.findChatHistory(username), (message -> MessageConverter.toResponseFromEntityForAgent(message))));

@@ -12,14 +12,14 @@
       <tr *ngFor = 'let serv of services'>
         <td>{{ serv.id }}</td>
         <td>{{ serv.name }}</td>
-        <td><a [routerLink]="['./additional-services-modify', serv.id]"><button class="btn btn-outline-warning"><i class="fa fa-edit"></i> Modify</button></a></td>
-        <td><button type="button" (click)="delete(serv.name)" class="btn btn-outline-danger"><i class="fa fa-close"></i> Delete</button></td>
+        <td *ngIf="isAdmin"><a [routerLink]="['./additional-services-modify', serv.id]"><button class="btn btn-outline-warning"><i class="fa fa-edit"></i> Modify</button></a></td>
+        <td *ngIf="isAdmin"><button type="button" (click)="delete(serv.name)" class="btn btn-outline-danger"><i class="fa fa-close"></i> Delete</button></td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<div class=row>
+<div class=row *ngIf="isAdmin">
   <div class="col-1">
   </div>
   <div class="col-4">

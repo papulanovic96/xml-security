@@ -29,6 +29,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     	http.csrf().disable();
     	http.authorizeRequests()
     		.antMatchers("/*").permitAll();
+    	
+    	//https
+        http.requiresChannel().anyRequest().requiresSecure();
+        
+        //XSS
+        http.headers()
+        .contentSecurityPolicy("script-src 'self' https://trustedscripts.example.com; object-src https://trustedplugins.example.com; report-uri /csp-report-endpoint/");
     }
     
     @Bean

@@ -110,7 +110,7 @@
                 <input type="date" name="{{i}}" [min]="minDateTill" class="form-control mt-2" [(ngModel)] = "selectedTill" placeholder="Till Date" required><br>
               </div>
               <div class="card-footer">
-                  <button (click) = "reserve(i)" class="btn btn-block btn-info text-white font-weight-bold">RESERVE</button>
+                  <button *ngIf="isEndUser" (click) = "reserve(i)" class="btn btn-block btn-info text-white font-weight-bold">RESERVE</button>
                   <button type="button" class="btn btn-block btn-info text-white font-weight-bold" data-toggle="modal" [attr.data-target]="'#accommodationDetails'+ i">DETAILS </button>
                 </div>
               </div>

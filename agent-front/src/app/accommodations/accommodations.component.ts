@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AccommodationService } from '../services/accommodation.service';
-import { HttpClient } from '@angular/common/http';
 import { Accommodation } from '../model/accommodation.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-accommodations',
@@ -13,12 +13,23 @@ export class AccommodationsComponent implements OnInit {
 
   accommodations: Accommodation[];
   acc = new Accommodation();
+  
+  isLoggedIn: boolean;
+  isAgent: boolean;
 
   constructor(private accommodationService : AccommodationService,  
               private router : Router, 
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute,
+              private tokenStorage : TokenStorageService) {}
 
   ngOnInit() {
+    if (this.tokenStorage.getToken() != null) { 
+      this.isLoggedIn = true;
+
+      if (this.tokenStorage.getAuthorities().includes('ROLE_AGENT'))
+        this.isAgent = true;
+    }
+
     this.accommodationService.getThatIOwn().subscribe(
       data => { this.accommodations = data }
     )

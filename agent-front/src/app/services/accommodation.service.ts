@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AccommodationService {
 
-  private zuurl = 'http://localhost:8761/'
+  private zuurl = 'https://localhost:8443/'
   private accommodationUrl = 'agent-backend/accommodations/'
 
   currentAccs : Accommodation[] = [];

@@ -10,8 +10,6 @@ export class ReservationService {
   constructor(private http : HttpClient) { }
 
   getReservationsByAcc(id : number){
-
     return this.http.post<Reservation[]>('api/reservations/getReservations', id);
-
   }
 }

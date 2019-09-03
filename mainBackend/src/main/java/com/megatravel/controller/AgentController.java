@@ -6,6 +6,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +29,7 @@ public class AgentController {
 		return ResponseEntity.ok(AgentConverter.fromEntityList(userService.findAgents(), agent -> AgentConverter.toResponseFromEntity(agent)));
 	}
  
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/find/username={username}", method = RequestMethod.GET)
 	public ResponseEntity<ResponseAgent> findByUsername(@PathVariable("username") String username) {
 		if (userService.findAgent(username) != null) 
@@ -36,6 +38,7 @@ public class AgentController {
 			return null;	
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/find/brn={brn}", method = RequestMethod.GET)
 	public ResponseEntity<ResponseAgent> findByBrn(@PathVariable("brn") String username) {
 		if (userService.findAgent(username) != null) 

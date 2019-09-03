@@ -17,15 +17,15 @@ export class ReservationService {
   private zuurl: string;
 
   constructor(private http: HttpClient) {
-    this.zuurl = 'http://localhost:8761'; 
+    this.zuurl = 'https://localhost:8443/'; 
    }
 
    public create(reservation: CreateReservationRequest) : Observable<CudReservationResponse> { 
-     return this.http.post<CudReservationResponse>(this.zuurl + "/main-backend/reservations", reservation);
+     return this.http.post<CudReservationResponse>(this.zuurl + "main-backend/reservations/", reservation);
    }
 
    public cancel(reservation: CancelReservationRequest) : Observable<CudReservationResponse> { 
-    return this.http.post<CudReservationResponse>(this.zuurl + "/main-backend/reservations/cancel", reservation);
+    return this.http.post<CudReservationResponse>(this.zuurl + "main-backend/reservations/cancel/", reservation);
   }
 
 }

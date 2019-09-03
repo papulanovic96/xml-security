@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+
+import com.megatravel.config.CustomFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -53,6 +56,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
        
         // Optional, if you want to test the API from a browser
         http.httpBasic();
+        
+        //https
+        http.requiresChannel().anyRequest().requiresSecure();
+    
+        //XSS
+        http.headers()
+        .contentSecurityPolicy("script-src 'self' https://trustedscripts.example.com; object-src https://trustedplugins.example.com; report-uri /csp-report-endpoint/");
     }
 
     @Override

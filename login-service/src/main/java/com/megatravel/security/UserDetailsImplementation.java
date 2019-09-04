@@ -24,9 +24,7 @@ public class UserDetailsImplementation implements UserDetailsService {
 		
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.out.println("usrname: " + username);
 		ResponseEndUser client = this.mainBackend.findEndUserByUsername(username);
-		System.out.println("aaaaa:" + client.getUsername());
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 		   
 	    for (ResponseRole role : client.getRoles()) {

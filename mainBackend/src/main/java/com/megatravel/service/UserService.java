@@ -15,12 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
 
-import com.megatravel.config.SOAPConnector;
 import com.megatravel.converter.AgentConverter;
 import com.megatravel.converter.EndUserConverter;
 import com.megatravel.dto.soap.CreateAgentRequest;
 import com.megatravel.dto.soap.CreateEndUserRequest;
-import com.megatravel.dto.soap.CreateMessageResponse;
 import com.megatravel.dto.soap.UserResponse;
 import com.megatravel.exception.ExceptionResponse;
 import com.megatravel.model.Agent;
@@ -45,9 +43,6 @@ public class UserService {
 	
 	@Autowired
 	private RoleService roleService;
-	
-	@Autowired
-	private SOAPConnector soapConnector;
 
 	@Transactional(readOnly = true)
 	public User findUser(String username) {

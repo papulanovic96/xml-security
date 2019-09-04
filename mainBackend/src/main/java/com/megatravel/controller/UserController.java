@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.megatravel.converter.AgentConverter;
 import com.megatravel.converter.EndUserConverter;
 import com.megatravel.converter.ReservationConverter;
 import com.megatravel.converter.UserConverter;
-import com.megatravel.dto.response.ResponseAgent;
 import com.megatravel.dto.response.ResponseEndUser;
 import com.megatravel.dto.response.ResponseReservation;
 import com.megatravel.dto.response.ResponseUser;
@@ -43,8 +41,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/find/username={username}", method = RequestMethod.GET)
-	public ResponseUser findUser(@PathVariable("username") String username) {
-		return UserConverter.toResponseFromEntity(userService.findUser(username));
+	public ResponseEntity<ResponseUser> findUser(@PathVariable("username") String username) {
+		return ResponseEntity.ok(UserConverter.toResponseFromEntity(userService.findUser(username)));
 	}
 	
 	@RequestMapping(value = "/find/enduser/username={username}", method = RequestMethod.GET)

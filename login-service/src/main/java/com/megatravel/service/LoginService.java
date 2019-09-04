@@ -36,7 +36,7 @@ public class LoginService implements LoginInterface {
     	 try {
              authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
-             ResponseUser user = mainBackend.findUserByUsername(request.getUsername());
+             ResponseUser user = mainBackend.findUserByUsername(request.getUsername()).getBody();
              		
              if (user.getRoles().isEmpty()) {
                  throw new ExceptionResponse("Unrecognized role.", HttpStatus.UNAUTHORIZED);

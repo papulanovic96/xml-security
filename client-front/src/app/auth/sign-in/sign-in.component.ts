@@ -75,10 +75,5 @@ export class SignInComponent implements OnInit {
      this.tokenStorage.signOut();
      this.router.navigate(['/accommodation']);
   }
-
-   loggedIn(): boolean{
-    console.log(localStorage.getItem('access_token'))
-    return localStorage.getItem('access_token') !==  null;
-  }
-
+  
 }

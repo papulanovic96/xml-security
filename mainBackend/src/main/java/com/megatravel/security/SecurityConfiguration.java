@@ -64,7 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //XSS
         http
         	.headers()
-        	.contentSecurityPolicy("script-src 'self' https://trustedscripts.example.com; object-src https://trustedplugins.example.com; report-uri /csp-report-endpoint/");
+        	.contentSecurityPolicy("script-src 'self' https://localhost:4200; object-src https://localhost:4200; report-uri /csp-report-endpoint/");
         
         //https
         http

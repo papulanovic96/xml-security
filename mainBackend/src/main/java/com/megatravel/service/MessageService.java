@@ -29,7 +29,7 @@ import com.megatravel.repository.MessageRepository;
 @Service
 public class MessageService {
 	
-	private final String AGENT_APP = "http://localhost:8761/agent-backend/";
+	private final String AGENT_APP = "https://localhost:8443/agent-backend/";
 	
 	@Autowired
 	private UserService userService;
@@ -107,7 +107,7 @@ public class MessageService {
             WebServiceTemplate webServiceTemplate = new WebServiceTemplate(messageFactory);
             Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 
-            marshaller.setContextPath("com.megatravel.model");
+            marshaller.setContextPath("com.megatravel.dto.soap");
             marshaller.afterPropertiesSet();
 
             webServiceTemplate.setMarshaller(marshaller);

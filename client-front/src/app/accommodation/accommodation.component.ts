@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { AccommodationService } from '../services/accommodation.service';
 import { ReservationService } from '../services/reservation.service';
-import { Accommodation } from '../model/accommodation.model';
+import { Accommodation, SearchAccommodationRequest } from '../model/accommodation.model';
 import { CreateReservationRequest } from '../model/reservation.model';
 import { TokenStorageService } from '../auth/token-storage.service';
 
@@ -29,13 +29,11 @@ export class AccommodationComponent implements OnInit {
   accommodations: Accommodation[];
   filteredAccommodations: Accommodation[];
   reservation: CreateReservationRequest;
+
+  criteria: SearchAccommodationRequest;
  
-  private _rate: number;
-
-  private isEndUser: boolean = false;
+  isEndUser: boolean = false;
   private roles: string[];
-
-  images = [1, 2, 3].map(() => `https://picsum.photos/900/500?random&t=${Math.random()}`);
 
   private searchName: string;
   private searchType: string;
@@ -127,4 +125,15 @@ export class AccommodationComponent implements OnInit {
   
     )
   }
+
+  search() {
+    this.criteria = new SearchAccommodationRequest();
+    this.criteria.category = this.searchCategory;
+    this.criteria.name = this.searchName;
+    this.criteria.type = this.searchType;
+    this.accommodationService.search(this.criteria).subscribe(
+      response => this.accommodations = response
+    )
+  }
+
 }

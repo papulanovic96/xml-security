@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { Accommodation } from '../model/accommodation.model';
+import { Accommodation, SearchAccommodationRequest } from '../model/accommodation.model';
 import { Observable, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Reservation } from '../model/reservation.model';
@@ -11,6 +11,7 @@ import { Reservation } from '../model/reservation.model';
   providedIn: 'root'
 })
 export class AccommodationService {
+  
 
   private zuurl: string;
 
@@ -21,5 +22,9 @@ export class AccommodationService {
    public getAccommodations() : Observable<Accommodation[]> {
      return this.http.get<Accommodation[]>(this.zuurl + "main-backend/accommodations/");
    }
+
+   search(criteria: SearchAccommodationRequest) : Observable<Accommodation[]> { 
+     return this.http.get<Accommodation[]>(this.zuurl + "main-backend/accommodations/q?=" + criteria.name + "&" + criteria.type + "&" + criteria.category);
+  }
    
 }

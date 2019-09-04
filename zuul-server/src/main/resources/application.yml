@@ -66,6 +66,7 @@ ribbon:
   eureka:
     enabled: true
 
+
 logging:
   level:
     ROOT: INFO

@@ -26,7 +26,7 @@ import com.megatravel.repository.UserRepository;
 @Service
 public class UserService {
 	
-	private final String MAIN_APP = "http://localhost:8761/main-backend/";
+	private final String MAIN_APP = "https://localhost:8443/main-backend/";
 
 	@Autowired
 	private UserRepository userRepository;

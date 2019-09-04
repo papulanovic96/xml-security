@@ -54,7 +54,7 @@ public class LoginService implements LoginInterface {
              return new LoginResponse(token, user.getUsername(), grantedAuthorities);
 
          } catch (AuthenticationException e) {
-             throw new ExceptionResponse("Invalid username or password." + " " + request.getUsername() + " " + request.getPassword() , HttpStatus.UNAUTHORIZED);
+             throw new ExceptionResponse("Invalid username/password combination", HttpStatus.UNAUTHORIZED);
              
          }
     }

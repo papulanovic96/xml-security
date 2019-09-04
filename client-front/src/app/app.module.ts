@@ -13,7 +13,6 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { AccommodationComponent } from './accommodation/accommodation.component';
-import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
 import { AccountComponent } from './account/account.component';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -28,7 +27,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     SignInComponent,
     NavbarComponent,
     AccommodationComponent,
-    AccommodationDetailsComponent,
     AccountComponent,
     InboxComponent,
     PageNotFoundComponent

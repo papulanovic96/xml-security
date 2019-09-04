@@ -40,7 +40,7 @@ public class UserController {
 		return ResponseEntity.ok(EndUserConverter.fromEntityList(userService.findEndUsers(), enduser -> EndUserConverter.toResponseFromEntity(enduser)));
 	}
 	
-	@RequestMapping(value = "/find/username={username}", method = RequestMethod.GET)
+	@RequestMapping(value = "/find/username={username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseUser> findUser(@PathVariable("username") String username) {
 		return ResponseEntity.ok(UserConverter.toResponseFromEntity(userService.findUser(username)));
 	}

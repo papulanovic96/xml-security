@@ -29,7 +29,7 @@ import com.megatravel.repository.ReservationRepository;
 @Service
 public class ReservationService {
 
-	private final String MAIN_APP = "http://localhost:8761/main-backend/";
+	private final String MAIN_APP = "https://localhost:8443/main-backend/";
 
 	@Autowired
 	private ReservationRepository reservationRepository;

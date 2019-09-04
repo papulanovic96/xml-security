@@ -20,7 +20,6 @@ public class RoleController {
 	@Autowired
 	private RoleService roleService;
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/find/role={role}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
 	public Role get(@PathVariable("role") Roles role) {
 		return roleService.findByName(role);

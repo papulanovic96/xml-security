@@ -30,7 +30,7 @@ import com.megatravel.repository.ReservationRepository;
 @Service
 public class ReservationService {
 
-	private final String AGENT_APP = "http://localhost:8761/agent-backend/";
+	private final String AGENT_APP = "https://localhost8443/agent-backend/";
 
 	@Autowired
 	private ReservationRepository reservationRepository;

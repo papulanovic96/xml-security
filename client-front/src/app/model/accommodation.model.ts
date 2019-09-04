@@ -25,3 +25,9 @@ export class Accommodation {
     rate: number;
     comments: Comment[];
 }
+
+export class SearchAccommodationRequest { 
+    name: string;
+    type: string;
+    category: string;
+}

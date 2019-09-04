@@ -6,14 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.megatravel.model.EndUser;
-import com.megatravel.service.MicroService;
+import com.megatravel.dto.request.CreateEndUserRequest;
+import com.megatravel.service.MainBackendService;
 import com.megatravel.service.RegistrationService;
 import com.megatravel.validator.UserValidator;
 
@@ -25,13 +24,13 @@ public class RegistrationController {
 	private RegistrationService registrationService;
 	
 	@Autowired
-	private MicroService microService;
+	private MainBackendService microService;
 	
 	@Autowired
 	private UserValidator userValidator;
 	
 	
-	public RegistrationController(MicroService microService, RegistrationService registrationService, UserValidator userValidator) {
+	public RegistrationController(MainBackendService microService, RegistrationService registrationService, UserValidator userValidator) {
 		this.microService = microService;
 		this.registrationService = registrationService;
 		this.userValidator = userValidator;
@@ -43,7 +42,7 @@ public class RegistrationController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> register(@RequestBody EndUser user, BindingResult bindingResults) {
+	public ResponseEntity<String> register(@RequestBody CreateEndUserRequest user, BindingResult bindingResults) {
 	
 		userValidator.validate(user, bindingResults);
 		

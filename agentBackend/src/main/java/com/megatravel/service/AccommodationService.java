@@ -36,7 +36,7 @@ import com.megatravel.repository.AccommodationRepository;
 @Service
 public class AccommodationService {
 	
-	private final String MAIN_APP = "http://localhost:8761/main-backend/";
+	private final String MAIN_APP = "https://localhost:8443/main-backend/";
 
 	@Autowired
 	private AccommodationRepository accommodationRepository;
@@ -102,7 +102,7 @@ public class AccommodationService {
             WebServiceTemplate webServiceTemplate = new WebServiceTemplate(messageFactory);
             Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 
-            marshaller.setContextPath("com.megatravel.model");
+            marshaller.setContextPath("com.megatravel.dto.soap");
             marshaller.afterPropertiesSet();
 
             webServiceTemplate.setMarshaller(marshaller);
@@ -184,7 +184,7 @@ public class AccommodationService {
             WebServiceTemplate webServiceTemplate = new WebServiceTemplate(messageFactory);
             Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 
-            marshaller.setContextPath("com.megatravel.model");
+            marshaller.setContextPath("com.megatravel.dto.soap");
             marshaller.afterPropertiesSet();
 
             webServiceTemplate.setMarshaller(marshaller);
@@ -244,7 +244,7 @@ public class AccommodationService {
             WebServiceTemplate webServiceTemplate = new WebServiceTemplate(messageFactory);
             Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 
-            marshaller.setContextPath("com.megatravel.model");
+            marshaller.setContextPath("com.megatravel.dto.soap");
             marshaller.afterPropertiesSet();
 
             webServiceTemplate.setMarshaller(marshaller);

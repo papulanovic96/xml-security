@@ -6,15 +6,16 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import com.megatravel.dto.request.CreateEndUserRequest;
 import com.megatravel.model.EndUser;
 import com.megatravel.model.User;
-import com.megatravel.service.MicroService;
+import com.megatravel.service.MainBackendService;
 
 @Component
 public class UserValidator implements Validator {
 	
 	@Autowired
-	private MicroService microService;
+	private MainBackendService microService;
 	
 	@Override
 	public boolean supports(Class aClass) {
@@ -24,7 +25,7 @@ public class UserValidator implements Validator {
 	@Override
 	public void validate(Object entry, Errors errors) {
 		
-		EndUser user  = (EndUser) entry;
+		CreateEndUserRequest user  = (CreateEndUserRequest) entry;
 		
 		ValidationUtils.rejectIfEmpty(errors, "username", "NotEmpty");
 		if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {

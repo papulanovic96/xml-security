@@ -25,7 +25,7 @@ import com.megatravel.repository.AdditionalServiceRepository;
 @Service
 public class AdditionalServicesService {
 	
-	private final String AGENT_APP = "http://localhost:8761/agent-backend/";
+	private final String AGENT_APP = "https://localhost:8443/agent-backend/";
 	
 	@Autowired
 	private AdditionalServiceRepository asRepository;

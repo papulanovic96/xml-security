@@ -33,7 +33,7 @@ import com.megatravel.repository.UserRepository;
 @Service
 public class UserService {
 	
-	private final String AGENT_APP = "http://localhost:8761/agent-backend/";
+	private final String AGENT_APP = "https://localhost:8443/agent-backend/";
 
 	@Autowired
 	private UserRepository userRepository;
@@ -100,20 +100,23 @@ public class UserService {
             WebServiceTemplate webServiceTemplate = new WebServiceTemplate(messageFactory);
             Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 
-            marshaller.setContextPath("com.megatravel.dto.soap");
+            marshaller.setContextPath("com.megatravel.model");
             marshaller.afterPropertiesSet();
 
             webServiceTemplate.setMarshaller(marshaller);
             webServiceTemplate.setUnmarshaller(marshaller);
             webServiceTemplate.afterPropertiesSet();
             
-            UserResponse   response = (UserResponse) webServiceTemplate.marshalSendAndReceive(AGENT_APP + "booking/users",request);
-	            	       
+            UserResponse response = (UserResponse) webServiceTemplate.marshalSendAndReceive(AGENT_APP + "booking/users",request);
+	          
+//            UserResponse response = new UserResponse();
+//            response.setFeedback("Created");
             return response;
             
 		} catch (Exception s) {
-			throw new ExceptionResponse("Sync db fail!", HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
+			s.printStackTrace();
+            return null;
+		}
 	}
 
 	@Transactional(rollbackFor = Exception.class)

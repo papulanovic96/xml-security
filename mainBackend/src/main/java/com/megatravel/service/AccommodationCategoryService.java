@@ -25,7 +25,7 @@ import com.megatravel.repository.AccommodationCategoryRepository;
 @Service
 public class AccommodationCategoryService {
 
-	private final String AGENT_APP = "http://localhost:8761/agent-backend/";
+	private final String AGENT_APP = "https://localhost:8443/agent-backend/";
 	
 	@Autowired
 	private AccommodationCategoryRepository acRepository;

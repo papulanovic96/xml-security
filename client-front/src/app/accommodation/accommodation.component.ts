@@ -40,10 +40,6 @@ export class AccommodationComponent implements OnInit {
   private searchName: string;
   private searchType: string;
   private searchCategory: string;
-  private searchCapacity: string;
-  private searchAS: string;
-  private searchDistance: string;
-  private searchPrice: string;
   private searchFromDate: Date;
   private searchTillDate: Date;
 
@@ -84,7 +80,6 @@ export class AccommodationComponent implements OnInit {
     this.accommodations.sort((a,b) => a.type.name.localeCompare(b.type.name));
   }
   
-
   sortByDistance() : void {
     this.accommodations.sort((a,b) => a.distance - b.distance);
   }

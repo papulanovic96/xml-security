@@ -34,8 +34,6 @@ export class AccountComponent implements OnInit {
   reservation: Reservation;
 
   message: CreateMessageRequest;
-  inbox: Message[];
-  chat: Message[];
 
   comment: CreateCommentRequest;
  
@@ -103,24 +101,6 @@ export class AccountComponent implements OnInit {
     },
       err => {
         alert(err.error.message)
-    })
-  }
-
-  getMyInbox() : void {
-    this.messageService.inbox().subscribe( 
-      data => {
-        this.inbox = data;
-    },
-      err => {
-    })
-  }
-
-  getMyChatHistory(withAgent: string) : void {
-    this.messageService.chat(withAgent).subscribe( 
-      data => {
-        this.chat = data;
-    },
-      err => {
     })
   }
 

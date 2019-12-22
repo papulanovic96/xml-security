@@ -1,153 +1,95 @@
-
-  <div class="container-fluid">
-    <div class = "row">
-      <section class="col-lg-4 col-md-4">
-        <div class=" mt-4">
-          <p class="">
-                <a class="btn btn-info btn-block" data-toggle="collapse" data-target="#accommodationFS" aria-expanded="false" aria-controls="accommodationFS">
-                  Filter and sort accommodations
-                </a>
-          </p>
-        </div>
-        
-        <!-- Sort & Search accommodation -->
-        
-        <div class="collapse" id="accommodationFS">
+<div class="container-fluid">
+  <div class="row">
+    <section class="col-lg-4 col-md-4 text-center mt-4 w-100">
+      <div class="card card-border">
+        <button class="btn btn-info font-weight-bold" type="button" data-toggle="collapse"
+          data-target="#collapseSortAndSearch" role="button" aria-expanded="false"
+          aria-controls="collapseSortAndSearch">
+          Filter and sort accommodations
+        </button>
+        <div class="collapse mt-2" id="collapseSortAndSearch">
           <div class="container-fluid">
             <div class="column">
-            <!--Sort accommodations -->
-              <div class="col-lg-12 col-md-12 mb-4">
-                <div class="btn-toolbar" role="toolbar" aria-label="Sort accommodations">
-                  <div class="btn-group btn-block" role="group">
-                    <button type="button" class="btn btn-info btn-block" >Sort</button>
-                    <button (click) = "sortByCategory()" type="button" class="btn btn-secondary">Category</button>
-                    <button (click) = "sortByType()" type="button" class="btn btn-secondary">Type</button>
-                    <button (click) = "sortByPrice()" type="button" class="btn btn-secondary">Price</button>
-                    <button (click) = "sortByDistance()" type="button" class="btn btn-secondary">Distance</button>
-                    <button (click) = "sortByRating()" type="button" class="btn btn-secondary">Rating</button>
-                  </div>
+              <!--Sort accommodations -->
+              <div class="col-lg-12 col-sm-12 col-md-12 btn-group-vertical mt-2 mb-4 w-100" role="group">
+                <button id="btnGroupSortBy" class=" btn btn-info btn-block" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">Sort by</button>
+                <div class="dropdown-menu w-100" aria-labelledby="btnGroupSortBy">
+                  <button (click)="sortByCategory()" type="button" class="btn ">Category</button>
+                  <button (click)="sortByType()" type="button" class="btn">Type</button>
+                  <button (click)="sortByPrice()" type="button" class="btn">Price</button>
+                  <button (click)="sortByDistance()" type="button" class="btn ">Distance</button>
+                  <button (click)="sortByRating()" type="button" class="btn">Rating</button>
                 </div>
               </div>
-              <div class="col-sm-12 col-md-12">
+              <!-- Search accommodation -->
+              <div class="col-lg-12 col-sm-12 col-md-12">
                 <div class="active-cyan-3 active-cyan-4 mb-4 ">
                   <label class="input-group-text font-weight-bold">NAME</label>
-                  <input class="form-control" type="text" placeholder="Search" aria-label="Search" [(ngModel)] = "searchName">
+                  <input class="form-control" type="text" placeholder="Search" aria-label="Search"
+                    [(ngModel)]="searchName">
                 </div>
               </div>
-              <div class="col-lg-12 col-md-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="active-cyan-3 active-cyan-4 mb-4 ">
                   <label class="input-group-text font-weight-bold">TYPE</label>
-                  <input class="form-control" type="text" placeholder="Hotel, Motel, Apartment, ..." aria-label="Search" [(ngModel)] = "searchType">
+                  <input class="form-control" type="text" placeholder="Hotel, Motel, Apartment, ..." aria-label="Search"
+                    [(ngModel)]="searchType">
                 </div>
               </div>
-              <div class="col-lg-12 col-md-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="active-cyan-3 active-cyan-4 mb-4 ">
                   <label class="input-group-text font-weight-bold">CATEGORY</label>
-                  <input class="form-control" type="text" placeholder="1*, 2*, 3*, ..." aria-label="Search" [(ngModel)] = "searchCategory">
+                  <input class="form-control" type="text" placeholder="1*, 2*, 3*, ..." aria-label="Search"
+                    [(ngModel)]="searchCategory">
                 </div>
               </div>
               <div>
-                <button class="btn btn-info" type="button" (click)="search()">
+                <button class="btn btn-info mb-4" type="button" (click)="search()">
                   Search
                 </button>
               </div>
             </div>
-          </div>   
-        </div>
-      </section>
-      
-      <!-- Accommodations -->
-      <section class="col-lg-8 col-md-12">
-        <div class="row card-columns mt-4 mb-2" >
-          <div class="col-lg-5 col-md-5 card card border-info text-info text-center mb-4 mr-4" *ngFor="let a of accommodations; let i = index">
-            <div class="card-body">
-              <h5 class="card-title">{{a.name}} </h5>
-              <div>
-                <span>TYPE: {{a.type.name}}</span>
-              </div>
-              <div>
-                <span>CATEGORY: {{a.category.name}}</span>
-              </div>
-              <div class="input-group-prepend">
-                <input type="date" name="{{i}}" [min]="minDate" class="form-control mt-2" [(ngModel)] = "selectedFrom" placeholder="From Date" required><br>
-              </div>
-              <div>
-                <input type="date" name="{{i}}" [min]="minDateTill" class="form-control mt-2" [(ngModel)] = "selectedTill" placeholder="Till Date" required><br>
-              </div>
-              <div class="card-footer">
-                  <button *ngIf="isEndUser" (click) = "reserve(i)" class="btn btn-block btn-info text-white font-weight-bold">RESERVE</button>
-                  <button type="button" class="btn btn-block btn-info text-white font-weight-bold" data-toggle="modal" [attr.data-target]="'#accommodationDetails'+ i">DETAILS </button>
-                </div>
-              </div>
-
-                <!-- Accommodation Details -->
-
-              <div class="modal fade" id="accommodationDetails{{i}}" tabindex="-1" role="dialog" aria-labelledby="accommodationDetails" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="accommodationDetails">{{a.name}}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div *ngFor="let pr of a.priceInSeason">
-                      <span>PRICE: {{pr.price}} {{pr.currency}} </span>
-                    </div>
-                    <div class="modal-body">
-                      <div>
-                        <span>CAPACITY: {{a.capacity}}</span>
-                      </div>
-                    <div>
-                      <span>CANCELLATION: {{a.cancellation.available}}</span>
-                    </div>
-                    <div>
-                      <span>CANCELLATION PERIOD: {{a.cancellation.period}} </span>
-                    </div>
-                    <div>
-                      <span>DESCRIPTION: {{a.description}} </span>
-                    </div>
-                    <div>
-                      <span>ADDRESS: {{a.address.street}}, {{a.address.city}}, {{a.address.country}} </span>
-                    </div>
-                    <div>
-                      <span>ADDITIONAL SERVICES:</span>
-                      <span *ngFor="let addition of a.additionalServices"> -{{addition.name}} </span>
-                    </div>
-                    <div>
-                      <span>OWNED BY: {{a.ownedBy.firstName}} {{a.ownedBy.lastName}}</span>
-                    </div> 
-                    <p class="mt-2">
-                      <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseComments" aria-controls="collapseComments">
-                        Comments
-                      </button>
-                    </p>
-                    <div class="collapse" id="collapseComments" aria-expanded="false" class="container modal-body">
-                      <div *ngFor="let comment of a.comments; let i = index">
-                        <div class="card card-body">
-                          {{ comment.content }}
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div id="pictures" class="carousel slide" data-ride="carousel"  >
-                        <div class="carousel-inner" *ngFor="let img of a.image">
-                          <div class="carousel-item active">
-                            <img class="d-block w-100" [src]="img.path">
-                          </div>
-                        </div>
-                      </div>                 
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
-      </section>
-    </div>
-  </div>
+      </div>
+    </section>
 
+    <!-- Accommodations -->
+    <section class="col-lg-8 col-md-12">
+      <div class="row card-columns mt-4 mb-2">
+        <div class="col-lg-5 col-md-5 card card border-info text-info text-center mb-4 mr-4"
+          *ngFor="let a of accommodations; let i = index">
+          <div class="card-body">
+            <h5 class="card-title">{{a.name}} </h5>
+            <div>
+              <span>TYPE: {{a.type.name}}</span>
+            </div>
+            <div>
+              <span>CATEGORY: {{a.category.name}}</span>
+            </div>
+            <div class="input-group-prepend">
+              <input type="date" id={{$index}} [min]="minDate" class="form-control mt-2" [(ngModel)]="selectedFrom"
+                placeholder="From Date" required><br>
+            </div>
+            <div>
+              <input type="date" [min]="minDateTill" class="form-control mt-2" [(ngModel)]="selectedTill"
+                placeholder="Till Date" required><br>
+            </div>
+            <div class="card-footer">
+              <button *ngIf="isEndUser" (click)="reserve(i)"
+                class="btn btn-block btn-info text-white font-weight-bold">RESERVE</button>
+              <button type="button" class="btn btn-block btn-info text-white font-weight-bold" data-toggle="modal"
+                [attr.data-target]="'#accommodation' + i">DETAILS </button>
+            </div>
+          </div>
+          <!-- Accommodation Details -->
+          <div class="modal modal-md mx-auto my-4" id="accommodation{{i}}" tabindex="-1" role="dialog"
+            aria-labelledby="accommodation-details" aria-hidden="true">
+            <app-accommodation-details [accommodation]=a></app-accommodation-details>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

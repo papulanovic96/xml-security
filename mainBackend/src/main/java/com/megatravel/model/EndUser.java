@@ -16,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -61,6 +62,7 @@ public class EndUser
 
 	@XmlElement(required = true)
 	@Enumerated(EnumType.STRING)
+	@NotNull
     protected UserStatus status;
     
     @ManyToMany

@@ -27,7 +27,6 @@ server:
     trust-store-type: PKCS12
     
   error:    whitelabel:      enabled: false 
-# Tell Spring Security (if used) to require requests over HTTPS
 # security.require-ssl=true
 
 eureka:
@@ -43,5 +42,8 @@ eureka:
     healthCheckUrl: 'https://${eureka.instance.hostname}:${server.port}/health'
     homePageUrl: 'https://${eureka.instance.hostname}:${server.port}/'
 
-  
+logging:  file: main-backend.log  level:    root: info
+  pattern:    console: "%d{dd-MM-yyyy HH:mm:ss.SSS} %highlight(%-5level) %logger.%M - %msg%n" 
+    file: "-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"
+    
 spring.jackson.default-property-inclusion: NON_NULL

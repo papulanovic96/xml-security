@@ -18,6 +18,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -92,26 +95,32 @@ public class Accommodation {
 
 	@Id
 	@GeneratedValue
+	@NotNull
     protected long id;
 	
     @XmlElement(required = true)
+    @NotBlank
     protected String name;
     
     @XmlElement(required = true)
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @NotNull
     protected AccommodationType type;
     
     @XmlElement(required = true)
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @NotNull
     protected AccommodationCategory category;
     
     @XmlElement(required = true)
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @NotNull
     protected Agent ownedBy;
     
     protected double distance;
     
     @XmlElement(required = true)
+    @NotBlank
     protected String description;
     
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
@@ -119,12 +128,15 @@ public class Accommodation {
     
     @XmlElement(required = true)
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @NotNull
     protected Address address;
-    
+   
+    @NotNull
     protected int capacity;
     
     @XmlElement(required = true)
     @OneToMany(fetch = FetchType.LAZY)
+    @NotNull
     protected List<PriceInSeason> pricelist;
     
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)

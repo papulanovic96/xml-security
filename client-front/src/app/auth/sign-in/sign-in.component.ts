@@ -22,15 +22,15 @@ export class SignInComponent implements OnInit {
   private login: SigninRequest;
 
   public account = 'assets/user.png';
-  
+
   signRequest = new FormGroup({
     username: new FormControl(''),
     password: new FormControl('')
   })
 
   constructor(private authService: AuthService,
-              private tokenStorage: TokenStorageService,
-              private router: Router) { }
+    private tokenStorage: TokenStorageService,
+    private router: Router) { }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -40,16 +40,16 @@ export class SignInComponent implements OnInit {
   }
 
   get user() {
-    return this.signRequest.controls; 
+    return this.signRequest.controls;
   }
 
-  signIn() : void {
+  signIn(): void {
     this.login = new SigninRequest()
     this.login.username = this.user.username.value
     this.login.password = this.user.password.value
 
     console.log(this.login);
-    
+
     this.authService.signIn(this.login).subscribe(
       data => {
         console.log(data)
@@ -62,7 +62,7 @@ export class SignInComponent implements OnInit {
         this.roles = this.tokenStorage.getAuthorities();
         window.location.reload();
         this.router.navigate(['/accommodation']);
-      }, 
+      },
       error => {
         alert(error.error.message);
         this.errorMessage = error.error.message;
@@ -72,8 +72,8 @@ export class SignInComponent implements OnInit {
   }
 
   signOut() {
-     this.tokenStorage.signOut();
-     this.router.navigate(['/accommodation']);
+    this.tokenStorage.signOut();
+    this.router.navigate(['/accommodation']);
   }
-  
+
 }

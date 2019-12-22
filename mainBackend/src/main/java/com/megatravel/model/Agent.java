@@ -13,6 +13,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -62,10 +63,12 @@ public class Agent
 	 */
 	private static final long serialVersionUID = 3098133321717687083L;
 
+	@NotNull
 	protected int brn;
     
     @XmlElement(required = true)
     @ManyToOne(cascade = CascadeType.MERGE)
+    @NotNull
     protected Address address;
 
     /**

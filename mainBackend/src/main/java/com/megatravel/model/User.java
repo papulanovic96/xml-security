@@ -19,13 +19,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
@@ -79,22 +80,28 @@ public abstract class User implements UserDetails {
 
 	@Id
 	@GeneratedValue
+	@NotNull
     protected long id;
     
 	@XmlElement(required = true)
-    protected String username;
+    @NotEmpty
+	protected String username;
     
 	@XmlElement(required = true)
+	@NotEmpty
 	protected String password;
     
 	@XmlElement(required = true)
-    protected String email;
+	@NotEmpty
+	protected String email;
     
 	@XmlElement(required = true)
-    protected String firstName;
+	@NotEmpty
+	protected String firstName;
     
 	@XmlElement(required = true)
-    protected String lastName;
+	@NotEmpty
+	protected String lastName;
     
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable( 

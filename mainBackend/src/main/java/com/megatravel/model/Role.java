@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -59,10 +60,12 @@ public class Role {
 
 	@Id
 	@GeneratedValue
+	@NotNull
     protected long id;
     
 	@XmlElement(required = true)
 	@Enumerated(EnumType.STRING)
+	@NotNull
     protected Roles name;
     
     @ManyToMany(mappedBy = "roles")

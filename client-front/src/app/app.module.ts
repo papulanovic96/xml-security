@@ -19,6 +19,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { InboxComponent } from './inbox/inbox.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AccommodationDetailsComponent } from './accommodation/accommodation-details/accommodation-details.component';
  
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AccommodationComponent,
     AccountComponent,
     InboxComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AccommodationDetailsComponent
   ],
   imports: [
     BrowserModule,

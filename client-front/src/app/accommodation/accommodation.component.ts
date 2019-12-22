@@ -6,7 +6,7 @@ import { Accommodation, SearchAccommodationRequest } from '../model/accommodatio
 import { CreateReservationRequest } from '../model/reservation.model';
 import { TokenStorageService } from '../auth/token-storage.service';
 
-@Component({ 
+@Component({
   selector: 'app-accommodation',
   templateUrl: './accommodation.component.html',
   styleUrls: ['./accommodation.component.css'],
@@ -28,10 +28,10 @@ export class AccommodationComponent implements OnInit {
   accommodation: Accommodation;
   accommodations: Accommodation[];
   filteredAccommodations: Accommodation[];
-  reservation: CreateReservationRequest;
+  reservation = new CreateReservationRequest;
 
   criteria: SearchAccommodationRequest;
- 
+
   isEndUser: boolean = false;
   private roles: string[];
 
@@ -48,81 +48,74 @@ export class AccommodationComponent implements OnInit {
   public _selectedFrom: Date;
   public _selectedTill: Date;
 
-  
+
   constructor(private accommodationService: AccommodationService,
-              private reservationService: ReservationService,
-              private tokenStorage: TokenStorageService,
-              private datePipe: DatePipe) { }
-  
-  get selectedFrom(): Date {
-    return this._selectedFrom;
-  }             
-  
-  get selectedTill(): Date {
-    return this._selectedTill;
-  }
- 
-  set selectedFrom(date : Date) {
-    this._selectedFrom = date;
+    private reservationService: ReservationService,
+    private tokenStorage: TokenStorageService,
+    private datePipe: DatePipe) { }
+
+  set selectedFrom(date: Date) {
+    this.reservation.fromDate = date;
   }
 
-  set selectedTill(date : Date) {
-    this._selectedTill = date;
+  set selectedTill(date: Date) {
+    this.reservation.tillDate = date;
   }
 
-  sortByCategory() : void {
-    this.accommodations.sort((a,b) => a.category.name.localeCompare(b.category.name));
-  }
-  
-  sortByType() : void {
-    this.accommodations.sort((a,b) => a.type.name.localeCompare(b.type.name));
-  }
-  
-  sortByDistance() : void {
-    this.accommodations.sort((a,b) => a.distance - b.distance);
+  sortByCategory(): void {
+    this.accommodations.sort((a, b) => a.category.name.localeCompare(b.category.name));
   }
 
-  sortByRating() : void {
-    this.accommodations.sort((a,b) => a.rate - b.rate);
+  sortByType(): void {
+    this.accommodations.sort((a, b) => a.type.name.localeCompare(b.type.name));
   }
-  
+
+  sortByDistance(): void {
+    this.accommodations.sort((a, b) => a.distance - b.distance);
+  }
+
+  sortByRating(): void {
+    this.accommodations.sort((a, b) => a.rate - b.rate);
+  }
+
   ngOnInit() {
-      this.today = new Date();
-      this.minDate = this.datePipe.transform(this.today, 'yyyy-MM-dd');
-      this.minDateTill = this.datePipe.transform(this.today, 'yyyy-MM-dd');
+    this.today = new Date();
+    this.minDate = this.datePipe.transform(this.today, 'yyyy-MM-dd');
+    this.minDateTill = this.datePipe.transform(this.today, 'yyyy-MM-dd');
 
-      if (this.tokenStorage.getToken() != null) {
-        if (this.tokenStorage.getAuthorities().includes('ROLE_END_USER'))
-          this.isEndUser = true;
-        this.roles = this.tokenStorage.getAuthorities();
+    if (this.tokenStorage.getToken() != null) {
+      if (this.tokenStorage.getAuthorities().includes('ROLE_END_USER'))
+        this.isEndUser = true;
+      this.roles = this.tokenStorage.getAuthorities();
+    }
+
+
+    this.accommodationService.getAccommodations().subscribe(
+      data => {
+        this.accommodations = data;
       }
-
-
-      this.accommodationService.getAccommodations().subscribe(
-        data => { 
-                  this.accommodations = data;
-                }
-      )
+    )
   }
 
-  reserve(index : string) : void  {
+  reserve(index: string): void {
     this.accommodation = this.accommodations[index];
-    this.reservation = new CreateReservationRequest();
     this.reservation.accommodationName = this.accommodation.name;
+    console.log(this.reservation);
 
-    if (this.selectedFrom != null) 
-        this.reservation.fromDate = this.selectedFrom;
-    if (this.selectedTill != null) 
-        this.reservation.tillDate = this.selectedTill;
-    
+
+    if (this.selectedFrom != null)
+      this.reservation.fromDate = this.selectedFrom;
+    if (this.selectedTill != null)
+      this.reservation.tillDate = this.selectedTill;
+
     this.reservationService.create(this.reservation).subscribe(
       data => {
-         alert(data.feedback)
+        alert(data.feedback)
       },
       err => {
         alert(err.error.message)
       }
-  
+
     )
   }
 

@@ -3,8 +3,12 @@ package com.megatravel.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.ws.rs.BadRequestException;
 import javax.xml.soap.MessageFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -17,6 +21,7 @@ import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
 
 import com.megatravel.config.SOAPConnector;
+import com.megatravel.controller.AccommodationController;
 import com.megatravel.dto.soap.CreateReservationRequest;
 import com.megatravel.dto.soap.CudReservationResponse;
 import com.megatravel.dto.soap.UpdateReservationRequest;
@@ -30,6 +35,7 @@ import com.megatravel.repository.ReservationRepository;
 @Service
 public class ReservationService {
 
+	private static final Logger logger = LoggerFactory.getLogger(AccommodationController.class);
 	private final String AGENT_APP = "https://localhost8443/agent-backend/";
 
 	@Autowired
@@ -72,16 +78,16 @@ public class ReservationService {
 		Accommodation accommodation = accommodationService.findByName(request.getAccommodationName());
 		
 		if (request.getTillDate() == null || request.getFromDate() == null)
-			throw new ExceptionResponse("Select 'from' and 'till' date, please.", HttpStatus.BAD_REQUEST);
+			throw new BadRequestException("Select 'from' and 'till' date, please.");
 		
 		if (request.getFromDate().compareTo(request.getTillDate()) >= 0)
-			throw new ExceptionResponse("'From' date must be before 'till's!", HttpStatus.BAD_REQUEST);
+			throw new BadRequestException("'From' date must be before 'till's!");
 
 		if (accommodation == null)
-			throw new ExceptionResponse("Acommodation with name '" + request.getAccommodationName() + "' does not exist!", HttpStatus.BAD_REQUEST);
+			throw new BadRequestException("Acommodation with name '" + request.getAccommodationName() + "' does not exist!");
 		
 		if (accommodationService.checkAvailability(request.getFromDate(), request.getTillDate(), request.getAccommodationName()) == null)
-			throw new ExceptionResponse("Acommodation is not available in that period!", HttpStatus.BAD_REQUEST);
+			throw new BadRequestException("Acommodation is not available in that period!");
 
 		Reservation reservation = new Reservation();
 		reservation.setAccommodation(accommodation);
@@ -95,7 +101,7 @@ public class ReservationService {
 		userService.save(client);
 		
 		CudReservationResponse response = null;
-		
+				
 		try {
 			SaajSoapMessageFactory messageFactory = new SaajSoapMessageFactory(MessageFactory.newInstance());
 	        messageFactory.afterPropertiesSet();
@@ -118,6 +124,10 @@ public class ReservationService {
 			e.printStackTrace();
 		}			          
 		
+		logger.info(Marker.ANY_NON_NULL_MARKER ,client.getFirstName() + " " + client.getLastName() + " AKA '" + client.getUsername()
+					+ "' made an reservation in:  " + reservation.getAccommodation().getName());
+
+		
         return response;
     				
     }
@@ -125,9 +135,19 @@ public class ReservationService {
 	public List<Reservation> cancel(UpdateReservationRequest request) {
 		Reservation reservation = reservationRepository.findById(request.getId()).orElse(null);
 		
-		if (reservation == null)
-			throw new ExceptionResponse("Reservation with id '" + request.getId() + "' does not exist!", HttpStatus.BAD_REQUEST);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
+		EndUser client = null;
+		if (!(authentication instanceof AnonymousAuthenticationToken))
+			client = userService.findEndUser(authentication.getName());
+		
+		
+		if (reservation == null) {
+			logger.info(Marker.ANY_NON_NULL_MARKER ,client.getFirstName() + " " + client.getLastName() + " AKA '" + client.getUsername()
+			+ "' tried to cancel nonexistent reservation with id:  " + request.getId());
+
+			throw new ExceptionResponse("Reservation with id '" + request.getId() + "' does not exist!", HttpStatus.BAD_REQUEST);
+		}	
 		reservation.setStatus(ReservationStatus.CANCELED);
 		
 		try {
@@ -146,7 +166,7 @@ public class ReservationService {
 
             request.setStatus(ReservationStatus.CANCELED);
             
-            CudReservationResponse response = (CudReservationResponse) soapConnector.callWebService(AGENT_APP + "booking/reservation", request);
+//            CudReservationResponse response = (CudReservationResponse) soapConnector.callWebService(AGENT_APP + "booking/reservation", request);
 			            
     		reservationRepository.save(reservation);
 

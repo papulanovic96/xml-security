@@ -11,6 +11,8 @@ package com.megatravel.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -47,8 +49,10 @@ public class AccommodationType {
 
 	@Id
 	@GeneratedValue
+	@NotNull
     protected long id;
     @XmlElement(required = true)
+    @NotBlank
     protected String name;
 
     /**

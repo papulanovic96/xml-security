@@ -17068,3 +17068,327 @@ insert into users_roles (user_id, role_id) values (167, 3);
 #2019-09-04 01:28:20 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
 
 ;
+#2019-09-04 02:24:55 PM | took 262ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation add constraint FK6c5rb1wtweg3j1ah43fk8d51y foreign key (address_id) references address (id)
+alter table accommodation add constraint FK6c5rb1wtweg3j1ah43fk8d51y foreign key (address_id) references address (id);
+#2019-09-04 02:24:55 PM | took 288ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation add constraint FKn4b9a0u5j5eyod24diar6agj foreign key (cancellation_id) references cancellation (id)
+alter table accommodation add constraint FKn4b9a0u5j5eyod24diar6agj foreign key (cancellation_id) references cancellation (id);
+#2019-09-04 02:24:55 PM | took 173ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation add constraint FKl97bb90s6pmt2427um8bv759l foreign key (category_id) references accommodation_category (id)
+alter table accommodation add constraint FKl97bb90s6pmt2427um8bv759l foreign key (category_id) references accommodation_category (id);
+#2019-09-04 02:24:55 PM | took 238ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation add constraint FKhnc61ksv1iq12r9jskt7vym7p foreign key (owned_by_id) references user (id)
+alter table accommodation add constraint FKhnc61ksv1iq12r9jskt7vym7p foreign key (owned_by_id) references user (id);
+#2019-09-04 02:24:55 PM | took 151ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation add constraint FK94i4yt677xgplp836eole6gbn foreign key (type_id) references accommodation_type (id)
+alter table accommodation add constraint FK94i4yt677xgplp836eole6gbn foreign key (type_id) references accommodation_type (id);
+#2019-09-04 02:24:56 PM | took 246ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_additional_services add constraint FK3uxu5amkrk7wrk1up106hy8an foreign key (additional_services_id) references additional_service (id)
+alter table accommodation_additional_services add constraint FK3uxu5amkrk7wrk1up106hy8an foreign key (additional_services_id) references additional_service (id);
+#2019-09-04 02:24:56 PM | took 97ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_additional_services add constraint FK7ed6wji0usvsr5n6nwgqr9axx foreign key (accommodation_id) references accommodation (id)
+alter table accommodation_additional_services add constraint FK7ed6wji0usvsr5n6nwgqr9axx foreign key (accommodation_id) references accommodation (id);
+#2019-09-04 02:24:56 PM | took 146ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_comments add constraint FKrp1b9b1dpsdycy6ix5idjm9ih foreign key (comments_id) references comment (id)
+alter table accommodation_comments add constraint FKrp1b9b1dpsdycy6ix5idjm9ih foreign key (comments_id) references comment (id);
+#2019-09-04 02:24:56 PM | took 362ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_comments add constraint FK34ewym231950s4rbpoksvm6n5 foreign key (accommodation_id) references accommodation (id)
+alter table accommodation_comments add constraint FK34ewym231950s4rbpoksvm6n5 foreign key (accommodation_id) references accommodation (id);
+#2019-09-04 02:24:57 PM | took 394ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_images add constraint FKxeqcgr1ku533fqcdws07bk8j foreign key (images_id) references image_resource (id)
+alter table accommodation_images add constraint FKxeqcgr1ku533fqcdws07bk8j foreign key (images_id) references image_resource (id);
+#2019-09-04 02:24:57 PM | took 182ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_images add constraint FKq3aejs8kq51jj3pkhn77sjvkl foreign key (accommodation_id) references accommodation (id)
+alter table accommodation_images add constraint FKq3aejs8kq51jj3pkhn77sjvkl foreign key (accommodation_id) references accommodation (id);
+#2019-09-04 02:24:57 PM | took 236ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_pricelist add constraint FK78edvlmwi573nuy3weuicg3y7 foreign key (pricelist_id) references price_in_season (id)
+alter table accommodation_pricelist add constraint FK78edvlmwi573nuy3weuicg3y7 foreign key (pricelist_id) references price_in_season (id);
+#2019-09-04 02:24:57 PM | took 131ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_pricelist add constraint FKkvqx8jlx0vug9xawcgtedta41 foreign key (accommodation_id) references accommodation (id)
+alter table accommodation_pricelist add constraint FKkvqx8jlx0vug9xawcgtedta41 foreign key (accommodation_id) references accommodation (id);
+#2019-09-04 02:24:58 PM | took 296ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_rates add constraint FKlakxneqy90ad9pe41sy71xqft foreign key (rates_id) references rate (id)
+alter table accommodation_rates add constraint FKlakxneqy90ad9pe41sy71xqft foreign key (rates_id) references rate (id);
+#2019-09-04 02:24:58 PM | took 150ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_rates add constraint FK2ybakssagyw1gdk9vs222bm6g foreign key (accommodation_id) references accommodation (id)
+alter table accommodation_rates add constraint FK2ybakssagyw1gdk9vs222bm6g foreign key (accommodation_id) references accommodation (id);
+#2019-09-04 02:24:58 PM | took 309ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table comment add constraint FK21prxov5r6u4h6v20sgve93ty foreign key (posted_by_id) references user (id)
+alter table comment add constraint FK21prxov5r6u4h6v20sgve93ty foreign key (posted_by_id) references user (id);
+#2019-09-04 02:24:58 PM | took 191ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table message add constraint FKi3g4aq7gkm7fxwghap5pd6fkt foreign key (agent_id) references user (id)
+alter table message add constraint FKi3g4aq7gkm7fxwghap5pd6fkt foreign key (agent_id) references user (id);
+#2019-09-04 02:24:59 PM | took 337ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table message add constraint FK2oejvy2qn27kemt8fcv7rjfrj foreign key (client_id) references user (id)
+alter table message add constraint FK2oejvy2qn27kemt8fcv7rjfrj foreign key (client_id) references user (id);
+#2019-09-04 02:24:59 PM | took 246ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table reservation add constraint FKoa1arn2i6kipar0jakkwtsjip foreign key (accommodation_id) references accommodation (id)
+alter table reservation add constraint FKoa1arn2i6kipar0jakkwtsjip foreign key (accommodation_id) references accommodation (id);
+#2019-09-04 02:25:00 PM | took 407ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table roles_privileges add constraint FK5duhoc7rwt8h06avv41o41cfy foreign key (privilege_id) references privileges (id)
+alter table roles_privileges add constraint FK5duhoc7rwt8h06avv41o41cfy foreign key (privilege_id) references privileges (id);
+#2019-09-04 02:25:00 PM | took 256ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table roles_privileges add constraint FK9h2vewsqh8luhfq71xokh4who foreign key (role_id) references role (id)
+alter table roles_privileges add constraint FK9h2vewsqh8luhfq71xokh4who foreign key (role_id) references role (id);
+#2019-09-04 02:25:00 PM | took 248ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table user add constraint FKddefmvbrws3hvl5t0hnnsv8ox foreign key (address_id) references address (id)
+alter table user add constraint FKddefmvbrws3hvl5t0hnnsv8ox foreign key (address_id) references address (id);
+#2019-09-04 02:25:00 PM | took 262ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table user_reservations add constraint FK12ggnu1hsxdlm1559re77jwtv foreign key (reservations_id) references reservation (id)
+alter table user_reservations add constraint FK12ggnu1hsxdlm1559re77jwtv foreign key (reservations_id) references reservation (id);
+#2019-09-04 02:25:00 PM | took 76ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table user_reservations add constraint FK37xj3su6tahel9j8mh3x1edou foreign key (end_user_id) references user (id)
+alter table user_reservations add constraint FK37xj3su6tahel9j8mh3x1edou foreign key (end_user_id) references user (id);
+#2019-09-04 02:25:01 PM | took 103ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table users_roles add constraint FKt4v0rrweyk393bdgt107vdx0x foreign key (role_id) references role (id)
+alter table users_roles add constraint FKt4v0rrweyk393bdgt107vdx0x foreign key (role_id) references role (id);
+#2019-09-04 02:25:01 PM | took 151ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table users_roles add constraint FKgd3iendaoyh04b95ykqise6qh foreign key (user_id) references user (id)
+alter table users_roles add constraint FKgd3iendaoyh04b95ykqise6qh foreign key (user_id) references user (id);
+#2019-09-04 02:26:41 PM | took 16ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name=?
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name='END_USER';
+#2019-09-04 02:26:41 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 02:26:41 PM | took 15ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+#2019-09-04 02:26:41 PM | took 2ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 169 where next_val=168;
+#2019-09-04 02:26:41 PM | took 0ms | commit | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 02:26:41 PM | took 11ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values (?, ?, ?, ?, ?, ?, 'EndUser', ?)
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values ('sasdsa@ada.com', 'asasdads', 'asdsadsa', '$2a$10$TN.DFgqkXQwFG.LsTtNV0ukuTyn56GO4Ec0s79jCe/J/Dgh0QIIkS', 'sadassadas', 'ACTIVE', 'EndUser', 168);
+#2019-09-04 02:26:41 PM | took 2ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into users_roles (user_id, role_id) values (?, ?)
+insert into users_roles (user_id, role_id) values (168, 3);
+#2019-09-04 02:26:41 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 02:27:00 PM | took 1ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name=?
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name='END_USER';
+#2019-09-04 02:27:00 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 02:27:00 PM | took 0ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+#2019-09-04 02:27:00 PM | took 1ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 170 where next_val=169;
+#2019-09-04 02:27:00 PM | took 0ms | commit | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 02:27:00 PM | took 1ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values (?, ?, ?, ?, ?, ?, 'EndUser', ?)
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values ('papppppaaa@ada.com', 'asasdads', 'asdsadsa', '$2a$10$2jDH6aeO/yHTL5XaivwVO.0IB1KCyT2BnywoIZpk6zEqM5Gtlpw2.', 'papppppaaa', 'ACTIVE', 'EndUser', 169);
+#2019-09-04 02:27:00 PM | took 1ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into users_roles (user_id, role_id) values (?, ?)
+insert into users_roles (user_id, role_id) values (169, 3);
+#2019-09-04 02:27:00 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:15:06 PM | took 133ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation add constraint FK6c5rb1wtweg3j1ah43fk8d51y foreign key (address_id) references address (id)
+alter table accommodation add constraint FK6c5rb1wtweg3j1ah43fk8d51y foreign key (address_id) references address (id);
+#2019-09-04 04:15:06 PM | took 101ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation add constraint FKn4b9a0u5j5eyod24diar6agj foreign key (cancellation_id) references cancellation (id)
+alter table accommodation add constraint FKn4b9a0u5j5eyod24diar6agj foreign key (cancellation_id) references cancellation (id);
+#2019-09-04 04:15:06 PM | took 100ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation add constraint FKl97bb90s6pmt2427um8bv759l foreign key (category_id) references accommodation_category (id)
+alter table accommodation add constraint FKl97bb90s6pmt2427um8bv759l foreign key (category_id) references accommodation_category (id);
+#2019-09-04 04:15:06 PM | took 123ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation add constraint FKhnc61ksv1iq12r9jskt7vym7p foreign key (owned_by_id) references user (id)
+alter table accommodation add constraint FKhnc61ksv1iq12r9jskt7vym7p foreign key (owned_by_id) references user (id);
+#2019-09-04 04:15:06 PM | took 100ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation add constraint FK94i4yt677xgplp836eole6gbn foreign key (type_id) references accommodation_type (id)
+alter table accommodation add constraint FK94i4yt677xgplp836eole6gbn foreign key (type_id) references accommodation_type (id);
+#2019-09-04 04:15:07 PM | took 233ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_additional_services add constraint FK3uxu5amkrk7wrk1up106hy8an foreign key (additional_services_id) references additional_service (id)
+alter table accommodation_additional_services add constraint FK3uxu5amkrk7wrk1up106hy8an foreign key (additional_services_id) references additional_service (id);
+#2019-09-04 04:15:07 PM | took 241ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_additional_services add constraint FK7ed6wji0usvsr5n6nwgqr9axx foreign key (accommodation_id) references accommodation (id)
+alter table accommodation_additional_services add constraint FK7ed6wji0usvsr5n6nwgqr9axx foreign key (accommodation_id) references accommodation (id);
+#2019-09-04 04:15:07 PM | took 194ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_comments add constraint FKrp1b9b1dpsdycy6ix5idjm9ih foreign key (comments_id) references comment (id)
+alter table accommodation_comments add constraint FKrp1b9b1dpsdycy6ix5idjm9ih foreign key (comments_id) references comment (id);
+#2019-09-04 04:15:07 PM | took 57ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_comments add constraint FK34ewym231950s4rbpoksvm6n5 foreign key (accommodation_id) references accommodation (id)
+alter table accommodation_comments add constraint FK34ewym231950s4rbpoksvm6n5 foreign key (accommodation_id) references accommodation (id);
+#2019-09-04 04:15:07 PM | took 90ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_images add constraint FKxeqcgr1ku533fqcdws07bk8j foreign key (images_id) references image_resource (id)
+alter table accommodation_images add constraint FKxeqcgr1ku533fqcdws07bk8j foreign key (images_id) references image_resource (id);
+#2019-09-04 04:15:07 PM | took 50ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_images add constraint FKq3aejs8kq51jj3pkhn77sjvkl foreign key (accommodation_id) references accommodation (id)
+alter table accommodation_images add constraint FKq3aejs8kq51jj3pkhn77sjvkl foreign key (accommodation_id) references accommodation (id);
+#2019-09-04 04:15:08 PM | took 101ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_pricelist add constraint FK78edvlmwi573nuy3weuicg3y7 foreign key (pricelist_id) references price_in_season (id)
+alter table accommodation_pricelist add constraint FK78edvlmwi573nuy3weuicg3y7 foreign key (pricelist_id) references price_in_season (id);
+#2019-09-04 04:15:08 PM | took 48ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_pricelist add constraint FKkvqx8jlx0vug9xawcgtedta41 foreign key (accommodation_id) references accommodation (id)
+alter table accommodation_pricelist add constraint FKkvqx8jlx0vug9xawcgtedta41 foreign key (accommodation_id) references accommodation (id);
+#2019-09-04 04:15:08 PM | took 81ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_rates add constraint FKlakxneqy90ad9pe41sy71xqft foreign key (rates_id) references rate (id)
+alter table accommodation_rates add constraint FKlakxneqy90ad9pe41sy71xqft foreign key (rates_id) references rate (id);
+#2019-09-04 04:15:08 PM | took 47ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table accommodation_rates add constraint FK2ybakssagyw1gdk9vs222bm6g foreign key (accommodation_id) references accommodation (id)
+alter table accommodation_rates add constraint FK2ybakssagyw1gdk9vs222bm6g foreign key (accommodation_id) references accommodation (id);
+#2019-09-04 04:15:08 PM | took 94ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table comment add constraint FK21prxov5r6u4h6v20sgve93ty foreign key (posted_by_id) references user (id)
+alter table comment add constraint FK21prxov5r6u4h6v20sgve93ty foreign key (posted_by_id) references user (id);
+#2019-09-04 04:15:08 PM | took 87ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table message add constraint FKi3g4aq7gkm7fxwghap5pd6fkt foreign key (agent_id) references user (id)
+alter table message add constraint FKi3g4aq7gkm7fxwghap5pd6fkt foreign key (agent_id) references user (id);
+#2019-09-04 04:15:08 PM | took 76ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table message add constraint FK2oejvy2qn27kemt8fcv7rjfrj foreign key (client_id) references user (id)
+alter table message add constraint FK2oejvy2qn27kemt8fcv7rjfrj foreign key (client_id) references user (id);
+#2019-09-04 04:15:08 PM | took 84ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table reservation add constraint FKoa1arn2i6kipar0jakkwtsjip foreign key (accommodation_id) references accommodation (id)
+alter table reservation add constraint FKoa1arn2i6kipar0jakkwtsjip foreign key (accommodation_id) references accommodation (id);
+#2019-09-04 04:15:09 PM | took 691ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table roles_privileges add constraint FK5duhoc7rwt8h06avv41o41cfy foreign key (privilege_id) references privileges (id)
+alter table roles_privileges add constraint FK5duhoc7rwt8h06avv41o41cfy foreign key (privilege_id) references privileges (id);
+#2019-09-04 04:15:09 PM | took 76ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table roles_privileges add constraint FK9h2vewsqh8luhfq71xokh4who foreign key (role_id) references role (id)
+alter table roles_privileges add constraint FK9h2vewsqh8luhfq71xokh4who foreign key (role_id) references role (id);
+#2019-09-04 04:15:09 PM | took 81ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table user add constraint FKddefmvbrws3hvl5t0hnnsv8ox foreign key (address_id) references address (id)
+alter table user add constraint FKddefmvbrws3hvl5t0hnnsv8ox foreign key (address_id) references address (id);
+#2019-09-04 04:15:09 PM | took 70ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table user_reservations add constraint FK12ggnu1hsxdlm1559re77jwtv foreign key (reservations_id) references reservation (id)
+alter table user_reservations add constraint FK12ggnu1hsxdlm1559re77jwtv foreign key (reservations_id) references reservation (id);
+#2019-09-04 04:15:09 PM | took 71ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table user_reservations add constraint FK37xj3su6tahel9j8mh3x1edou foreign key (end_user_id) references user (id)
+alter table user_reservations add constraint FK37xj3su6tahel9j8mh3x1edou foreign key (end_user_id) references user (id);
+#2019-09-04 04:15:10 PM | took 108ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table users_roles add constraint FKt4v0rrweyk393bdgt107vdx0x foreign key (role_id) references role (id)
+alter table users_roles add constraint FKt4v0rrweyk393bdgt107vdx0x foreign key (role_id) references role (id);
+#2019-09-04 04:15:10 PM | took 78ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+alter table users_roles add constraint FKgd3iendaoyh04b95ykqise6qh foreign key (user_id) references user (id)
+alter table users_roles add constraint FKgd3iendaoyh04b95ykqise6qh foreign key (user_id) references user (id);
+#2019-09-04 04:31:18 PM | took 174ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name=?
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name='END_USER';
+#2019-09-04 04:31:19 PM | took 7ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:31:19 PM | took 34ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+#2019-09-04 04:31:19 PM | took 6ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 171 where next_val=170;
+#2019-09-04 04:31:19 PM | took 0ms | commit | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:31:19 PM | took 25ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values (?, ?, ?, ?, ?, ?, 'EndUser', ?)
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values ('admin@gmail.com', 'Admin', 'Admin', '$2a$10$wHyuytTeaqP5XPw7z63tIOzbTyIPf/KGHM64SM7ynODWxnblKMw12', 'admin1234', 'ACTIVE', 'EndUser', 170);
+#2019-09-04 04:31:19 PM | took 4ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into users_roles (user_id, role_id) values (?, ?)
+insert into users_roles (user_id, role_id) values (170, 3);
+#2019-09-04 04:31:19 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:43:17 PM | took 8ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name=?
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name='END_USER';
+#2019-09-04 04:43:17 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:43:17 PM | took 1ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+#2019-09-04 04:43:17 PM | took 4ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 172 where next_val=171;
+#2019-09-04 04:43:17 PM | took 1ms | commit | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:43:17 PM | took 3ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values (?, ?, ?, ?, ?, ?, 'EndUser', ?)
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values ('adaad@adas.com', 'asdda', 'dadaadda', '$2a$10$5oBzrZGgXVKctOgX2mrOtO4gKTE2VWTMCT.JKoXBQDENvvDCND3M2', 'sadsda', 'ACTIVE', 'EndUser', 171);
+#2019-09-04 04:43:17 PM | took 4ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into users_roles (user_id, role_id) values (?, ?)
+insert into users_roles (user_id, role_id) values (171, 3);
+#2019-09-04 04:43:17 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:43:17 PM | took 1ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name=?
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name='END_USER';
+#2019-09-04 04:43:17 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:43:17 PM | took 1ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+#2019-09-04 04:43:17 PM | took 1ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 173 where next_val=172;
+#2019-09-04 04:43:17 PM | took 0ms | commit | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:43:17 PM | took 1ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values (?, ?, ?, ?, ?, ?, 'EndUser', ?)
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values ('adaad@adas.com', 'asdda', 'dadaadda', '$2a$10$wmIENzqpKFTr6jCCCyB0e.uvfkZjSMdrMRXUlqUr4DKReoGYJzzJ6', 'sadsda', 'ACTIVE', 'EndUser', 172);
+#2019-09-04 04:43:17 PM | took 0ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into users_roles (user_id, role_id) values (?, ?)
+insert into users_roles (user_id, role_id) values (172, 3);
+#2019-09-04 04:43:17 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:44:07 PM | took 0ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name=?
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name='END_USER';
+#2019-09-04 04:44:07 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:44:07 PM | took 1ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+#2019-09-04 04:44:07 PM | took 2ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 174 where next_val=173;
+#2019-09-04 04:44:07 PM | took 0ms | commit | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:44:07 PM | took 1ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values (?, ?, ?, ?, ?, ?, 'EndUser', ?)
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values ('admin1234@ada.com', 'admin1234', 'admin2134', '$2a$10$kqc9e2mknuxlCTloitmAru8PC9sgzQPXTL4poAKeb812y3tDTnj9e', 'admin12345', 'ACTIVE', 'EndUser', 173);
+#2019-09-04 04:44:07 PM | took 1ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into users_roles (user_id, role_id) values (?, ?)
+insert into users_roles (user_id, role_id) values (173, 3);
+#2019-09-04 04:44:07 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:44:14 PM | took 0ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name=?
+select role0_.id as id1_18_, role0_.name as name2_18_ from role role0_ where role0_.name='END_USER';
+#2019-09-04 04:44:14 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:44:14 PM | took 0ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+#2019-09-04 04:44:14 PM | took 2ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 175 where next_val=174;
+#2019-09-04 04:44:14 PM | took 0ms | commit | connection 1| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;
+#2019-09-04 04:44:14 PM | took 1ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values (?, ?, ?, ?, ?, ?, 'EndUser', ?)
+insert into user (email, first_name, last_name, password, username, status, dtype, id) values ('admin1234@ada.com', 'admin1234', 'admin2134', '$2a$10$q8C3qcjZJO9QxZ0fqyCCW.bS2Y9EDD0EriMqE33YHiEigq5UgLkA2', 'admin123456', 'ACTIVE', 'EndUser', 174);
+#2019-09-04 04:44:14 PM | took 1ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+insert into users_roles (user_id, role_id) values (?, ?)
+insert into users_roles (user_id, role_id) values (174, 3);
+#2019-09-04 04:44:14 PM | took 0ms | commit | connection 0| url jdbc:p6spy:mysql://localhost:3306/agentdb?createDatabaseIfNotExist=true
+
+;

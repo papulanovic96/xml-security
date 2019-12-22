@@ -16,6 +16,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -60,24 +61,27 @@ public class Reservation {
 
 	@Id
 	@GeneratedValue
+	@NotNull
     protected long id;
     
 	@XmlElement(required = true)
 	@OneToOne
+	@NotNull
     protected Accommodation accommodation;
     
 	@XmlElement(required = true)
-    
 	@XmlSchemaType(name = "date")
+	@NotNull
     protected Date fromDate;
     
 	@XmlElement(required = true)
-    
 	@XmlSchemaType(name = "date")
+	@NotNull
     protected Date tillDate;
     
 	@XmlElement(required = true)
 	@Enumerated(EnumType.STRING)
+	@NotNull
     protected ReservationStatus status;
 
     /**

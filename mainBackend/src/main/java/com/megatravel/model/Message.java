@@ -14,6 +14,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -58,25 +60,31 @@ public class Message {
 
 	@Id
 	@GeneratedValue
+	@NotNull
     protected long id;
     
 	@XmlElement(required = true)
     @ManyToOne
+    @NotNull
 	protected Agent agent;
     
 	@XmlElement(required = true)
 	@ManyToOne
+	@NotNull
 	protected EndUser client;
     
 	@XmlElement(required = true)
-    protected String content;
+    @NotEmpty
+	protected String content;
     
 	@XmlElement(required = true)
 	@Enumerated(EnumType.STRING)
+	@NotNull
     protected Roles sentBy;
     
 	@XmlElement(required = true)
 	@Enumerated(EnumType.STRING)
+	@NotNull
     protected MessageStatus status;
 
     /**
